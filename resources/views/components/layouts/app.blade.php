@@ -81,7 +81,7 @@
             <span class="cursor-pointer px-3">Bảo mật</span>
             <ul class="ul-menu">
                 <li class="li-menu"><a href="/users" class="a-menu">Quản lý tài khoản</a></li>
-                <li class="li-menu"><a href="/data-logs" class="a-menu">Log hành động</a></li>
+                <li class="li-menu"><a href="/data-logs" class="a-menu">Lịch sử hoạt động</a></li>
             </ul>
         </div>
 {{--        <div class="relative group">--}}

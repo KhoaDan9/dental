@@ -278,7 +278,7 @@ class UserObserver
         $accessControl->save();
 
         //Bảo mật
-        $feature_action_log = Feature::where('name','Log hành động')->first();
+        $feature_action_log = Feature::where('name','Lịch sử hoạt động')->first();
         $accessControl = AccessControl::where('user_id',$user->id)->where('feature_id', $feature_action_log->id)
             ->where('permission_id', 2)
             ->first();

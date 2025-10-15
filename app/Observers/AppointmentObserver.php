@@ -17,9 +17,6 @@ class AppointmentObserver
         $user_id = Auth::user()->id;
         $date = Carbon::parse($appointment->date)->format('d/m/Y');
         $time = Carbon::parse($appointment->date)->format('H:i');
-
-//        dd( $appointment->employee_name);
-
         $detail = "Họ tên: " . $appointment->patient->name . "; Ngày hẹn: " . $date . "; Giờ hẹn: " . $time . "; Nhân viên: " . $appointment->employee_name;
 
         DataLog::create([
@@ -37,7 +34,19 @@ class AppointmentObserver
      */
     public function updated(Appointment $appointment): void
     {
-        //
+        $user_id = Auth::user()->id;
+        $date = Carbon::parse($appointment->date)->format('d/m/Y');
+        $time = Carbon::parse($appointment->date)->format('H:i');
+        $detail = "Họ tên: " . $appointment->patient->name . "; Ngày hẹn: " . $date . "; Giờ hẹn: " . $time . "; Nhân viên: " . $appointment->employee_name;
+
+        DataLog::create([
+            'clinic_id' => $appointment->clinic_id,
+            'user_id' => $user_id,
+            'action' => "Sửa",
+            'action_id' => $appointment->id,
+            'group_action' => "Lịch hẹn",
+            'detail' => $detail
+        ]);
     }
 
     /**
@@ -45,7 +54,19 @@ class AppointmentObserver
      */
     public function deleted(Appointment $appointment): void
     {
-        //
+        $user_id = Auth::user()->id;
+        $date = Carbon::parse($appointment->date)->format('d/m/Y');
+        $time = Carbon::parse($appointment->date)->format('H:i');
+        $detail = "Họ tên: " . $appointment->patient->name . "; Ngày hẹn: " . $date . "; Giờ hẹn: " . $time . "; Nhân viên: " . $appointment->employee_name;
+
+        DataLog::create([
+            'clinic_id' => $appointment->clinic_id,
+            'user_id' => $user_id,
+            'action' => "Xóa",
+            'action_id' => $appointment->id,
+            'group_action' => "Lịch hẹn",
+            'detail' => $detail
+        ]);
     }
 
     /**

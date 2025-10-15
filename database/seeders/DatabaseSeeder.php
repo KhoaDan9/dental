@@ -235,7 +235,7 @@ class DatabaseSeeder extends Seeder
             'category' => 'Bảo mật'
         ]);
         Feature::create([
-            'name' => 'Log hành động',
+            'name' => 'Lịch sử hoạt động',
             'category' => 'Bảo mật'
         ]);
 
