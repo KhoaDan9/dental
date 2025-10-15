@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\AccessControl;
 use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\User;
+use App\Observers\AccessControlObserver;
 use App\Observers\AppointmentObserver;
 use App\Observers\ClinicObserver;
 use App\Observers\UserObserver;
@@ -28,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Clinic::observe(ClinicObserver::class);
         Appointment::observe(AppointmentObserver::class);
+        AccessControl::observe(AccessControlObserver::class);
+
 
     }
 }

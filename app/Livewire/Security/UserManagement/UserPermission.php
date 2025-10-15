@@ -59,7 +59,6 @@ class UserPermission extends Component
                 return $item->groupBy('feature_id');
             });
 
-//        dd($user_permissions);
         return view('livewire.security.user-management.user-permission', [
             'user_permissions' => $user_permissions
         ]);
