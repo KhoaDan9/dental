@@ -1,0 +1,194 @@
+@import 'tailwindcss';
+/* @import "flowbite/src/themes/default";
+
+
+@plugin "flowbite/plugin"; */
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+/* @source "../../node_modules/flowbite"; */
+
+
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-menu-title: #eeeeee;
+    --color-nav-bg: #21619e;
+    --color-nav-title: #FAEBEF;
+    --color-btn-bg: #21619e;
+    --color-btn-hover: #3671c6;
+    --color-btn-disabled: #21619e;
+
+}
+
+@layer components {
+  .li-menu {
+    @apply hover:bg-gray-50 px-2;
+  }
+  .a-menu {
+    @apply text-black! py-2 block hover:text-btn-hover!;
+  }
+  .ul-menu {
+    @apply absolute pt-1 left-0 hidden group-hover:block bg-menu-title shadow-xl w-72 border border-gray-300;
+  }
+}
+
+@page { size: auto;  margin: 0mm; }
+
+@media print
+{
+  .nav-layout, .menu-layout, .print-invoice-menu{
+    display: none !important;
+  }
+
+    .print-invoice {
+        display: block !important;
+        padding: 20px;
+    }
+}
+
+html *
+{
+   font-size: 13px;
+   font-family: Arial !important;
+}
+
+body {
+    /*width: fit-content;*/
+}
+
+* {
+    /*font-size: 13px;*/
+}
+
+input, select{
+  height: 22px;
+}
+
+
+.table-custom {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-custom td {
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+}
+
+.table-custom th, .transaction-th{
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+}
+
+.table-custom tr:nth-child(odd){background-color: #f2f2f2;}
+
+.table-custom tr:hover {background-color: #f7ffe3;}
+
+.table-custom th, .transaction-th {
+  background-color: #b1b1b1;
+  color: #000;
+}
+
+@media (max-width: 640px){
+    * {
+        font-size: 4px !important;
+    }
+
+    th, td {
+        padding: 1px 2px !important;
+    }
+
+    input, select {
+        height: 11px !important;
+    }
+}
+
+
+
+/* Giao diện các nút, thẻ a chính*/
+a {
+    @apply text-blue-500 hover:underline;
+}
+
+.main-button {
+  @apply bg-btn-bg py-[1px] text-white w-20 cursor-pointer hover:bg-btn-hover disabled:opacity-75 disabled:cursor-auto;
+}
+
+.main-button2 {
+  @apply bg-btn-bg py-[1px] text-white w-30 cursor-pointer hover:bg-btn-hover disabled:opacity-75 disabled:cursor-auto;
+}
+
+.a-button {
+  @apply block py-[1px] bg-btn-bg !text-white w-20 text-center hover:bg-btn-hover hover:no-underline;
+}
+
+.a-button2 {
+  @apply block py-[1px] bg-btn-bg !text-white w-30 text-center hover:bg-btn-hover hover:no-underline;
+}
+
+.button-a {
+  @apply text-blue-400 cursor-pointer hover:underline;
+}
+
+/* Menu, địa chỉ */
+.page-header {
+    @apply pb-2 flex justify-between border-b-1 border-gray-300 mb-2;
+}
+
+
+
+/*Modal*/
+
+.modal-parent-div {
+    @apply hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full;
+}
+
+.modal-div {
+    @apply bg-white rounded-lg inset-ring inset-ring-gray-500/50 w-full max-w-4xl;
+}
+
+.modal-header {
+    @apply flex justify-between items-center m-4 border-b;
+}
+
+.modal-body {
+    @apply p-4 max-h-100 overflow-y-auto;
+}
+
+.modal-select {
+    @apply text-blue-400 hover:underline hover:cursor-pointer!;
+}
+
+.modal-close {
+    @apply text-gray-500 hover:cursor-pointer hover:text-gray-700 text-4xl!;
+}
+
+.error-message {
+  @apply text-red-500;
+}
+
+.cannot-a {
+    @apply text-gray-500 pointer-events-none;
+}
+
+.cannot-button-a {
+    @apply text-gray-500 pointer-events-none;
+}
+
+.cannot-a-button {
+    @apply block bg-gray-400 py-[1px] text-white w-20 text-center pointer-events-none;
+}
+
+.cannot-a-button2 {
+    @apply block py-[1px] bg-gray-400 py-[1px] !text-white w-30 text-center pointer-events-none;
+}
+
+.cannot-main-button {
+    @apply bg-gray-500 py-[1px] text-white w-20 pointer-events-none;
+}
+

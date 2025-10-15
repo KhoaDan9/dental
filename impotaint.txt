@@ -1,0 +1,194 @@
+ <button onclick="history.back()" class="main-button">Thoát</button>
+
+
+Tin nhắn khi success
+    public $successMessage = '';
+    public $errorMessage = '';
+
+
+Gọi để sử dụng
+@if ($successMessage != '')
+    <x-success-message>{{ $successMessage }}</x-success-message>
+@endif
+
+@if ($errorMessage !== '')
+    <x-error-message>{{ $errorMessage }}</x-error-message>
+@endif
+
+Từ số sang text
+number_format((int) $service->price, 0, ',', '.');
+
+Từ text sang số
+(int) str_replace('.', '', $this->price);
+
+
+Người cập nhật
+<div class="flex">
+    <p class="w-40">Người cập nhật</p>
+    <x-last-update-name :name="$patient_service->warrantyCard->last_update_name">{{ $patient_service->warrantyCard->updated_at }}</x-last-update-name>
+</div>
+
+
+wire:dirty.remove.attr="disabled" disabled
+
+
+phong kham
+
+<div class="w-full flex">
+    <p class="w-1/12">Phòng khám:</p>
+    <select name="" id="" class="px-1 border-gray-500 border-1 w-7/12"
+        wire:model='form.clinic_id'>
+        @foreach ($clinics as $clinic)
+            <option value="{{ $clinic->id }}">{{ $clinic->name }}</option>
+        @endforeach
+    </select>
+</div>
+
+
+    public function mount($value)
+    {
+        if ($value == 'create') {
+            $this->is_create = $value;
+        } else {
+            $supplier = Supplier::where('id', $value)->get();
+            $this->form->setAttributes($supplier[0]);
+        }
+        $this->clinics = Clinic::get();
+
+        $this->form->clinic_id = $this->clinics[0]->id;
+    }
+
+
+Kết hợp url
+
+{{ url(request()->path(), $create_url) }}
+
+'/patients/' . $patient->id
+
+
+
+Trong  chưa update thông tin khi cập nhật
+employee
+service_groups
+
+
+menu
+<div class="pb-2 flex justify-between border-b-1 border-gray-300">
+        <div>
+            <span>Dữ liệu >> <a href="/patients">Danh sách nhân viên</a>
+            </span>
+        </div>
+        <div class="flex space-x-1">
+            <a href="employees/create" class="a-button">Thêm</a>
+            <a href="/employees" class="a-button">Thoát</a>
+        </div>
+    </div>
+
+
+    w-35 w-70 flex-grow
+    <span class="text-red-600">*</span>
+
+    //Check unique
+    $service_id = $this->is_create == 'create' ? 0 : $this->service->id;
+
+    if (Service::where('name', $this->form->name)->whereNot('id', $service_id)->exists())
+        return $this->errorMessage = 'Dịch vụ/thủ thuật đã tồn tại. Xin vui lòng kiểm tra lại.';
+
+
+    #[Validate('required', message: 'Vui lòng nhập tài khoản mới.')]
+    #[Validate('min:3', message: 'Tài khoản phải có ít nhất 3 kí tự.')]
+
+    <div class="flex flex-grow flex-col">
+        <input type="text" class="px-1 border-gray-500 border-1 flex-grow" wire:model='form.name'
+            autofocus>
+        @error('form.name')
+            <x-error-message>{{ $message }}</x-error-message>
+        @enderror
+    </div>
+
+    reset
+    $this->reset(['successMessage', 'errorMessage']);
+    $this->form->validate();
+
+
+    query admin
+    $warranty_cards = WarrantyCard::when($user->admin!=1, function($query) use ($user){
+        return $query->where('clinic_id',$user->clinic_id);
+    })->get();
+
+
+
+catch (QueryException $e) {
+            return $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
+
+
+a
+
+   @can('create', \App\Models\KKKKKKKKKKKKKKKKKK::class)
+       class="a-button"
+   @else
+       class="cannot-a-button"
+    @endcan
+
+
+//update
+   @cannot('update', \App\Models\KKKKKKKKKKKKKKKKKK::class)
+       class="cannot-a"
+    @endcannot
+
+    @can('update', \App\Models\KKKKKKKKKKKKKKKKKK::class)
+        class="main-button"
+    @else
+        class="cannot-main-button"
+    @endcan
+
+
+//delete
+    //button - a
+    @can('delete', \App\Models\KKKKKKKKKKKKKKKKKK::class)
+        class="button-a"
+    @else
+        class="cannot-button-a"
+    @endcan
+
+
+
+
+    @cannot('viewAny', \App\Models\KKKKKKKKKKKKKKKKKK::class)
+        <x-cannot-permission/>
+    @else
+
+    @endcannot
+
+
+
+Sửa lại ->exists() check unique
+
+
+
+ <div class="page-header">
+        <div>
+        <span>Dữ liệu >> <a href="/patients">Hồ sơ bệnh nhân</a> >>
+                <a href="/patients/{{ $patient->id }}">{{ $patient->clinic_id }}.{{ $patient->id }}</a> >>
+                <a href="#">Thủ thuật điều trị</a>
+        </span>
+        </div>
+        <div class="flex space-x-1">
+            <a href="/patients/"
+               @can('create', \App\Models\PatientService::class)
+                   class="a-button"
+               @else
+                   class="cannot-a-button"
+                @endcan
+            >Thêm</a>
+            <a href="/patients/{{ $patient->id }}" class="a-button">Thoát</a>
+        </div>
+
+    </div>
+
+
+
+    Xong mới xóa
+
+    Lỗi khi chưa có thủ thuật mà đã tạo lịch hẹn
