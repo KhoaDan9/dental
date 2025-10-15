@@ -11,9 +11,10 @@
 
 <body>
     <nav class="flex justify-between px-3 py-2.5 bg-blue nav-layout bg-nav-bg w-full">
-        <div class="text-white">
-            {{-- <img src="" alt=""> --}}
-            <h3>Logo</h3>
+        <div class="text-white pl-2">
+            <a href="/patients">
+                <img src="{{Storage::url('/photos/Logo.png')}}" width="80px" alt="">
+            </a>
         </div>
         <div class="text-white space-x-2">
             <a href="/patients" class="text-nav-title!">Bệnh nhân</a>
@@ -27,10 +28,7 @@
             <span class="cursor-pointer px-3">Hệ thống</span>
             <ul class="ul-menu">
                 <li class="li-menu"><a href="/clinics" class="a-menu ">Thông tin phòng khám</a></li>
-                {{-- <li class="li-menu"><a href="" class="a-menu ">Cài đặt chung</a></li>
-                <li class="li-menu"><a href="" class="a-menu ">Thông tin người dùng</a></li> --}}
                 <li class="li-menu"><a href="/change-password" class="a-menu ">Đổi mật khẩu</a></li>
-                {{-- <li class="li-menu"><a href="" class="a-menu ">Thoát</a></li> --}}
             </ul>
         </div>
         <div class="relative group">

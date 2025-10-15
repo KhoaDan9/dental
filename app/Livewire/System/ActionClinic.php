@@ -17,7 +17,6 @@ class ActionClinic extends Component
     public Clinic $clinic;
 
     #[Validate('required', message: 'Vui lòng nhập ID phòng khám.')]
-    #[Validate('unique:clinics,id', message: 'ID phòng khám đã tồn tại. Vui lòng nhập ID khác.')]
     public $clinic_id = '';
 
     #[Validate('required', message: 'Vui lòng nhập tên phòng khám.')]
@@ -34,6 +33,7 @@ class ActionClinic extends Component
     public $commune = '';
     public $last_update_name = '';
     public $logo_path = '';
+    public $note = '';
     public $updated_at = '';
 
     public $successMessage = '';
@@ -54,6 +54,7 @@ class ActionClinic extends Component
         $this->bank_account_number = $clinic->bank_account_number;
         $this->license = $clinic->license;
         $this->city = $clinic->city;
+        $this->note = $clinic->note;
         $this->last_update_name = $clinic->last_update_name;
         $this->logo_path = $clinic->logo_path;
         $this->updated_at = $clinic->updated_at;
@@ -62,6 +63,9 @@ class ActionClinic extends Component
     public function updateClinic()
     {
         $this->validate();
+        if (Clinic::where('id', $this->clinic->id)->count() != 1)
+            return $this->errorMessage = 'ID phòng khám đã tồn tại. Xin vui lòng kiểm tra lại.';
+
 
         try {
             if ($this->photo)
@@ -83,10 +87,12 @@ class ActionClinic extends Component
                 'city' => $this->city,
                 'last_update_name' => $this->last_update_name,
                 'logo_path' => $this->logo_path,
+                'note' => $this->note,
                 'updated_at' => $this->updated_at,
             ]);
 
             $this->successMessage = "Chỉnh sửa thông tin phòng khám thành công!";
+//            return redirect('/clinics/'. $this->clinic_id);
         }
         catch (QueryException $exception){
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';

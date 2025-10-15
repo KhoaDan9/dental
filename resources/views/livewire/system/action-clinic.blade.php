@@ -125,7 +125,16 @@
                         <x-last-update-name :name="$last_update_name">{{ $updated_at }}</x-last-update-name>
                     </div>
                     @if ($successMessage != '')
-                        <x-success-message>{{ $successMessage }}</x-success-message>
+                        <div class="flex w-full">
+                            <p for="" class="w-35"></p>
+                            <x-success-message>{{ $successMessage }}</x-success-message>
+                        </div>
+                    @endif
+                    @if ($errorMessage != '')
+                        <div class="flex w-full">
+                            <p for="" class="w-35"></p>
+                            <x-error-message>{{ $errorMessage }}</x-error-message>
+                        </div>
                     @endif
 
                     <div class="flex w-full space-x-1">

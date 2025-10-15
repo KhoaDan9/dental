@@ -57,4 +57,12 @@ class UserPolicy
         return false;
     }
 
+    public function viewDataLogs(User $user): bool
+    {
+        if ($user->admin == 1 || $user->accessControls()->where('feature_id',38)->where('permission_id',1)->first()->user_permission == '1') {
+            return true;
+        }
+        return false;
+    }
+
 }
