@@ -7,10 +7,9 @@
                 <span>Dữ liệu >> <a href="/patients">Hồ sơ bệnh nhân</a></span>
             </div>
             <div class="flex space-x-1">
-                <input class="border-gray-500 border-1 pl-1 w-60 " type="text" placeholder="Tìm kiếm"
-                       wire:model="search_string">
-                <input id="datepicker-actions" type="date" wire:model="search_date" type="text"
-                       class="w-35 text-center border-gray-500 border-1 px-1">
+                <x-text-input class="w-60" model="search_string" placeholder="Tìm kiếm"/>
+                <x-text-input id="datepicker-actions" type="date" class="w-35" model="search_date"/>
+
                 <button wire:click="searchSubmit" class="main-button" wire:navigate.hover>Tìm</button>
                 <a href="/patients/create"
                    @can('create', \App\Models\Patient::class)

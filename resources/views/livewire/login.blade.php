@@ -7,23 +7,24 @@
                 </div>
                 <div>
                     <p>Tên đăng nhập</p>
-                    <input class="px-1 border-gray-500 border-1 py-1 w-100" type="text" wire:model='username'>
+                    <x-text-input class="w-100" model="username"/>
+
                     @if ($errorMessage !== '')
                         <x-error-message>{{ $errorMessage }}</x-error-message>
                     @endif
-                    <div>
-                        @error('username')
-                        <x-error-message>{{ $message }}</x-error-message>
-                        @enderror
-                    </div>
+                    @error('username')
+                    <x-error-message>{{ $message }}</x-error-message>
+                    @enderror
+
                     <p>Mật khẩu</p>
-                    <input class="px-1 border-gray-500 border-1 py-1  w-100" type="password" wire:model='password'>
-                    <div>
-                        @error('password')
-                        <x-error-message>{{ $message }}</x-error-message>
-                        @enderror
+                    <x-text-input class="w-100" type="password" model="password"/>
+                    @error('password')
+                    <x-error-message>{{ $message }}</x-error-message>
+                    @enderror
+
+                    <div class="w-full">
+                        <button type="submit" class="!w-full main-button my-2 py-1" >Đăng nhập</button>
                     </div>
-                    <button type="submit" class="!w-full main-button my-2 py-1" >Đăng nhập</button>
                 </div>
 
             </div>

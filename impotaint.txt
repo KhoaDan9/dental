@@ -192,3 +192,4 @@ Sửa lại ->exists() check unique
     Xong mới xóa
 
     Lỗi khi chưa có thủ thuật mà đã tạo lịch hẹn
+    Lỗi if(Auth::attempt($credentials)){
