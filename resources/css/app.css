@@ -75,27 +75,26 @@ input, select{
 .table-custom {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
+    border: 0.5px solid #ddd;
   width: 100%;
 }
 
 .table-custom td {
-  border: 1px solid #ddd;
+  border: 0.5px solid #ddd;
   padding: 2px 5px;
 }
 
 .table-custom th, .transaction-th{
-  border: 1px solid #ddd;
+  border: 0.5px solid #ddd;
   padding: 2px 5px;
+    background-color: #b1b1b1;
+    color: #000;
 }
 
 .table-custom tr:nth-child(odd){background-color: #f2f2f2;}
 
 .table-custom tr:hover {background-color: #f7ffe3;}
 
-.table-custom th, .transaction-th {
-  background-color: #b1b1b1;
-  color: #000;
-}
 
 @media (max-width: 640px){
     * {
