@@ -5,6 +5,7 @@
     <span class="cursor-pointer px-3 select-none" @click="open = !open">{{ $title }}</span>
     <ul class="ul-menu"
         x-show="open"
+        x-cloak
         @click.outside="open = false">
         {{ $slot }}
     </ul>
