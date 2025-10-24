@@ -8,7 +8,7 @@
     @cannot('viewAny', \App\Models\Patient::class)
         <x-cannot-permission/>
     @else
-        <form wire:submit='actionPatient' id="patient-form">
+        <form wire:submit='actionPatient'>
             <div class="max-w-250 flex flex-wrap space-y-2 pt-2">
                 <div class="w-full flex items-start">
                     <p class="w-35">Tên khách hàng:<span class="text-red-600">*</span></p>
@@ -126,7 +126,7 @@
                     <p class="w-35"></p>
 
                     @if ($is_create == 'create')
-                        <button type="submit" form="patient-form"
+                        <button type="submit"
                                 @can('create', \App\Models\Patient::class)
                                     class="main-button"
                                 @else
@@ -135,7 +135,7 @@
                         >Thêm
                         </button>
                     @else
-                        <button type="submit" form="patient-form"
+                        <button type="submit"
                                 wire:dirty.remove.attr='disabled' disabled
                                 @can('update', \App\Models\Patient::class)
                                     class="main-button"

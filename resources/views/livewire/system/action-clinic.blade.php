@@ -37,10 +37,8 @@
                         </div>
                     </div>
 
-                    <div class="flex w-full">
-                        <p for="" class="w-35">Người cập nhật:</p>
-                        <x-last-update-name :name="$last_update_name">{{ $updated_at }}</x-last-update-name>
-                    </div>
+                    <x-all-last-update-name :name="$last_update_name" :updated_at="$updated_at"/>
+
                     @if ($successMessage != '')
                         <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
                     @endif
@@ -48,19 +46,7 @@
                         <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
                     @endif
 
-
-                    <div class="flex w-full space-x-1">
-                        <p for="" class="w-35"></p>
-                        <button type="submit"
-                                @can('update', \App\Models\Clinic::class)
-                                    class="main-button"
-                                @else
-                                    class="cannot-main-button"
-                            @endcan
-                        >Sửa
-                        </button>
-                        <a href="/clinics" class="a-button">Thoát</a>
-                    </div>
+                    <x-action-button :action_model="\App\Models\Clinic::class" exit_url="/clinics" is_create=""/>
                 </div>
             </form>
         @endcannot

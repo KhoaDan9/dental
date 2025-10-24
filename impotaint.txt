@@ -193,3 +193,5 @@ Sửa lại ->exists() check unique
 
     Lỗi khi chưa có thủ thuật mà đã tạo lịch hẹn
     Lỗi if(Auth::attempt($credentials)){
+
+    Bắt điều kiện bác sĩ thực hiện thủ thuật

@@ -194,3 +194,6 @@ a {
     @apply bg-gray-500 py-[1px] text-white w-20 pointer-events-none;
 }
 
+.action-display {
+    @apply flex flex-wrap pt-2 space-y-2 max-w-250;
+}

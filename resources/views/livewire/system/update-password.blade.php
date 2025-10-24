@@ -5,7 +5,7 @@
     <div>
         <form wire:submit="updatePassword" class="space-y-2">
             <div class="flex w-full flex-col">
-                <label>Mật khẩu cũ:</label>
+                <label>Mật khẩu cũ:<span class="text-red-600">*</span></label>
                 <x-text-input class="w-70" model="old_password"/>
                 @error('old_password')
                 <x-error-message>{{ $message }}</x-error-message>
@@ -15,14 +15,14 @@
                 @endif
             </div>
             <div class="flex w-full flex-col">
-                <label>Mật khẩu mới</label>
+                <label>Mật khẩu mới:<span class="text-red-600">*</span></label>
                 <x-text-input class="w-70" model="new_password"/>
                 @error('new_password')
                 <x-error-message>{{ $message }}</x-error-message>
                 @enderror
             </div>
             <div class="flex w-full flex-col">
-                <label>Xác nhận mật khẩu mới:</label>
+                <label>Xác nhận mật khẩu mới:<span class="text-red-600">*</span></label>
                 <x-text-input class="w-70" model="new_password_confirm"/>
                 @error('new_password_confirm')
                 <x-error-message>{{ $message }}</x-error-message>
