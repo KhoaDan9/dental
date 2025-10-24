@@ -1,19 +1,7 @@
 <div class="flex-col">
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Dữ liệu >> <a href="/employees">Danh sách nhân viên</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/employees/create"
-               @can('create', \App\Models\Employee::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-               @endcan
-               >Thêm</a>
-        </div>
-    </div>
+    <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
+                   :action_model="\App\Models\Employee::class"/>
+
     @cannot('viewAny', \App\Models\Employee::class)
         <x-cannot-permission/>
     @else
@@ -45,20 +33,11 @@
                         @endif
                     </td>
                     <td class=" text-center">{{ $employee->last_update_name }}</td>
-                    <td class=" text-center"><a href="/employees/{{ $employee->id }}"
-                        @cannot('update', \App\Models\Employee::class)
-                            class="cannot-a"
-                        @endcannot
-                        >sửa</a> |
-                        <button wire:click.prevent="deleteEmployee({{ $employee->id }})"
-                                @can('delete', \App\Models\Employee::class)
-                                    class="button-a"
-                                @else
-                                    class="cannot-button-a"
-                                @endcan
-                                wire:confirm="Bạn có thực sự muốn xóa không?">xóa
-                        </button>
-                    </td>
+
+                    <x-action-a-button :action_model="\App\Models\Employee::class"
+                                       edit_url="/employees/{{ $employee->id }}"
+                                       delete_event="deleteEmployee({{ $employee->id }})"/>
+
                 </tr>
             @endforeach
         </table>

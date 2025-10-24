@@ -1,11 +1,11 @@
-@props(['action-model', 'w_title'=>'w-35', 'title', 'is_create', 'exit_url'])
+@props(['action_model', 'w_title'=>'w-35', 'title', 'is_create', 'exit_url'])
 
 <div class="w-full flex space-x-1">
     <p class="{{$w_title}}"></p>
 
     @if ($is_create == 'create')
         <button type="submit"
-                @can('create', \App\Models\Patient::class)
+                @can('create', $action_model)
                     class="main-button"
                 @else
                     class="cannot-main-button"
@@ -15,7 +15,7 @@
     @else
         <button type="submit"
                 wire:dirty.remove.attr='disabled' disabled
-                @can('update', \App\Models\Patient::class)
+                @can('update', $action_model)
                     class="main-button"
                 @else
                     class="cannot-main-button"

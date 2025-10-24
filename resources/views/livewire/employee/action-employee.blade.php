@@ -1,6 +1,12 @@
 <div class="flex-col">
-    <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
-                   exit_url="/employees" :action_model="\App\Models\Employee::class"/>
+    @if($employee)
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
+                       exit_url="/employees" :action_model="\App\Models\Employee::class" url_2="/employees/{{$employee->id}}" title_2="{{$employee->name}}"/>
+    @else
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
+                       exit_url="/employees" :action_model="\App\Models\Employee::class" />
+    @endif
+
     <form wire:submit='actionEmployee'>
         <div class="action-display">
             <x-all-text-input model="form.full_name" title="Họ và tên" w_title="w-50"/>
@@ -17,7 +23,7 @@
                 <x-text-input type="date" class="w-40" model="form.birth"/>
             </div>
 
-            <x-all-select-input model="form.full_name" title="Phòng khám:" w_title="w-50" :values="$clinics"/>
+            <x-all-select-input model="form.clinic_id" title="Phòng khám:" w_title="w-50" :values="$clinics"/>
             <x-all-text-input model="form.citizen_id" title="Căn cước công dân:" w_title="w-50"/>
             <x-all-text-input model="form.phone" title="Số điện thoại:" w_title="w-50"/>
             <x-all-text-input model="form.email" title="Email:" w_title="w-50"/>
