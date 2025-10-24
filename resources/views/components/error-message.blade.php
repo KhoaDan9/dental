@@ -1,3 +1,1 @@
-<div class="{{ $divClass ?? '' }}">
-    <p class="text-red-600 ">{{ $slot }}</p>
-</div>
+<p {{ $attributes->merge(['class' => 'pt-2 text-red-600'])}}>{{ $slot }}</p>

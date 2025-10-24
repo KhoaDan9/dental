@@ -20,20 +20,19 @@
         <div class="flex flex-wrap pt-2 space-y-2 max-w-250">
             <div class="flex w-full flex-grow">
                 <p for="" class="w-50">Họ và tên:</p>
-                <input type="text" class="px-1 border-gray-500 border-1 flex-grow" wire:model='form.full_name'
-                       autofocus>
+                <x-text-input-grow model="form.full_name"/>
             </div>
             <div class="flex w-full">
                 <p for="" class="w-50">Tên thường gọi:<span class="text-red-600">*</span></p>
                 <div class="flex flex-grow flex-col">
-                    <input type="text" class="px-1 border-gray-500 border-1 flex-grow" wire:model='form.name'>
+                    <x-text-input-grow  model="form.name"/>
+
                     @error('form.name')
                     <x-error-message>{{ $message }}</x-error-message>
                     @enderror
                 </div>
                 <p for="" class="pl-5 pr-1 text-right ">Ngày sinh:</p>
-                <input type="date" class="px-1 border-gray-500 border-1 w-40" wire:model='form.birth'>
-
+                <x-text-input type="date" class="w-40!" model="form.birth"/>
             </div>
             <div class="w-full flex">
                 <p class="w-50">Phòng khám:</p>
@@ -122,18 +121,19 @@
                 <p for="" class="w-50"></p>
                 @if ($is_create == 'create')
                     <button type="submit"
-                        @can('create', \App\Models\Employee::class)
-                            class="main-button"
-                        @else
-                            class="cannot-main-button"
+                            @can('create', \App\Models\Employee::class)
+                                class="main-button"
+                            @else
+                                class="cannot-main-button"
                         @endcan
-                    >Thêm</button>
+                    >Thêm
+                    </button>
                 @else
                     <button type="submit" wire:dirty.remove.attr='disabled' disabled
-                        @can('update', \App\Models\Employee::class)
-                            class="main-button"
-                        @else
-                            class="cannot-main-button"
+                            @can('update', \App\Models\Employee::class)
+                                class="main-button"
+                            @else
+                                class="cannot-main-button"
                         @endcan
                     >Sửa
                     </button>
