@@ -79,12 +79,12 @@
                         </label>
                     </div>
                 </div>
-                @if ($user)
-                    <div class="flex w-full">
-                        <p class="w-45">Người cập nhật</p>
-                        <x-last-update-name :name="$user->last_update_name">{{ $user->updated_at }}</x-last-update-name>
-                    </div>
-                @endif
+{{--                @if ($user)--}}
+{{--                    <div class="flex w-full">--}}
+{{--                        <p class="w-45">Người cập nhật</p>--}}
+{{--                        <x-last-update-name :name="$user->last_update_name">{{ $user->updated_at }}</x-last-update-name>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
                 @if ($successMessage != '')
                     <x-success-message>{{ $successMessage }}</x-success-message>
                 @endif

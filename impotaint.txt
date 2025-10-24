@@ -195,3 +195,29 @@ Sửa lại ->exists() check unique
     Lỗi if(Auth::attempt($credentials)){
 
     Bắt điều kiện bác sĩ thực hiện thủ thuật
+
+
+
+
+
+    action-display
+
+        @if($employee)
+            <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
+                           exit_url="/employees" :action_model="\App\Models\Employee::class" url_2="/employees/{{$employee->id}}" title_2="{{$employee->name}}"/>
+        @else
+            <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
+                           exit_url="/employees" :action_model="\App\Models\Employee::class" />
+        @endif
+
+
+                    @if ($employee)
+                        <x-all-last-update-name :name="$employee->last_update_name" :updated_at="$employee->updated_a"
+                                                w_title="w-50"/>
+                    @endif
+                    @if ($successMessage != '')
+                        <x-success-message class="pl-50">{{ $successMessage }}</x-success-message>
+                    @endif
+
+                    <x-action-button :action_model="\App\Models\Employee::class" exit_url="/employees" :is_create="$is_create"
+                                     w_title="w-50"/>

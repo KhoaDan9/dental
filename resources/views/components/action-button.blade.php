@@ -14,7 +14,6 @@
         </button>
     @else
         <button type="submit"
-                wire:dirty.remove.attr='disabled' disabled
                 @can('update', $action_model)
                     class="main-button"
                 @else

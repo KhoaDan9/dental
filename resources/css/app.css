@@ -114,7 +114,7 @@ input, select{
 
 /* Giao diện các nút, thẻ a chính*/
 a {
-    @apply text-blue-500 hover:underline;
+    @apply text-blue-400 hover:underline;
 }
 
 .main-button {

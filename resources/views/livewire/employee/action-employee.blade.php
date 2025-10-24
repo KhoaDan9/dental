@@ -33,7 +33,7 @@
                             title_2="Không"/>
             <x-status-input model="form.active" w_title="w-50" title_1="Đang làm" title_2="Nghỉ việc"/>
             @if ($employee)
-                <x-all-last-update-name :name="$employee->last_update_name" :updated_at="$employee->updated_a"
+                <x-all-last-update-name :name="$employee->last_update_name" :updated_at="$employee->updated_at"
                                         w_title="w-50"/>
             @endif
             @if ($successMessage != '')

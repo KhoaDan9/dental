@@ -1,18 +1,6 @@
 <div class="flex-col">
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Dữ liệu >> <a href="/service-groups">Nhóm dịch vụ/thủ thuật</a></span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/service-groups/create"
-               @can('create', \App\Models\ServiceGroup::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-        </div>
-    </div>
+    <x-all-heading head_title="Dữ liệu" title_1="Nhóm dịch vụ/thủ thuật" url_1="/service-groups" create_url="/service-groups/create"
+                   :action_model="\App\Models\ServiceGroup::class"/>
 
     @if ($errorMessage !== '')
         <x-error-message>{{ $errorMessage }}</x-error-message>
@@ -51,24 +39,9 @@
                         @endif
                     </td>
                     <td class=" text-center">{{ $service_group->last_update_name }}</td>
-                    <td class=" text-center"><a href="/service-groups/{{ $service_group->id }}"
-                            @can('update', \App\Models\ServiceGroup::class)
-                                class="button-a"
-                            @else
-                                class="cannot-button-a"
-                            @endcan
-                        >sửa</a> |
-                        <button
-                            wire:confirm="Bạn có thực sự muốn xóa không?"
-                            wire:click='deleteServiceGroup({{ $service_group->id }})'
-                            @can('delete', \App\Models\ServiceGroup::class)
-                                class="button-a"
-                            @else
-                                class="cannot-button-a"
-                            @endcan
-                        >xóa
-                        </button>
-                    </td>
+                    <x-action-a-button :action_model="\App\Models\ServiceGroup::class"
+                                       edit_url="/service-groups/{{ $service_group->id  }}"
+                                       delete_event="deleteServiceGroup({{ $service_group->id  }})"/>
                 </tr>
             @endforeach
         </table>

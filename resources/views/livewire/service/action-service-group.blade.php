@@ -1,103 +1,33 @@
 <div>
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Dữ liệu >> <a href="/service-groups">Nhóm dịch vụ/thủ thuật</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/service-groups/create"
-               @can('create', \App\Models\ServiceGroup::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-            <a href="/service-groups" class="a-button">Thoát</a>
-        </div>
-    </div>
+    @if($service_group)
+        <x-all-heading head_title="Dữ liệu" title_1="Nhóm dịch vụ/thủ thuật" url_1="/service-groups"
+                       create_url="/service-groups/create"
+                       exit_url="/service-groups" :action_model="\App\Models\ServiceGroup::class"
+                       url_2="/service-groups/{{$service_group->id}}" title_2="{{$service_group->name}}"/>
+    @else
+        <x-all-heading head_title="Dữ liệu" title_1="Nhóm dịch vụ/thủ thuật" url_1="/service-groups"
+                       create_url="/service-groups/create"
+                       :action_model="\App\Models\ServiceGroup::class"/>
+    @endif
     <form wire:submit='actionServiceGroup'>
-        <div class="flex flex-wrap pt-2 space-y-2 px-2 max-w-250">
-            <div class="flex w-full">
-                <p for="" class="w-35">Tên nhóm:<span class="text-red-600">*</span></p>
-                <div class="flex flex-grow flex-col">
-                    <input type="text" class="px-1 border-gray-500 border-1 flex-grow" wire:model='form.name'
-                           autofocus>
-                    @error('form.name')
-                    <x-error-message>{{ $message }}</x-error-message>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="w-full flex">
-                <p class="w-35">Phòng khám:</p>
-                <select name="" id="" class="px-1 border-gray-500 border-1 flex-grow"
-                        wire:model='form.clinic_id'>
-                    @foreach ($clinics as $clinic)
-                        <option value="{{ $clinic->id }}">{{ $clinic->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="flex w-full">
-                <p for="" class="w-35">Ghi chú:</p>
-                <textarea type="text" class="px-1 border-gray-500 border-1 flex-grow h-30"
-                          wire:model='form.note'></textarea>
-            </div>
-            <div class="flex w-full">
-                <p for="" class="w-35">Trạng thái:</p>
-                <div class="flex space-x-2 flex-1">
-                    <label for="status1" class="flex items-center">
-                        <input type="radio" id="status1" value=1 wire:model='form.active'>
-                        Bật
-                    </label>
-                    <label for="status2" class="flex items-center">
-                        <input type="radio" id="status2" value=0 wire:model='form.active'>
-                        Tắt
-                    </label>
-                </div>
-            </div>
+        <div class="action-display">
+            <x-all-text-input title="Tên nhóm:" model="form.name" is_required/>
+            <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
+            <x-all-textarea title="Ghi chú:" model="form.note"/>
+            <x-status-input model="form.active"/>
             @if ($service_group)
-                <div class="flex w-full">
-                    <p for="" class="w-35">Người cập nhật:</p>
-                    <x-last-update-name
-                        :name="$service_group->last_update_name">{{ $service_group->updated_at }}</x-last-update-name>
-                </div>
+                <x-all-last-update-name :name="$service_group->last_update_name"
+                                        :updated_at="$service_group->updated_at"/>
             @endif
+
             @if ($successMessage != '')
-                <div class="flex w-full">
-                    <p for="" class="w-35"></p>
-                    <x-success-message>{{ $successMessage }}</x-success-message>
-                </div>
+                <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
             @endif
             @if ($errorMessage != '')
-                <div class="flex w-full">
-                    <p for="" class="w-35"></p>
-                    <x-error-message>{{ $errorMessage }}</x-error-message>
-                </div>
+                <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
             @endif
 
-            <div class="flex w-full">
-                <p for="" class="w-35"></p>
-                @if ($is_create == 'create')
-                    <button type="submit"
-                    @can('create', \App\Models\ServiceGroup::class)
-                        class="main-button"
-                    @else
-                        class="cannot-main-button"
-                    @endcan
-                    >Thêm
-                    </button>
-                @else
-                    <button type="submit" wire:dirty.remove.attr="disabled" disabled
-                        @can('update', \App\Models\ServiceGroup::class)
-                            class="main-button"
-                        @else
-                            class="cannot-main-button"
-                        @endcan
-                    >Sửa
-                    </button>
-                @endif
-                <a href="/service-groups" class="a-button ml-2">Thoát</a>
-            </div>
+            <x-action-button :action_model="\App\Models\ServiceGroup::class" exit_url="/service-groups" :is_create="$is_create"/>
         </div>
     </form>
 </div>

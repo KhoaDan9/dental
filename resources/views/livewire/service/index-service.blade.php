@@ -1,18 +1,6 @@
 <div class="flex-col">
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Dữ liệu >> <a href="/services">Danh sách dịch vụ/thủ thuật</a></span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/services/create"
-               @can('create', \App\Models\Service::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-        </div>
-    </div>
+    <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/services" create_url="/services/create"
+                   :action_model="\App\Models\Service::class"/>
 
     @if ($successMessage != '')
         <x-success-message>{{ $successMessage }}</x-success-message>
@@ -72,23 +60,9 @@
                         @endif
                     </td>
                     <td class=" text-center">{{ $service->last_update_name }}</td>
-                    <td class=" text-center"><a href="/services/{{ $service->id }}" wire:navigate.hover
-                            @can('update', \App\Models\Service::class)
-                                class="button-a"
-                            @else
-                                class="cannot-button-a"
-                            @endcan
-                        >sửa</a> |
-                        <button wire:confirm="Bạn có thực sự muốn xóa không?"
-                                wire:click='deleteService({{ $service->id }})'
-                                @can('delete', \App\Models\Service::class)
-                                    class="button-a"
-                                @else
-                                    class="cannot-button-a"
-                            @endcan
-                        >xóa
-                        </button>
-                    </td>
+                    <x-action-a-button :action_model="\App\Models\Service::class"
+                                       edit_url="/services/{{ $service->id  }}"
+                                       delete_event="deleteService({{ $service->id  }})"/>
                 </tr>
             @endforeach
         </table>

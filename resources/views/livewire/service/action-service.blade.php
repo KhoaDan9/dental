@@ -1,4 +1,15 @@
 <div>
+    @if($service)
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/services"
+                       create_url="/services/create"
+                       exit_url="/services" :action_model="\App\Models\Service::class"
+                       url_2="/services/{{$service->id}}" title_2="{{$service->name}}"/>
+    @else
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/services"
+                       create_url="/services/create"
+                       :action_model="\App\Models\Service::class"/>
+    @endif
+
     <div class="pb-2 flex justify-between border-b-1 border-gray-300">
         <div>
             <span>Dữ liệu >> <a href="/service-groups">Danh sách dịch vụ/thủ thuật</a>
@@ -118,8 +129,8 @@
                     @if ($service)
                         <div class="flex w-full">
                             <p for="" class="w-40">Người cập nhật:</p>
-                            <x-last-update-name
-                                :name="$service->last_update_name">{{ $service->updated_at }}</x-last-update-name>
+                            {{--                            <x-last-update-name--}}
+                            {{--                                :name="$service->last_update_name">{{ $service->updated_at }}</x-last-update-name>--}}
                         </div>
                     @endif
 
