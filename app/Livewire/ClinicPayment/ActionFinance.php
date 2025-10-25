@@ -43,7 +43,7 @@ class ActionFinance extends Component
         }
     }
 
-    public function actionFinance()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -67,6 +67,13 @@ class ActionFinance extends Component
         }
     }
 
+    public function saveAnhExit()
+    {
+        $this->save();
+        if (!$this->errorMessage) {
+            $this->redirect('/finances');
+        }
+    }
     public function render()
     {
         return view('livewire.clinic-payment.action-finance');

@@ -48,8 +48,8 @@
         <x-menu-item title="Danh mục">
             <li class="li-menu"><a href="/reminders" class="a-menu">Mẫu lời dặn</a></li>
             <li class="li-menu"><a href="/prescriptions" class="a-menu">Mẫu đơn thuốc</a></li>
-            <li class="li-menu"><a href="/diagnosis-groups" class="a-menu">Nhóm chẩn đoán</a></li>
-            <li class="li-menu"><a href="/diagnoses" class="a-menu">Mẫu chẩn đoán</a></li>
+{{--            <li class="li-menu"><a href="/diagnosis-groups" class="a-menu">Nhóm chẩn đoán</a></li>--}}
+{{--            <li class="li-menu"><a href="/diagnoses" class="a-menu">Mẫu chẩn đoán</a></li>--}}
             <li class="li-menu"><a href="/material-groups" class="a-menu">Nhóm vật tư</a></li>
             <li class="li-menu"><a href="/materials" class="a-menu">Danh sách vật tư</a></li>
             {{-- <li class="li-menu"><a href="/address" class="a-menu">Địa chỉ mặc định</a></li> --}}

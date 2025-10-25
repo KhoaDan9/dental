@@ -67,10 +67,10 @@
                 @endif
 
                 @if ($successMessage != '')
-                    <x-success-message w_title="35">{{ $successMessage }}</x-success-message>
+                    <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
                 @endif
                 @if ($errorMessage != '')
-                    <x-error-message w_title="35">{{ $errorMessage }}</x-error-message>
+                    <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
                 @endif
 
                 <x-action-button :action_model="\App\Models\Finance::class" exit_url="/finances"

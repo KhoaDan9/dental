@@ -21,10 +21,8 @@ class ActionMaterialGroup extends Component
     public $successMessage = '';
     public $errorMessage = '';
 
-
     public function mount($value)
     {
-        $user = Auth::user();
         $this->clinics = Clinic::all();
 
         if ($value == 'create') {
@@ -36,7 +34,7 @@ class ActionMaterialGroup extends Component
         }
     }
 
-    public function actionMaterialGroup()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -59,6 +57,14 @@ class ActionMaterialGroup extends Component
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
     }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect('/material-groups');
+        }
+    }
+
     public function render()
     {
         return view('livewire.material.action-material-group');

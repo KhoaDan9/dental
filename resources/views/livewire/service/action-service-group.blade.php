@@ -9,7 +9,7 @@
                        create_url="/service-groups/create"
                        :action_model="\App\Models\ServiceGroup::class"/>
     @endif
-    <form wire:submit='actionServiceGroup'>
+    <form wire:submit.prevent='save'>
         <div class="action-display">
             <x-all-text-input title="Tên nhóm:" model="form.name" is_required/>
             <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>

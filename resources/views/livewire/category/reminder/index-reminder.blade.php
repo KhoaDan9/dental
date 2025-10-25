@@ -1,19 +1,7 @@
-<div class="flex-col">
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Danh mục >> <a href="/reminders">Mẫu lời dặn</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/reminders/create"
-               @can('create', \App\Models\Reminder::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-        </div>
-    </div>
+<div>
+    <x-all-heading head_title="Danh mục" title_1="Mẫu lời dặn" url_1="/reminders"
+                   create_url="/reminders/create" :action_model="\App\Models\Reminder::class"/>
+
     @cannot('viewAny', \App\Models\Reminder::class)
         <x-cannot-permission/>
     @else
@@ -45,31 +33,13 @@
                     <td class="">{{ $reminder->note }}</td>
                     <td class=" text-center">{{ $reminder->clinic_id }}</td>
                     <td class="text-center">
-                        @if ($reminder->active)
-                            Bật
-                        @else
-                            Tắt
-                        @endif
+                        <x-p-active :is_active="$reminder->active"/>
                     </td>
                     <td class=" text-center">{{ $reminder->last_update_name }}</td>
-                    <td class=" text-center">
-                        <a href="/reminders/{{ $reminder->id }}"
-                           @can('update', \App\Models\Reminder::class)
-                               class="button-a"
-                           @else
-                               class="cannot-button-a"
-                            @endcan
-                        >sửa</a> |
-                        <button wire:confirm="Bạn có thực sự muốn xóa không?"
-                                wire:click='deleteReminder({{ $reminder->id }})'
-                                @can('delete', \App\Models\Reminder::class)
-                                    class="button-a"
-                                @else
-                                    class="cannot-button-a"
-                            @endcan
-                        >xóa
-                        </button>
-                    </td>
+                    <x-action-a-button :action_model="\App\Models\Reminder::class"
+                                       edit_url="/reminders/{{ $reminder->id }}"
+                                       delete_event="deleteReminder({{ $reminder->id }})"/>
+
                 </tr>
             @endforeach
         </table>

@@ -47,8 +47,9 @@ class ActionEmployee extends Component
     public function saveAndExit()
     {
         $this->save();
-
-        $this->redirect('/employees');
+        if(!$this->errorMessage) {
+            $this->redirect('/employees');
+        }
     }
     public function render()
     {

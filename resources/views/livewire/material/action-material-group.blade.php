@@ -1,100 +1,33 @@
 <div>
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Danh mục >> <a href="/material-groups">Nhóm vật tư</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/material-groups/create"
-               @can('create', \App\Models\MaterialGroup::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-            <a href="/material-groups" class="a-button">Thoát</a>
-        </div>
-    </div>
-    <form wire:submit='actionMaterialGroup'>
-        <div class="flex flex-wrap pt-2 space-y-2 px-2 max-w-250">
-            <div class="flex w-full">
-                <p for="" class="w-35">Tên nhóm vật tư:<span class="text-red-600">*</span></p>
-                <div class="flex flex-grow flex-col">
-                    <input type="text" class="px-1 border-gray-500 border-1 flex-grow" wire:model='form.name'
-                        autofocus>
-                    @error('form.name')
-                        <x-error-message>{{ $message }}</x-error-message>
-                    @enderror
-                </div>
-            </div>
-            <div class="w-full flex">
-                <p class="w-35">Phòng khám:</p>
-                <select name="" id="" class="px-1 border-gray-500 border-1 flex-grow"
-                    wire:model='form.clinic_id'>
-                    @foreach ($clinics as $clinic)
-                        <option value="{{ $clinic->id }}">{{ $clinic->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+    @if($material_group)
+        <x-all-heading head_title="Danh mục" title_1="Nhóm vật tư" url_1="/material-groups"
+                       create_url="/material-groups/create"
+                       exit_url="/material-groups" :action_model="\App\Models\MaterialGroup::class"
+                       url_2="/material-groups/{{$material_group->id}}" title_2="{{$material_group->name}}"/>
+    @else
+        <x-all-heading head_title="Danh mục" title_1="Nhóm vật tư" url_1="/material-groups"
+                       create_url="/material-groups/create" :action_model="\App\Models\MaterialGroup::class"/>
+    @endif
 
-            <div class="flex w-full">
-                <p for="" class="w-35">Ghi chú:</p>
-                <textarea type="text" class="px-1 border-gray-500 border-1 flex-grow h-30" wire:model='form.note'></textarea>
-            </div>
-            <div class="flex w-full">
-                <p for="" class="w-35">Trạng thái:</p>
-                <div class="flex space-x-2 flex-1">
-                    <label for="status1" class="flex items-center">
-                        <input type="radio" id="status1" value=1 wire:model='form.active'>
-                        Bật
-                    </label>
-                    <label for="status2" class="flex items-center">
-                        <input type="radio" id="status2" value=0 wire:model='form.active'>
-                        Tắt
-                    </label>
-                </div>
-            </div>
-            @if ($is_create != 'create')
-                <div class="flex w-full">
-                    <p for="" class="w-35">Người cập nhật:</p>
-                    <x-last-update-name :name="$material_group->last_update_name">{{ $material_group->updated_at }}</x-last-update-name>
-                </div>
+    <form wire:submit.prevent='save'>
+        <div class="action-display">
+            <x-all-text-input title="Tên nhóm vật tư:" model="form.name" is_required/>
+            <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
+            <x-all-textarea title="Ghi chú:" model="form.note"/>
+            <x-status-input model="form.active"/>
+
+            @if ($material_group)
+                <x-all-last-update-name :name="$material_group->last_update_name"
+                                        :updated_at="$material_group->updated_at"/>
             @endif
-
             @if ($successMessage != '')
-                <div class="flex w-full">
-                    <p for="" class="w-35"></p>
-                    <x-success-message>{{ $successMessage }}</x-success-message>
-                </div>
+                <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
             @endif
             @if ($errorMessage != '')
-                <div class="flex w-full">
-                    <p for="" class="w-35"></p>
-                    <x-error-message>{{ $errorMessage }}</x-error-message>
-                </div>
+                <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
             @endif
-
-            <div class="flex w-full">
-                <p for="" class="w-35"></p>
-                @if ($is_create == 'create')
-                    <button type="submit"
-                            @can('create', \App\Models\MaterialGroup::class)
-                                class="main-button"
-                            @else
-                                class="cannot-main-button"
-                        @endcan
-                    >Thêm</button>
-                @else
-                    <button type="submit" disabled wire:dirty.remove.attr="disabled"
-                            @can('update', \App\Models\MaterialGroup::class)
-                                class="main-button"
-                            @else
-                                class="cannot-main-button"
-                        @endcan
-                    >Sửa</button>
-                @endif
-                <a href="/material-groups" class="a-button ml-2">Thoát</a>
-            </div>
+            <x-action-button w_title="w-35" :action_model="\App\Models\MaterialGroup::class" exit_url="/material-groups"
+                             :is_create="$is_create"/>
         </div>
     </form>
 

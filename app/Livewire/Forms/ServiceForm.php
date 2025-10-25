@@ -27,10 +27,30 @@ class ServiceForm extends Form
     public $note = '';
     public $last_update_name = '';
 
+    public function setAttributes(Service $service)
+    {
+        $this->service = $service;
+
+        $this->name = $service->name;
+        $this->active = $service->active;
+        $this->note = $service->note;
+        // $this->bonus = number_format((int) $service->bonus, 0, ',', '.');
+        // $this->cost = number_format((int) $service->cost, 0, ',', '.');
+        $this->caculation_unit = $service->caculation_unit;
+        $this->monetary_unit = $service->monetary_unit;
+        $this->price = number_format((int) $service->price, 0, ',', '.');
+        $this->warranty_able = $service->warranty_able;
+        $this->warranty = $service->warranty;
+        $this->service_group_id = $service->service_group_id;
+        $this->clinic_id = $service->clinic_id;
+//        $this->supplier_id = $service->supplier_id;
+        $this->last_update_name = $service->last_update_name;
+
+    }
 
     public function store()
     {
-        $this->price = (int) str_replace('.', '', $this->price);
+//        $this->price = (int) str_replace('.', '', $this->price);
 //        if($this->supplier_id == '')
 //            $this->supplier_id = null;
         // $this->bonus = (int) str_replace('.', '', $this->bonus);
@@ -56,26 +76,7 @@ class ServiceForm extends Form
         $this->reset(['name', 'active', 'note', 'price']);
     }
 
-    public function setAttributes(Service $service)
-    {
-        $this->service = $service;
 
-        $this->name = $service->name;
-        $this->active = $service->active;
-        $this->note = $service->note;
-        // $this->bonus = number_format((int) $service->bonus, 0, ',', '.');
-        // $this->cost = number_format((int) $service->cost, 0, ',', '.');
-        $this->caculation_unit = $service->caculation_unit;
-        $this->monetary_unit = $service->monetary_unit;
-        $this->price = number_format((int) $service->price, 0, ',', '.');
-        $this->warranty_able = $service->warranty_able;
-        $this->warranty = $service->warranty;
-        $this->service_group_id = $service->service_group_id;
-        $this->clinic_id = $service->clinic_id;
-//        $this->supplier_id = $service->supplier_id;
-        $this->last_update_name = $service->last_update_name;
-
-    }
 
     public function update()
     {

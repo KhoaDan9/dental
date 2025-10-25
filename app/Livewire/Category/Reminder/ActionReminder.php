@@ -39,7 +39,7 @@ class ActionReminder extends Component
         }
     }
 
-    public function actionReminder()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -55,6 +55,13 @@ class ActionReminder extends Component
         } else {
             $this->form->update();
             $this->successMessage = 'Sửa thông tin lời dặn thành công!';
+        }
+    }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect('/reminders');
         }
     }
 

@@ -4,9 +4,9 @@
     <p for="" class="{{ $w_title }}">{{ $title }}@if($is_required)<span class="text-red-600">*</span>@endif
     </p>
     <div class="flex flex-grow flex-col">
-        <input type="{{ $type }}"
+        <input type="{{ $type }}" name="{{ $model }}"
                {{ $attributes->merge(['class' => 'p-1 border-gray-500 border-[0.5px] rounded outline-none'])}}
-               wire:model='{{ $model }}'>
+               wire:model='{{ $model }}' autocomplete="on">
         @error($model)
         <x-error-message>{{ $message }}</x-error-message>
         @enderror

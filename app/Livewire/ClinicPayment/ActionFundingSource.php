@@ -23,7 +23,6 @@ class ActionFundingSource extends Component
 
     public function mount($value)
     {
-        $user = Auth::user();
         $this->clinics = Clinic::all();
 
         if ($value == 'create') {
@@ -35,18 +34,18 @@ class ActionFundingSource extends Component
         }
     }
 
-    public function actionFundingSource()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
 
         $funding_source_id = $this->is_create == 'create' ? 0 : $this->funding_source->id;
+
         if (Fundingsource::where('name', $this->form->name)->whereNot('id', $funding_source_id)->exists())
             return $this->errorMessage = 'Tên nguồn quỹ đã tồn tại. Xin vui lòng kiểm tra lại.';
 
         try {
             if ($this->is_create == 'create') {
-
                 $this->form->store();
                 $this->successMessage = 'Thêm nguồn quỹ thành công!';
             } else {
@@ -55,9 +54,17 @@ class ActionFundingSource extends Component
                 $this->funding_source = $this->form->funding_source;
             }
         } catch (QueryException $e) {
-            $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+           return $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
     }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect('/funding-sources');
+        }
+    }
+
     public function render()
     {
         return view('livewire.clinic-payment.action-funding-source');

@@ -33,7 +33,7 @@ class ActionServiceGroup extends Component
             $this->form->setAttributes($this->service_group);
         }
     }
-    public function actionServiceGroup()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -53,6 +53,13 @@ class ActionServiceGroup extends Component
             }
         } catch (QueryException $e) {
             $this->errorMessage = 'Đã xảy ra lỗi. Vui lòng liên hệ lại với chúng tôi!';
+        }
+    }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage) {
+            $this->redirect('/service-groups');
         }
     }
 

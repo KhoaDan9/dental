@@ -1,10 +1,13 @@
 <div class="flex-col">
     @if($employee)
-        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
-                       exit_url="/employees" :action_model="\App\Models\Employee::class" url_2="/employees/{{$employee->id}}" title_2="{{$employee->name}}"/>
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees"
+                       create_url="/employees/create"
+                       exit_url="/employees" :action_model="\App\Models\Employee::class"
+                       url_2="/employees/{{$employee->id}}" title_2="{{$employee->name}}"/>
     @else
-        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees" create_url="/employees/create"
-                       exit_url="/employees" :action_model="\App\Models\Employee::class" />
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/employees"
+                       create_url="/employees/create"
+                       exit_url="/employees" :action_model="\App\Models\Employee::class"/>
     @endif
 
     <form wire:submit.prevent='save'>

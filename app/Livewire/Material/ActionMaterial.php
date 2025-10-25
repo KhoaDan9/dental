@@ -22,9 +22,9 @@ class ActionMaterial extends Component
     public $is_create = '';
     public $successMessage = '';
     public $errorMessage = '';
+
     public function mount($value)
     {
-        $user = Auth::user();
         $this->clinics = Clinic::all();
 
         $this->material_groups = MaterialGroup::all();
@@ -43,7 +43,7 @@ class ActionMaterial extends Component
         }
     }
 
-    public function actionMaterial()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -63,8 +63,17 @@ class ActionMaterial extends Component
                 $this->material = $this->form->material;
             }
         } catch (QueryException $e) {
+            $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
     }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect('/materials');
+        }
+    }
+
     public function render()
     {
         return view('livewire.material.action-material');

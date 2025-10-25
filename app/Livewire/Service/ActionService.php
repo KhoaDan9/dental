@@ -45,7 +45,7 @@ class ActionService extends Component
         }
     }
 
-    public function actionService()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -66,6 +66,14 @@ class ActionService extends Component
             }
         } catch (QueryException $e) {
             return $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
+    }
+
+    public function saveAndExit()
+    {
+        $this->save();
+        if(!$this->errorMessage) {
+            $this->redirect('/services');
         }
     }
 

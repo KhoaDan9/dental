@@ -10,7 +10,7 @@
                        exit_url="/funding-sources" :action_model="\App\Models\FundingSource::class"/>
     @endif
 
-    <form wire:submit='actionFundingSource'>
+    <form wire:submit.prevent='save'>
         <div class="action-display">
             <x-all-text-input model="form.name" title="Tên nguồn quỹ:" is_required/>
             <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
@@ -40,10 +40,10 @@
                                         :updated_at="$funding_source->updated_at"/>
             @endif
             @if ($successMessage != '')
-                <x-success-message>{{ $successMessage }}</x-success-message>
+                <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
             @endif
             @if ($errorMessage != '')
-                <x-error-message>{{ $errorMessage }}</x-error-message>
+                <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
             @endif
             <x-action-button :action_model="\App\Models\FundingSource::class" exit_url="/funding-sources"
                              :is_create="$is_create"/>

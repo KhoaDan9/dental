@@ -1,18 +1,7 @@
-<div class="flex-col">
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Danh mục >> <a href="/materials">Danh mục vật tư</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/materials/create"
-               @can('create', \App\Models\Material::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan>Thêm</a>
-        </div>
-    </div>
+<div>
+    <x-all-heading head_title="Danh mục" title_1="Nhóm vật tư" url_1="/materials"
+                   create_url="/materials/create" :action_model="\App\Models\Material::class"/>
+
     @cannot('viewAny', \App\Models\Material::class)
         <x-cannot-permission/>
     @else
@@ -47,39 +36,20 @@
                     <td class="">{{ $material->name }}</td>
                     <td class="whitespace-nowrap w-0">{{ $material->describe }}</td>
                     <td class="text-center">{{ $material->caculation_unit }}</td>
-                    <td class="text-right number">{{ $material->price }}</td>
+                    <td class="text-right number">{{ number_format($material->price , 0, ',', '.') }}</td>
                     <td class="text-center">{{ $material->monetary_unit }}</td>
                     <td class="">{{ $material->note }}</td>
                     <td class="">{{ $material->materialGroup->name }}</td>
                     <td class=" text-center">{{ $material->clinic_id }}</td>
                     <td class="text-center">
-                        @if ($material->active)
-                            Bật
-                        @else
-                            Tắt
-                        @endif
+                        <x-p-active :is_active="$material->active"/>
                     </td>
                     <td class=" text-center">{{ $material->last_update_name }}</td>
-                    <td class=" text-center">
-                        <a href="/materials/{{ $material->id }}"
-                           @can('update', \App\Models\Material::class)
-                               class="button-a"
-                           @else
-                               class="cannot-button-a"
-                            @endcan
-                        >sửa</a> |
-                        <button wire:confirm="Bạn có thực sự muốn xóa không?"
-                                wire:click='deleteMaterial({{ $material->id }})'
-                                @can('delete', \App\Models\Material::class)
-                                    class="button-a"
-                                @else
-                                    class="cannot-button-a"
-                            @endcan
-                        >xóa
-                        </button>
-                    </td>
+                    <x-action-a-button :action_model="\App\Models\Material::class"
+                                       edit_url="/materials/{{ $material->id }}"
+                                       delete_event="deleteMaterial({{ $material->id }})"/>
                 </tr>
             @endforeach
-    </table>
+        </table>
     @endcannot
 </div>
