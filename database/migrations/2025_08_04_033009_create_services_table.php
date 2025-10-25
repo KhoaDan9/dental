@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('clinic_id');
             $table->foreign('clinic_id')->references('id')->on('clinics')->cascadeOnUpdate();
             $table->foreignIdFor(ServiceGroup::class)->constrained()->cascadeOnUpdate();
-            $table->foreignIdFor(Supplier::class)->nullable()->constrained()->cascadeOnUpdate();
+//            $table->foreignIdFor(Supplier::class)->nullable()->constrained()->cascadeOnUpdate();
             $table->string('name');
             // $table->integer('bonus')->nullable();
             // $table->integer('cost')->nullable();

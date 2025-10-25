@@ -6,9 +6,8 @@ use App\Livewire\Forms\ServiceForm;
 use App\Models\Clinic;
 use App\Models\Service;
 use App\Models\ServiceGroup;
-use App\Models\Supplier;
+//use App\Models\Supplier;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -19,7 +18,7 @@ class ActionService extends Component
     public Service $service;
     public $clinics = [];
     public $service_groups = [];
-    public $suppliers = [];
+//    public $suppliers = [];
     public $is_create = '';
     public $successMessage = '';
     public $errorMessage = '';
@@ -28,7 +27,7 @@ class ActionService extends Component
     {
         $this->service_groups = ServiceGroup::all();
 
-        $this->suppliers = Supplier::where('active', 1)->get();
+//        $this->suppliers = Supplier::where('active', 1)->get();
 
         $this->clinics = Clinic::all();
 

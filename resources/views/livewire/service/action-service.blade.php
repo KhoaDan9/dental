@@ -19,7 +19,7 @@
                     <x-all-text-input w_title="w-40" title="Đơn vị tính:" model="form.caculation_unit"/>
                     <x-all-select-input w_title="w-40" model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
                     <x-all-select-input w_title="w-40" model="form.service_group_id" title="Nhóm thủ thuật:" :values="$service_groups"/>
-                    
+
                     <div class="flex w-full">
                         <p for="" class="w-40">Đơn giá:</p>
                         <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded w-30 number-input"
@@ -42,6 +42,7 @@
                     @endif
 
                     <x-action-button w_title="w-40" :action_model="\App\Models\Service::class" exit_url="/services" :is_create="$is_create"/>
+                </div>
             </form>
         @else
             <x-error-message>{{ $errorMessage }}</x-error-message>

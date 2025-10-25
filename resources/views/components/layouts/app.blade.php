@@ -41,7 +41,7 @@
             <li class="li-menu"><a href="/funding-sources" class="a-menu">Nguồn quỹ</a></li>
             <li class="li-menu"><a href="/finances" class="a-menu">Nhóm thu/chi</a></li>
             <li class="li-menu"><a href="/transaction-vouchers" class="a-menu">Quản lý thu/chi</a></li>
-            <li class="li-menu"><a href="/suppliers" class="a-menu">Nhà cung cấp/xưởng</a></li>
+{{--            <li class="li-menu"><a href="/suppliers" class="a-menu">Nhà cung cấp/xưởng</a></li>--}}
             {{-- <li class="li-menu"><a href="" class="a-menu">Quản lý đặt xưởng</a></li> --}}
         </x-menu-item>
 

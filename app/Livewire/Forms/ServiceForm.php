@@ -18,7 +18,7 @@ class ServiceForm extends Form
     public $clinic_id = '';
     public $service_group_id = '';
     public $caculation_unit = '';
-    public $supplier_id = null;
+//    public $supplier_id = null;
     public $monetary_unit = 'VNĐ';
     public $price = 0;
     public $warranty_able = 1;
@@ -31,8 +31,8 @@ class ServiceForm extends Form
     public function store()
     {
         $this->price = (int) str_replace('.', '', $this->price);
-        if($this->supplier_id == '')
-            $this->supplier_id = null;
+//        if($this->supplier_id == '')
+//            $this->supplier_id = null;
         // $this->bonus = (int) str_replace('.', '', $this->bonus);
         // $this->cost = (int) str_replace('.', '', $this->cost);
 
@@ -48,7 +48,7 @@ class ServiceForm extends Form
             'warranty_able' => $this->warranty_able,
             'warranty' => $this->warranty,
             'service_group_id' => $this->service_group_id,
-            'supplier_id' => $this->supplier_id,
+//            'supplier_id' => $this->supplier_id,
             'clinic_id' => $this->clinic_id,
             'last_update_name' => Auth::user()->username
         ]);
@@ -72,7 +72,7 @@ class ServiceForm extends Form
         $this->warranty = $service->warranty;
         $this->service_group_id = $service->service_group_id;
         $this->clinic_id = $service->clinic_id;
-        $this->supplier_id = $service->supplier_id;
+//        $this->supplier_id = $service->supplier_id;
         $this->last_update_name = $service->last_update_name;
 
     }
@@ -80,8 +80,8 @@ class ServiceForm extends Form
     public function update()
     {
         $this->price = (int) str_replace('.', '', $this->price);
-        if($this->supplier_id == '')
-            $this->supplier_id = null;
+//        if($this->supplier_id == '')
+//            $this->supplier_id = null;
         $this->last_update_name = Auth::user()->username;
 
         // $this->price = $this->price;
@@ -89,7 +89,7 @@ class ServiceForm extends Form
         // $this->cost = (int) str_replace('.', '', $this->cost);
 
         $this->service->update(
-            $this->only(['name', 'active', 'note', 'caculation_unit', 'monetary_unit', 'price', 'warranty_able', 'warranty', 'service_group_id', 'supplier_id'])
+            $this->only(['name', 'active', 'note', 'caculation_unit', 'monetary_unit', 'price', 'warranty_able', 'warranty', 'service_group_id'])
         );
     }
 }

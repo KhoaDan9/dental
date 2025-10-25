@@ -46,8 +46,8 @@ use App\Livewire\Service\ActionServiceGroup;
 use App\Livewire\Service\IndexService;
 use App\Livewire\Service\IndexServiceGroup;
 
-use App\Livewire\Supplier\ActionSupplier;
-use App\Livewire\Supplier\IndexSupplier;
+//use App\Livewire\Supplier\ActionSupplier;
+//use App\Livewire\Supplier\IndexSupplier;
 use App\Livewire\System\ActionClinic;
 use App\Livewire\System\IndexClinic;
 use App\Livewire\System\UpdatePassword;
@@ -108,8 +108,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/warranty-cards', IndexWarrantyCard::class);
 
     // Danh sach nha cung cap
-    Route::get('/suppliers', IndexSupplier::class);
-    Route::get('/suppliers/{value}', ActionSupplier::class);
+//    Route::get('/suppliers', IndexSupplier::class);
+//    Route::get('/suppliers/{value}', ActionSupplier::class);
 
     // Nhom dich vu va dich vu
     Route::get('/service-groups', IndexServiceGroup::class);
