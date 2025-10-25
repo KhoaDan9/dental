@@ -73,24 +73,9 @@
                                        class="cannot-button-a"
                                     @endcan>{{ $appointment->status }}</a>
                             </td>
-                            <td class=" text-center">
-                                <a href="/patients/{{ $appointment->patient->id }}/appointments/{{ $appointment->id }}"
-                                   wire:navigate
-                                   @can('update', \App\Models\Appointment::class)
-                                       class="button-a"
-                                   @else
-                                       class="cannot-button-a"
-                                    @endcan>sửa</a>
-                                |
-                                <button
-                                    wire:click.prevent="deleteAppointment({{ $appointment->id }})"
-                                    @can('delete', \App\Models\Appointment::class)
-                                        class="button-a"
-                                    @else
-                                        class="cannot-button-a"
-                                    @endcan>xóa
-                                </button>
-                            </td>
+                            <x-action-a-button :action_model="\App\Models\Appointment::class"
+                                    edit_url="/patients/{{ $appointment->patient->id }}/appointments/{{ $appointment->id }}"
+                                    delete_event="deleteAppointment({{ $appointment->id }})"/>
                         </tr>
                     @endforeach
                 </table>

@@ -24,31 +24,20 @@ class IndexAppointment extends Component
 
     public function mount()
     {
-        $this->from_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
-        $this->to_date = Carbon::now('Asia/Ho_Chi_Minh')->addDays(3)->format('Y-m-d');
-
-        $this->searchAppointment();
+        $this->from_date = Carbon::now()->format('Y-m-d');
+        $this->to_date = Carbon::now()->addDays(3)->format('Y-m-d');
     }
 
     public function searchAppointment()
     {
-        $daysInVietnamese = [
-            'Sunday' => 'Chủ Nhật',
-            'Monday' => 'Thứ Hai',
-            'Tuesday' => 'Thứ Ba',
-            'Wednesday' => 'Thứ Tư',
-            'Thursday' => 'Thứ Năm',
-            'Friday' => 'Thứ Sáu',
-            'Saturday' => 'Thứ Bảy',
-        ];
         $this->appointments = Appointment::orderBy('date')->whereBetween('date', [
             $this->from_date,
             $this->to_date
         ])
             ->get()
-            ->groupBy(function ($appointment) use ($daysInVietnamese) {
+            ->groupBy(function ($appointment) {
                 $date = $appointment->date->format('d/m/Y');
-                $dayName = $daysInVietnamese[$appointment->date->dayName];
+                $dayName = ucwords($appointment->date->dayName);
                 return "$date - $dayName";
             })
             ->map(function ($group) {
@@ -58,6 +47,8 @@ class IndexAppointment extends Component
 
     public function deleteAppointment(Appointment $appointment)
     {
+        $this->reset(['successMessage', 'errorMessage']);
+
         try {
             $appointment->delete();
             $this->successMessage = 'Xóa lịch hẹn thành công!';
@@ -68,6 +59,7 @@ class IndexAppointment extends Component
 
     public function render()
     {
+        $this->searchAppointment();
         return view('livewire.appointment.index-appointment');
     }
 }

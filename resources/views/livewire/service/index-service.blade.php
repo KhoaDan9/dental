@@ -1,5 +1,5 @@
 <div class="flex-col">
-    <x-all-heading head_title="Dữ liệu" title_1="Danh sách nhân viên" url_1="/services" create_url="/services/create"
+    <x-all-heading head_title="Dữ liệu" title_1="Danh sách dịch vụ/thủ thuật" url_1="/services" create_url="/services/create"
                    :action_model="\App\Models\Service::class"/>
 
     @if ($successMessage != '')

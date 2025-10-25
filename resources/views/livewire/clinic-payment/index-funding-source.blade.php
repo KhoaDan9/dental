@@ -1,19 +1,6 @@
 <div>
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Dữ liệu >> <a href="/funding-sources">Danh sách nguồn quỹ</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/funding-sources/create"
-               @can('create', \App\Models\FundingSource::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-        </div>
-    </div>
+    <x-all-heading head_title="Dữ liệu" title_1="Danh sách nguồn quỹ" url_1="/funding-sources" create_url="/funding-sources/create"
+                   :action_model="\App\Models\FundingSource::class"/>
 
     @if ($successMessage != '')
         <x-success-message>{{ $successMessage }}</x-success-message>
@@ -50,22 +37,10 @@
                     @endif
                 </td>
                 <td class=" text-center">{{ $funding_source->last_update_name }}</td>
-                <td class=" text-center">
-                    <a href="/funding-sources/{{ $funding_source->id }}"
-                       @can('update', \App\Models\FundingSource::class)
-                           class="button-a"
-                       @else
-                           class="cannot-button-a"
-                        @endcan
-                    >sửa</a> |
-                    <button wire:confirm="Bạn có thực sự muốn xóa không?"
-                        wire:click='deleteFundingSource({{ $funding_source->id }})'
-                            @can('delete', \App\Models\FundingSource::class)
-                                class="button-a"
-                            @else
-                                class="cannot-button-a"
-                        @endcan
-                    >xóa</button></td>
+
+                <x-action-a-button :action_model="\App\Models\FundingSource::class"
+                                       edit_url="/funding-sources/{{ $funding_source->id }}"
+                                       delete_event="deleteFundingSource({{ $funding_source->id }})"/>
             </tr>
         @endforeach
     </table>
