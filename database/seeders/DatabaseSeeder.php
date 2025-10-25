@@ -373,7 +373,7 @@ class DatabaseSeeder extends Seeder
         Service::factory()->create([
             'name' => "Albutmen Hàn ( khách ngoài )",
             'clinic_id' => 'DK1',
-            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
+//            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
             'service_group_id' => fake()->randomElement([1, 2, 3, 4]),
             'caculation_unit' => 'cái',
             'monetary_unit' => "VND",
@@ -386,7 +386,7 @@ class DatabaseSeeder extends Seeder
         Service::factory()->create([
             'name' => "Bàn chải máy B02 New",
             'clinic_id' => 'DK1',
-            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
+//            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
             'service_group_id' => fake()->randomElement([1, 2, 3, 4]),
             'caculation_unit' => 'cái',
             'monetary_unit' => "VND",
@@ -399,7 +399,7 @@ class DatabaseSeeder extends Seeder
         Service::factory()->create([
             'name' => "Bôi Vecni Flour ( NT Clear Varnish ) phòng ngừa sâu răng",
             'clinic_id' => 'DK1',
-            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
+//            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
             'service_group_id' => fake()->randomElement([1, 2, 3, 4]),
             'caculation_unit' => 'cái',
             'monetary_unit' => "VND",
@@ -412,7 +412,7 @@ class DatabaseSeeder extends Seeder
         Service::factory()->create([
             'name' => "Cao răng cấp độ 3",
             'clinic_id' => 'DK1',
-            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
+//            'supplier_id' => fake()->randomElement([1, 2, 3, 4]),
             'service_group_id' => fake()->randomElement([1, 2, 3, 4]),
             'caculation_unit' => 'cái',
             'monetary_unit' => "VND",
@@ -818,7 +818,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         FundingSource::create([
-            'clinic_id' => 'DK1',
+            'clinic_id' => 'DK2',
             'name' => 'Quỹ phòng khám',
             'type_of_transaction' => ['Tiền mặt'],
             'note' => 'ghi chu',

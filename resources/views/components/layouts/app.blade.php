@@ -37,7 +37,7 @@
             <li class="li-menu"><a href="/services" class="a-menu">Danh sách dịch vụ/thủ thuật</a></li>
             <li class="li-menu"><a href="/" class="a-menu">Hồ sơ bệnh nhân</a></li>
             <li class="li-menu"><a href="/appointments" class="a-menu">Lịch hẹn</a></li>
-            <li class="li-menu"><a href="/warranty-cards" class="a-menu">Thẻ bảo hành</a></li>
+{{--            <li class="li-menu"><a href="/warranty-cards" class="a-menu">Thẻ bảo hành</a></li>--}}
             <li class="li-menu"><a href="/funding-sources" class="a-menu">Nguồn quỹ</a></li>
             <li class="li-menu"><a href="/finances" class="a-menu">Nhóm thu/chi</a></li>
             <li class="li-menu"><a href="/transaction-vouchers" class="a-menu">Quản lý thu/chi</a></li>
