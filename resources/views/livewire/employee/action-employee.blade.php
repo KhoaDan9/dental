@@ -7,7 +7,7 @@
                        exit_url="/employees" :action_model="\App\Models\Employee::class" />
     @endif
 
-    <form wire:submit='actionEmployee'>
+    <form wire:submit.prevent='save'>
         <div class="action-display">
             <x-all-text-input model="form.full_name" title="Họ và tên" w_title="w-50"/>
 
@@ -20,7 +20,7 @@
                     @enderror
                 </div>
                 <p for="" class="pl-5 pr-1 text-right ">Ngày sinh:</p>
-                <x-text-input type="date" class="w-40" model="form.birth"/>
+                <x-text-input type="date" class="w-60" model="form.birth"/>
             </div>
 
             <x-all-select-input model="form.clinic_id" title="Phòng khám:" w_title="w-50" :values="$clinics"/>

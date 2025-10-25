@@ -32,7 +32,7 @@ class ActionEmployee extends Component
         }
     }
 
-    public function actionEmployee()
+    public function save()
     {
         $this->form->validate();
         if ($this->is_create) {
@@ -42,6 +42,13 @@ class ActionEmployee extends Component
             $this->form->update();
             $this->successMessage = 'Sửa thông tin nhân viên thành công!';
         }
+    }
+
+    public function saveAndExit()
+    {
+        $this->save();
+
+        $this->redirect('/employees');
     }
     public function render()
     {

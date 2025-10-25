@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 /* @import "flowbite/src/themes/default";
 
 
@@ -10,42 +10,45 @@
 @source '../**/*.js';
 /* @source "../../node_modules/flowbite"; */
 
-
 [x-cloak] {
     display: none !important;
 }
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
     --color-menu-title: #eeeeee;
     --color-nav-bg: #21619e;
-    --color-nav-title: #FAEBEF;
+    --color-nav-title: #faebef;
     --color-btn-bg: #21619e;
     --color-btn-hover: #3671c6;
     --color-btn-disabled: #21619e;
-
 }
 
 @layer components {
-  .li-menu {
-    @apply hover:bg-gray-50 px-2;
-  }
-  .a-menu {
-    @apply text-black! py-2 block hover:text-btn-hover!;
-  }
-  .ul-menu {
-    @apply absolute pt-1 left-0 block bg-menu-title shadow-xl w-72 border border-gray-300;
-  }
+    .li-menu {
+        @apply hover:bg-gray-50 px-2;
+    }
+    .a-menu {
+        @apply text-black! py-2 block hover:text-btn-hover!;
+    }
+    .ul-menu {
+        @apply absolute pt-1 left-0 block bg-menu-title shadow-xl w-72 border border-gray-300;
+    }
 }
 
-@page { size: auto;  margin: 0mm; }
+@page {
+    size: auto;
+    margin: 0mm;
+}
 
-@media print
-{
-  .nav-layout, .menu-layout, .print-invoice-menu{
-    display: none !important;
-  }
+@media print {
+    .nav-layout,
+    .menu-layout,
+    .print-invoice-menu {
+        display: none !important;
+    }
 
     .print-invoice {
         display: block !important;
@@ -53,10 +56,9 @@
     }
 }
 
-html *
-{
-   font-size: 13px;
-   font-family: Arial !important;
+html * {
+    font-size: 13px;
+    font-family: Arial !important;
 }
 
 body {
@@ -67,50 +69,54 @@ body {
     /*font-size: 13px;*/
 }
 
-input, select{
-  height: 22px;
+input,
+select {
+    height: 22px;
 }
 
-
 .table-custom {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
     border: 0.1px solid #ddd;
-  width: 100%;
+    width: 100%;
 }
 
 .table-custom td {
-  border: 0.1px solid #ddd;
-  padding: 2px 5px;
+    border: 0.1px solid #ddd;
+    padding: 2px 5px;
 }
 
-.table-custom th, .transaction-th{
-  border: 0.1px solid #ddd;
-  padding: 2px 5px;
+.table-custom th,
+.transaction-th {
+    border: 0.1px solid #ddd;
+    padding: 2px 5px;
     background-color: #b1b1b1;
     color: #000;
 }
 
-.table-custom tr:nth-child(odd){background-color: #f2f2f2;}
+.table-custom tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
 
-.table-custom tr:hover {background-color: #f7ffe3;}
+.table-custom tr:hover {
+    background-color: #f7ffe3;
+}
 
-
-@media (max-width: 640px){
+@media (max-width: 640px) {
     * {
         font-size: 4px !important;
     }
 
-    th, td {
+    th,
+    td {
         padding: 1px 2px !important;
     }
 
-    input, select {
+    input,
+    select {
         height: 11px !important;
     }
 }
-
-
 
 /* Giao diện các nút, thẻ a chính*/
 a {
@@ -118,31 +124,29 @@ a {
 }
 
 .main-button {
-  @apply bg-btn-bg py-[1px] text-white w-20 cursor-pointer hover:bg-btn-hover disabled:opacity-75 disabled:cursor-auto;
+    @apply bg-btn-bg py-[1px] text-white w-20 cursor-pointer hover:bg-btn-hover disabled:opacity-75 disabled:cursor-auto;
 }
 
 .main-button2 {
-  @apply bg-btn-bg py-[1px] text-white w-30 cursor-pointer hover:bg-btn-hover disabled:opacity-75 disabled:cursor-auto;
+    @apply bg-btn-bg py-[1px] text-white w-30 cursor-pointer hover:bg-btn-hover disabled:opacity-75 disabled:cursor-auto;
 }
 
 .a-button {
-  @apply block py-[1px] bg-btn-bg !text-white w-20 text-center hover:bg-btn-hover hover:no-underline;
+    @apply block py-[1px] bg-btn-bg !text-white w-20 text-center hover:bg-btn-hover hover:no-underline;
 }
 
 .a-button2 {
-  @apply block py-[1px] bg-btn-bg !text-white w-30 text-center hover:bg-btn-hover hover:no-underline;
+    @apply block py-[1px] bg-btn-bg !text-white w-30 text-center hover:bg-btn-hover hover:no-underline;
 }
 
 .button-a {
-  @apply text-blue-400 cursor-pointer hover:underline;
+    @apply text-blue-400 cursor-pointer hover:underline;
 }
 
 /* Menu, địa chỉ */
 .page-header {
     @apply pb-2 flex justify-between border-b-1 border-gray-300 mb-2;
 }
-
-
 
 /*Modal*/
 
@@ -171,7 +175,7 @@ a {
 }
 
 .error-message {
-  @apply text-red-500;
+    @apply text-red-500;
 }
 
 .cannot-a {
@@ -194,6 +198,10 @@ a {
     @apply bg-gray-500 py-[1px] text-white w-20 pointer-events-none;
 }
 
+.cannot-main-button2 {
+    @apply bg-gray-500 py-[1px] text-white w-30 pointer-events-none;
+}
+
 .action-display {
-    @apply flex flex-wrap pt-2 space-y-2 max-w-250;
+    @apply flex flex-wrap pt-2 space-y-2 w-full;
 }
