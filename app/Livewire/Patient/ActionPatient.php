@@ -8,6 +8,7 @@ use App\Models\Patient;
 use App\Models\PatientPayment;
 use App\Models\PatientService;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -18,8 +19,10 @@ class ActionPatient extends Component
 {
     public PatientForm $form;
     public Patient $patient;
-    public $clinic_name = '';
+    public $clinics = [];
     public $successMessage = '';
+    public $errorMessage = '';
+
     public $is_create = '';
     public $debt = '';
     public $total = '';
@@ -27,7 +30,7 @@ class ActionPatient extends Component
 
     public function mount($value)
     {
-        $this->clinic_name = Clinic::find(Auth::user()->clinic_id)->name;
+        $this->clinics = Clinic::all();
 
         if ($value == 'create') {
             $this->is_create = $value;
@@ -52,16 +55,28 @@ class ActionPatient extends Component
         return number_format($value, 0, ',', '.');
     }
 
-    public function actionPatient()
+    public function save()
     {
         $this->form->validate();
 
-        if ($this->is_create == 'create') {
-            $this->form->store();
-            $this->successMessage = "Thêm thông tin bệnh nhân thành công";
-        } else {
-            $this->form->update();
-            $this->successMessage = 'Chỉnh sửa thông tin bệnh nhân thành công!';
+        try {
+            if ($this->is_create == 'create') {
+                $this->form->store();
+                $this->successMessage = "Thêm thông tin bệnh nhân thành công";
+            } else {
+                $this->form->update();
+                $this->successMessage = 'Chỉnh sửa thông tin bệnh nhân thành công!';
+            }
+        } catch (QueryException $e) {
+            return $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
+    }
+
+    public function saveAndExit()
+    {
+        $this->save();
+        if (!$this->errorMessage) {
+            $this->redirect('/patients');
         }
     }
 

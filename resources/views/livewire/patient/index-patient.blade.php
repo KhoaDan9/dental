@@ -1,26 +1,9 @@
-<div class="flex-col">
-    @cannot('viewAny', \App\Models\Patient::class)
-        <x-cannot-permission/>
-    @else
-        <div class="pb-2 flex justify-between border-b-1 border-gray-300 mb-2">
-            <div>
-                <span>Dữ liệu >> <a href="/patients">Hồ sơ bệnh nhân</a></span>
-            </div>
-            <div class="flex space-x-1">
-                <x-text-input class="w-60" model="search_string" placeholder="Tìm kiếm"/>
-                <x-text-input id="datepicker-actions" type="date" class="w-35" model="search_date"/>
-
-                <button wire:click="searchSubmit" class="main-button" wire:navigate.hover>Tìm</button>
-                <a href="/patients/create"
-                   @can('create', \App\Models\Patient::class)
-                       class="a-button"
-                   @else
-                       class="cannot-a-button"
-                    @endcan
-                >Thêm</a>
-            </div>
-
-        </div>
+<div>
+    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients" create_url="/employees/create"
+                   :action_model="\App\Models\Employee::class" search_model="search_string" search_date="search_date"/>
+        @cannot('viewAny', \App\Models\Patient::class)
+            <x-cannot-permission/>
+        @else
         @if ($successMessage != '')
             <x-success-message>{{ $successMessage }}</x-success-message>
         @endif
@@ -51,7 +34,10 @@
                     <td class=" text-center">{{ $loop->iteration }}</td>
                     <td class="">{{ \Carbon\Carbon::parse($patient->created_at)->format('H:i:s') }}</td>
                     <td class=" text-center"><a href="/patients/{{ $patient->id }}">{{ $patient->id }}</a></td>
-                    <td class="">{{ $patient->name }}</td>
+                    <td @if (count($patient->medical_history) || $patient->medical_history_note)
+                            class="text-red-500"
+                        @endif>
+                        {{ $patient->name }}</td>
                     <td>{{ \Carbon\Carbon::parse($patient->birth)->year }}</td>
                     <td class=" text-center">{{ $patient->gender }}</td>
                     <td class="">{{ $patient->address }}</td>

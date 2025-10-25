@@ -6,11 +6,7 @@ use App\Models\Patient;
 use App\Models\PatientService;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Session;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Url;
 use Livewire\Component;
 
 
@@ -19,10 +15,10 @@ class IndexPatient extends Component
 {
     public $patients = [];
 
-//    #[Url(as: 'd',except: '')]
+    //    #[Url(as: 'd',except: '')]
     public $search_date = '';
 
-//    #[Url(as: 'q',except: '')]
+    //    #[Url(as: 'q',except: '')]
     public $search_string = '';
     public $successMessage = '';
     public $errorMessage = '';
@@ -56,10 +52,9 @@ class IndexPatient extends Component
         $this->patients = [];
         $this->search_string = '';
 
-        try{
+        try {
             $patient_services = PatientService::whereDate('date', $this->search_date)->get('patient_id')->groupBy('patient_id')->keys()->toArray();
-        }
-        catch (QueryException $e){
+        } catch (QueryException $e) {
             $patient_services = [];
         }
 
