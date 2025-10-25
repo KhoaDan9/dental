@@ -12,7 +12,7 @@
                     <th class="whitespace-nowrap w-0">Giờ</th>
                     <th class="whitespace-nowrap text-left">Triệu chứng/Chẩn đoán</th>
                     <th class="whitespace-nowrap text-left">Thủ thuật điều trị</th>
-                    <th class="whitespace-nowrap w-0">Thẻ bảo hành</th>
+{{--                    <th class="whitespace-nowrap w-0">Thẻ bảo hành</th>--}}
                     <th class="whitespace-nowrap">Bác sỹ</th>
                     <th class="whitespace-nowrap">Trợ thủ</th>
                     <th class="whitespace-nowrap w-0">Đơn giá</th>
@@ -46,38 +46,38 @@
                                 @endif
                             </td>
                             <td class="">{{ $patient_service->service_name }}</td>
-                            <td class="text-center">
-                                @if ($patient_service->warrantyCard)
-                                    @if ($patient_service->warrantyCard->warranty_status != 'Không phát hành')
-                                        <a href="/patients/{{ $patient_service->patient_id . '/' . $patient_service->id }}/warranty-card"
-                                           @can('viewAny', \App\Models\WarrantyCard::class)
-                                               class="button-a"
-                                           @else
-                                               class="cannot-button-a"
-                                            @endcan>
-                                            {{ $patient_service->warrantyCard->warranty_status }}
-                                        </a>
-                                    @else
-                                        <a href="/patients/{{ $patient_service->patient_id . '/' . $patient_service->id }}/warranty-card"
-                                           @can('create', \App\Models\WarrantyCard::class)
-                                               class="button-a"
-                                           @else
-                                               class="cannot-button-a"
-                                            @endcan>
-                                            -
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="/patients/{{ $patient_service->patient_id . '/' . $patient_service->id }}/warranty-card"
-                                       @can('create', \App\Models\WarrantyCard::class)
-                                           class="button-a"
-                                       @else
-                                           class="cannot-button-a"
-                                        @endcan>
-                                        -
-                                    </a>
-                                @endif
-                            </td>
+{{--                            <td class="text-center">--}}
+{{--                                @if ($patient_service->warrantyCard)--}}
+{{--                                    @if ($patient_service->warrantyCard->warranty_status != 'Không phát hành')--}}
+{{--                                        <a href="/patients/{{ $patient_service->patient_id . '/' . $patient_service->id }}/warranty-card"--}}
+{{--                                           @can('viewAny', \App\Models\WarrantyCard::class)--}}
+{{--                                               class="button-a"--}}
+{{--                                           @else--}}
+{{--                                               class="cannot-button-a"--}}
+{{--                                            @endcan>--}}
+{{--                                            {{ $patient_service->warrantyCard->warranty_status }}--}}
+{{--                                        </a>--}}
+{{--                                    @else--}}
+{{--                                        <a href="/patients/{{ $patient_service->patient_id . '/' . $patient_service->id }}/warranty-card"--}}
+{{--                                           @can('create', \App\Models\WarrantyCard::class)--}}
+{{--                                               class="button-a"--}}
+{{--                                           @else--}}
+{{--                                               class="cannot-button-a"--}}
+{{--                                            @endcan>--}}
+{{--                                            ---}}
+{{--                                        </a>--}}
+{{--                                    @endif--}}
+{{--                                @else--}}
+{{--                                    <a href="/patients/{{ $patient_service->patient_id . '/' . $patient_service->id }}/warranty-card"--}}
+{{--                                       @can('create', \App\Models\WarrantyCard::class)--}}
+{{--                                           class="button-a"--}}
+{{--                                       @else--}}
+{{--                                           class="cannot-button-a"--}}
+{{--                                        @endcan>--}}
+{{--                                        ---}}
+{{--                                    </a>--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
                             <td class="text-center">{{ $patient_service->employee_name }}</td>
                             <td class="text-center">{{ $patient_service->supporter_name }}</td>
                             <td class="text-right">{{ number_format($patient_service->price, 0, ',', '.')}}</td>

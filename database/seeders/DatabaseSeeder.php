@@ -649,42 +649,42 @@ class DatabaseSeeder extends Seeder
             'note' => '',
         ]);
 
-        WarrantyCard::create([
-            'service_name' => "Thủ thuật 1",
-            'patient_service_id' => 1,
-            'card_id' => "123123",
-            'warranty_status' => 'Không phát hành',
-            'note' => "ghi chu",
-            'clinic_id' => "DK1"
-        ]);
-
-        WarrantyCard::create([
-            'service_name' => "Thủ thuật 2",
-            'patient_service_id' => 2,
-            'card_id' => "111111",
-            'warranty_status' => 'Chưa có thẻ',
-            'note' => "ghi chu",
-            'clinic_id' => "DK1"
-        ]);
-
-        WarrantyCard::create([
-            'service_name' => "Thủ thuật 3",
-            'patient_service_id' => 3,
-
-            'card_id' => "22222",
-            'warranty_status' => 'Đã trả thẻ',
-            'note' => "ghi chu",
-            'clinic_id' => "DK1"
-        ]);
-
-        WarrantyCard::create([
-            'patient_service_id' => 4,
-            'service_name' => "Thủ thuật 4",
-            'card_id' => "44444",
-            'warranty_status' => 'Không phát hành',
-            'note' => "ghi chu",
-            'clinic_id' => "DK1"
-        ]);
+//        WarrantyCard::create([
+//            'service_name' => "Thủ thuật 1",
+//            'patient_service_id' => 1,
+//            'card_id' => "123123",
+//            'warranty_status' => 'Không phát hành',
+//            'note' => "ghi chu",
+//            'clinic_id' => "DK1"
+//        ]);
+//
+//        WarrantyCard::create([
+//            'service_name' => "Thủ thuật 2",
+//            'patient_service_id' => 2,
+//            'card_id' => "111111",
+//            'warranty_status' => 'Chưa có thẻ',
+//            'note' => "ghi chu",
+//            'clinic_id' => "DK1"
+//        ]);
+//
+//        WarrantyCard::create([
+//            'service_name' => "Thủ thuật 3",
+//            'patient_service_id' => 3,
+//
+//            'card_id' => "22222",
+//            'warranty_status' => 'Đã trả thẻ',
+//            'note' => "ghi chu",
+//            'clinic_id' => "DK1"
+//        ]);
+//
+//        WarrantyCard::create([
+//            'patient_service_id' => 4,
+//            'service_name' => "Thủ thuật 4",
+//            'card_id' => "44444",
+//            'warranty_status' => 'Không phát hành',
+//            'note' => "ghi chu",
+//            'clinic_id' => "DK1"
+//        ]);
 
         MaterialGroup::create([
             'clinic_id' => 'DK1',
