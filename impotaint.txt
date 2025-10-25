@@ -221,3 +221,10 @@ Sửa lại ->exists() check unique
 
                     <x-action-button :action_model="\App\Models\Employee::class" exit_url="/employees" :is_create="$is_create"
                                      w_title="w-50"/>
+
+
+Lưu và thoát
+
+Nếu có tiểu sử bệnh thì sẽ có màu đỏ
+
+Tổng hợp theo nhân viên

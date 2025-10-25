@@ -1,18 +1,21 @@
 <div>
     @if($funding_source)
-        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nguồn quỹ" url_1="/funding-sources" create_url="/funding-sources/create"
-                       exit_url="/funding-sources" :action_model="\App\Models\FundingSource::class" url_2="/funding-sources/{{$funding_source->id}}" title_2="{{$funding_source->name}}"/>
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nguồn quỹ" url_1="/funding-sources"
+                       create_url="/funding-sources/create"
+                       exit_url="/funding-sources" :action_model="\App\Models\FundingSource::class"
+                       url_2="/funding-sources/{{$funding_source->id}}" title_2="{{$funding_source->name}}"/>
     @else
-        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nguồn quỹ" url_1="/funding-sources" create_url="/funding-sources/create"
-                       exit_url="/funding-sources" :action_model="\App\Models\FundingSource::class" />
+        <x-all-heading head_title="Dữ liệu" title_1="Danh sách nguồn quỹ" url_1="/funding-sources"
+                       create_url="/funding-sources/create"
+                       exit_url="/funding-sources" :action_model="\App\Models\FundingSource::class"/>
     @endif
 
     <form wire:submit='actionFundingSource'>
         <div class="action-display">
-            <x-all-text-input model="form.name" title="Tên nguồn quỹ"  is_required/>
+            <x-all-text-input model="form.name" title="Tên nguồn quỹ:" is_required/>
             <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
             <x-all-textarea title="Ghi chú:" model="form.note"/>
-            
+
             <div class="w-full flex">
                 <p class="w-35">Hình thức giao dịch:</p>
                 <div class="grid grid-cols-3 space-x-2">
@@ -34,7 +37,7 @@
             <x-status-input model="form.active"/>
             @if ($funding_source)
                 <x-all-last-update-name :name="$funding_source->last_update_name"
-                    :updated_at="$funding_source->updated_at"/>
+                                        :updated_at="$funding_source->updated_at"/>
             @endif
             @if ($successMessage != '')
                 <x-success-message>{{ $successMessage }}</x-success-message>
@@ -42,7 +45,8 @@
             @if ($errorMessage != '')
                 <x-error-message>{{ $errorMessage }}</x-error-message>
             @endif
-            <x-action-button :action_model="\App\Models\FundingSource::class" exit_url="/funding-sources" :is_create="$is_create"/>
+            <x-action-button :action_model="\App\Models\FundingSource::class" exit_url="/funding-sources"
+                             :is_create="$is_create"/>
         </div>
     </form>
 </div>

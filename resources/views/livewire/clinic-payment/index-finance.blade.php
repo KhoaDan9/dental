@@ -1,19 +1,6 @@
 <div>
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Dữ liệu >> <a href="/finances">Nhóm thu/chi</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/finances/create"
-               @can('create', \App\Models\Finance::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-        </div>
-    </div>
+    <x-all-heading head_title="Dữ liệu" title_1="Nhóm thu/chi" url_1="/finances" create_url="/finances/create"
+                   :action_model="\App\Models\Finance::class"/>
 
     @if ($successMessage != '')
         <x-success-message>{{ $successMessage }}</x-success-message>
@@ -55,8 +42,11 @@
                 </td>
                 <td class="">{{ $finance->group }}</td>
                 <td class="">{{ $finance->note }}</td>
-                <td class=" text-center">{{ $finance->clinic_id }}</td>
+                <td class="text-center">{{ $finance->clinic_id }}</td>
                 <td class="text-center">
+                    @if( $finance->name == "Thu tiền từ bệnh nhân" )
+                        <p class="text-gray-400">-</p>
+                    @endif
                     @if ($finance->active)
                         Bật
                     @else
@@ -64,22 +54,9 @@
                     @endif
                 </td>
                 <td class=" text-center">{{ $finance->last_update_name }}</td>
-                <td class=" text-center">
-                    <a href="/finances/{{ $finance->id }}"
-                       @can('update', \App\Models\Finance::class)
-                           class="button-a"
-                       @else
-                           class="cannot-button-a"
-                        @endcan
-                    >sửa</a> |
-                    <button wire:confirm="Bạn có thực sự muốn xóa không?"
-                        wire:click='deleteFinance({{ $finance->id }})'
-                            @can('delete', \App\Models\Finance::class)
-                                class="button-a"
-                            @else
-                                class="cannot-button-a"
-                        @endcan
-                    >xóa</button></td>
+                <x-action-a-button :action_model="\App\Models\Finance::class"
+                                   edit_url="/finances/{{ $finance->id }}"
+                                   delete_event="deleteFinance({{ $finance->id }})"/>
             </tr>
         @endforeach
     </table>

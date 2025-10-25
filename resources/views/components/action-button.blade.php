@@ -10,7 +10,7 @@
                 @else
                     class="cannot-main-button"
             @endcan
-        >Thêm
+        >Lưu và thoát
         </button>
     @else
         <button type="submit"
@@ -19,7 +19,7 @@
                 @else
                     class="cannot-main-button"
             @endcan
-        >Sửa
+        >Lưu và thoát
         </button>
     @endif
     @if($exit_url) <a href="{{ $exit_url }}" class="a-button">Thoát</a> @endif
