@@ -34,7 +34,8 @@
                     <td class=" text-center">{{ $loop->iteration }}</td>
                     <td class="">{{ \Carbon\Carbon::parse($patient->created_at)->format('H:i:s') }}</td>
                     <td class=" text-center"><a href="/patients/{{ $patient->id }}">{{ $patient->id }}</a></td>
-                    <td @if (count($patient->medical_history) || $patient->medical_history_note)
+                    <td
+                        @if($patient->medical_history != null || $patient->medical_history != null)
                             class="text-red-500"
                         @endif>
                         {{ $patient->name }}</td>

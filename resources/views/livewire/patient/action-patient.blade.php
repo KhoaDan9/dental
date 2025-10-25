@@ -24,26 +24,29 @@
                     </label>
                     <div class="flex flex-row">
                         <p class="pl-2">Số điện thoại:</p>
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded ml-1 w-60" wire:model='form.phone'>
+                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded ml-1 w-60"
+                               wire:model='form.phone'>
                     </div>
                     <div class="flex flex-row flex-grow">
                         <p class="pl-2 pr-1">Nguồn:</p>
                         <select class="border-gray-500 border-[0.5px] rounded" wire:model='form.from'>
-                        <option value="Khác">Khác</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="Google">Google</option>
-                        <option value="Tiktok">Tiktok</option>
-                        <option value="Youtube">Youtube</option>
-                    </select>
-                    <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow" placeholder="Ghi chú nguồn"
-                           wire:model='form.from_note'>
+                            <option value="Khác">Khác</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Google">Google</option>
+                            <option value="Tiktok">Tiktok</option>
+                            <option value="Youtube">Youtube</option>
+                        </select>
+                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow"
+                               placeholder="Ghi chú nguồn"
+                               wire:model='form.from_note'>
                     </div>
                 </div>
-               
+
                 <div class="w-full flex items-start">
                     <p class="w-35">Địa chỉ:<span class="text-red-600">*</span></p>
                     <div class="flex flex-grow flex-col">
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow " wire:model='form.address'>
+                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow "
+                               wire:model='form.address'>
                         @error('form.address')
                         <x-error-message>{{ $message }}</x-error-message>
                         @enderror
@@ -55,7 +58,7 @@
                 </div>
                 <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
 
-                
+
                 <div class="w-full flex">
                     <p class="w-35">Tiểu sử bệnh:</p>
                     <div class="grid grid-cols-5 space-x-5">
@@ -106,11 +109,12 @@
                 <x-all-text-input title="" model="form.medical_history_note" placeholder="Bệnh khác"/>
 
                 <x-all-textarea title="Ghi chú:" model="form.note"/>
-                
-                <x-action-button :action_model="\App\Models\Patient::class" exit_url="/patients" is_create="$is_create"/>
-                
-               @if ($successMessage != '')
-                <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
+
+                <x-action-button :action_model="\App\Models\Patient::class" exit_url="/patients"
+                                 is_create="$is_create"/>
+
+                @if ($successMessage != '')
+                    <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
                 @endif
                 @if ($errorMessage != '')
                     <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
