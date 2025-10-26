@@ -13,12 +13,21 @@ class PatientService extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'date' => 'datetime', 
+        'date' => 'datetime',
     ];
 
 
     public function patient(){
         return $this->belongsTo(Patient::class);
+    }
+
+    public function employee(){
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function supporter()
+    {
+        return $this->belongsTo(Employee::class, 'supporter_id');
     }
 
     public function warrantyCard(){

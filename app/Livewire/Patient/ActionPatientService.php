@@ -33,7 +33,6 @@ class ActionPatientService extends Component
 
         $this->form->patient_id = $patient->id;
         $this->employees = Employee::where('active', true)->get();
-
         $this->services = Service::where('active', true)->get();
         $this->diagnoses = Diagnosis::where('active', true)->get();
         if ($value == 'create') {
@@ -52,7 +51,7 @@ class ActionPatientService extends Component
                 $this->form->visit_count = $visit_counts[0]->visit_count + 1;
 
             $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i');
-            $this->form->employee_name = $this->employees[0];
+            $this->form->employee_id = $this->employees[0]->id;
         } else {
             $patient_services = PatientService::where('id', $value)->get();
             $this->patient_service = $patient_services[0];
@@ -60,10 +59,10 @@ class ActionPatientService extends Component
             $this->form->setAttributes($patient_services[0]);
         }
 
-        $this->form->employee_name = $this->employees[0]->name;
+        $this->form->employee_id = $this->employees[0]->id;
     }
 
-    public function actionPatientService()
+    public function save()
     {
         $this->form->validate();
         $this->reset(['successMessage', 'errorMessage']);
@@ -82,6 +81,13 @@ class ActionPatientService extends Component
         }
         catch (QueryException $e){
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
+    }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect('/patients/'.$this->patient->id);
         }
     }
 

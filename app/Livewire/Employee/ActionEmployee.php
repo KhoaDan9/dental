@@ -6,6 +6,7 @@ use App\Livewire\Forms\EmployeeForm;
 use App\Models\Clinic;
 use App\Models\Employee;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -18,6 +19,8 @@ class ActionEmployee extends Component
     public $clinics = [];
     public $is_create = '';
     public $successMessage = '';
+    public $errorMessage = '';
+
 
     public function mount($value)
     {
@@ -35,13 +38,20 @@ class ActionEmployee extends Component
     public function save()
     {
         $this->form->validate();
-        if ($this->is_create) {
-            $this->form->store();
-            $this->successMessage = 'Thêm nhân viên thành công!';
-        } else {
-            $this->form->update();
-            $this->successMessage = 'Sửa thông tin nhân viên thành công!';
+
+        try {
+            if ($this->is_create) {
+                $this->form->store();
+                $this->successMessage = 'Thêm nhân viên thành công!';
+            } else {
+                $this->form->update();
+                $this->successMessage = 'Sửa thông tin nhân viên thành công!';
+            }
         }
+        catch (QueryException $e){
+            $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
+
     }
 
     public function saveAndExit()

@@ -17,6 +17,8 @@ return new class extends Migration
         Schema::create('patient_services', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Patient::class)->constrained()->cascadeOnUpdate();
+            $table->foreignIdFor(Employee::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('supporter_id')->nullable()->constrained('employees')->nullOnDelete();
             $table->string('symptom')->nullable();
             $table->string('service_name')->nullable();
             $table->string('diagnosis')->nullable();

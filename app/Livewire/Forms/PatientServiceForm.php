@@ -25,8 +25,8 @@ class PatientServiceForm extends Form
     public $quantity = 1;
     public $discount1 = 0;
     public $discount2 = 0;
-    public $employee_name = '';
-    public $supporter_name = '-';
+    public $employee_id = '';
+    public $supporter_id = null;
     public $visit_count = '';
     public $date = '';
     public $note = '';
@@ -37,6 +37,9 @@ class PatientServiceForm extends Form
 
     public function store()
     {
+        if($this->supporter_id == $this->employee_id)
+            $this->supporter_id =null;
+
         $patient_service = PatientService::create([
             'patient_id' => $this->patient_id,
             'symptom' => $this->symptom,
@@ -48,8 +51,8 @@ class PatientServiceForm extends Form
             'quantity' => $this->quantity,
             'discount1' => (int) str_replace('.', '', $this->discount1),
             'discount2' => (int) str_replace('.', '', $this->discount2),
-            'employee_name' => $this->employee_name,
-            'supporter_name' => $this->supporter_name,
+            'employee_id' => $this->employee_id,
+            'supporter_id' => $this->supporter_id,
             'note' => $this->note,
             'last_update_name' => Auth::user()->username,
             'date' => $this->date,
@@ -63,13 +66,16 @@ class PatientServiceForm extends Form
 //            ]);
 //        }
 
-        $this->reset(['symptom', 'service_name', 'diagnosis', 'teeth', 'price', 'total_price', 'quantity', 'discount1', 'discount2', 'employee_name', 'supporter_name']);
+        $this->reset(['symptom', 'service_name', 'diagnosis', 'teeth', 'price', 'total_price', 'quantity', 'discount1', 'discount2']);
         $this->id = $patient_service->id;
     }
 
     public function update()
     {
         $this->last_update_name = Auth::user()->username;
+        if($this->supporter_id == $this->employee_id)
+            $this->supporter_id = '';
+
 //        if ($this->warranty_card == false && $this->patient_service->warrantyCard != null) {
 //            $this->patient_service->warrantyCard->delete();
 //        } else if ($this->warranty_card == true && $this->patient_service->warrantyCard == null) {
@@ -90,10 +96,10 @@ class PatientServiceForm extends Form
             'quantity' => $this->quantity,
             'discount1' => (int) str_replace('.', '', $this->discount1),
             'discount2' => (int) str_replace('.', '', $this->discount2),
-            'employee_name' => $this->employee_name,
-            'supporter_name' => $this->supporter_name,
+            'employee_id' => $this->employee_id,
+            'supporter_id' => $this->supporter_id,
             'note' => $this->note,
-            'last_update_name' => Auth::user()->username,
+            'last_update_name' => $this->last_update_name,
             'date' => $this->date,
             'visit_count' => $this->visit_count
             ]
@@ -120,8 +126,8 @@ class PatientServiceForm extends Form
         $this->quantity = $patient_service->quantity;
         $this->discount1 = $patient_service->discount1;
         $this->discount2 = number_format($patient_service->discount2, 0, ',', '.');
-        $this->employee_name = $patient_service->employee_name;
-        $this->supporter_name = $patient_service->supporter_name;
+        $this->employee_id = $patient_service->employee_id;
+        $this->supporter_id = $patient_service->supporter_id;
         $this->last_update_name = $patient_service->last_update_name;
         $this->date = Carbon::parse($patient_service->date)->format('Y-m-d H:i');
 //        $this->warranty_card = $has_warranty_card;

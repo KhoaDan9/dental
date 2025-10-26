@@ -1,152 +1,71 @@
 <div>
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300 mb-2">
-        <div>
-        <span>Dữ liệu >> <a href="/patients">Hồ sơ bệnh nhân</a> >>
-                <a href="/patients/{{ $patient->id }}">{{ $patient->clinic_id }}.{{ $patient->id }}</a> >>
-                <a href="#">Thủ thuật điều trị</a>
-        </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/patients/"
-               @can('create', \App\Models\PatientService::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-            <a href="/patients/{{ $patient->id }}" class="a-button">Thoát</a>
-        </div>
-    </div>
+{{--    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients"--}}
+{{--                   create_url="/patients/{{ $patient->id }}/create"--}}
+{{--                   url_2="/patients/{{ $patient->id }}" title_2="{{ $patient->clinic_id }}.{{ $patient->id }}"--}}
+{{--                   title_3="Thủ thuật điều trị" exit_url="/patients"--}}
+{{--                   :action_model="\App\Models\Patient::class"/>--}}
 
-    <form wire:submit='actionPatientService'>
+    <form wire:submit='save'>
         <div class="flex">
-            <div class="flex flex-wrap px-2 space-y-2 max-w-250">
-                <div class="w-full flex">
-                    <p for="" class="w-40">Tên bệnh nhân:</p>
-                    <input type="text" class="px-1 border-gray-500 border-1 flex-grow" value="{{ $patient->name }}">
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Thời gian thực hiện:</p>
-                    <input type="datetime-local" class="px-1 border-gray-500 border-1 flex-grow "
-                           wire:model='form.date'>
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Triệu chứng:</p>
-                    <input type="text" class="px-1  border-gray-500 border-1 flex-grow" wire:model='form.symptom'>
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Chẩn đoán:</p>
-                    <input type="text" class="px-1  border-gray-500 border-1 flex-grow" wire:model='form.diagnosis'>
-                    <button class="main-button mx-1" type="button" modal-show-id="diagnosis-modal">Chọn</button>
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Thủ thuật điều trị:<span class="text-red-600">*</span></p>
-                    <div class="flex flex-grow flex-col">
-                        <div class="flex flex-grow">
-                            <input type="text" class="px-1  border-gray-500 border-1 flex-grow"
-                                   wire:model='form.service_name' readonly>
-                            <button class="main-button mx-1" type="button" modal-show-id="service-modal">Chọn</button>
-                        </div>
-                        @error('form.service_name')
-                        <x-error-message>{{ $message }}</x-error-message>
-                        @enderror
-                    </div>
+            <div class="action-display">
+                <x-all-show-text w_title="w-40" title="Tên bệnh nhân:" text="{{ $patient->name }}"/>
+                <x-all-text-input w_title="w-40" title="Thời gian thực hiện:" model="form.date" type="datetime-local"/>
+                <x-all-text-input w_title="w-40" title="Triệu chứng:" model="form.symptom"/>
+                <x-all-text-input w_title="w-40" title="Chẩn đoán:" model="form.diagnosis"/>
+                <x-all-modal-input w_title="w-40" title="Thủ thuật điều trị:" model="form.service_name" modal_show_id="service-modal" is_required="true"/>
 
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Vị trí răng:</p>
-                    <input type="text" class="px-1  border-gray-500 border-1 flex-grow" wire:model='form.teeth'>
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Đơn giá:</p>
-                    <input type="text" class="px-1  border-gray-500 border-1 flex-grow" wire:model='form.price'
-                           disabled>
-                </div>
-                    <div class="flex space-x-4 w-full ml-40">
-                        <div class="">
-                            <p>Số lượng:</p>
-                            <input type="number" class="border-gray-500 border-1 px-1 w-30"
-                                   wire:model.live.debounce.500='form.quantity'>
-                        </div>
-                        <div class="">
-                            <p>Khuyến mại (%):</p>
-                            <input type="text" class="border-gray-500 border-1 px-1"
-                                   wire:model.live.debounce.500='form.discount1'>
-                        </div>
-                        <div class="">
-                            <p>Khuyến mại (đ):</p>
-                            <input type="text" class="border-gray-500 border-1 number-input px-1"
-                                   wire:model.live.debounce.500='form.discount2'>
-                        </div>
-                        <div class="flex-1">
-                            <p>Thành tiền</p>
-                            <input type="text" class="border-gray-500 border-1 px-1 w-full"
-                                   wire:model='form.total_price' disabled>
-                        </div>
+                <x-all-text-input w_title="w-40" title="Vị trí răng:" model="form.teeth"/>
+                <x-all-text-input w_title="w-40" title="Đơn giá:" model="form.price" disabled/>
+
+
+                <div class="flex space-x-4 w-full ml-40">
+                    <div class="">
+                        <p>Số lượng:</p>
+                        <input type="number" class="border-gray-500 border-[0.5px] rounded px-1 w-30"
+                               wire:model.live.debounce.500='form.quantity'>
                     </div>
-                <div class="w-full flex">
-                    <p class="w-40">Bác sỹ thực hiện:</p>
-                    <select name="" id="" class="px-1 border-gray-500 border-1 flex-grow"
-                            wire:model='form.employee_name'>
-                        @foreach ($employees as $employee)
-                            <option value="{{ $employee->name }}">{{ $employee->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="">
+                        <p>Khuyến mại (%):</p>
+                        <input type="text" class="border-gray-500 border-[0.5px] rounded px-1"
+                               wire:model.live.debounce.500='form.discount1'>
+                    </div>
+                    <div class="">
+                        <p>Khuyến mại (đ):</p>
+                        <input type="text" class="border-gray-500 border-[0.5px] rounded number-input px-1"
+                               wire:model.live.debounce.500='form.discount2'>
+                    </div>
+                    <div class="flex-1">
+                        <p>Thành tiền</p>
+                        <input type="text" class="border-gray-500 border-[0.5px] rounded px-1 w-full"
+                               wire:model='form.total_price' disabled>
+                    </div>
                 </div>
-                <div class="w-full flex">
-                    <p class="w-40">Trợ thủ</p>
-                    <select name="" id="" class="px-1 border-gray-500 border-1 flex-grow"
-                            wire:model='form.supporter_name'>
-                        <option value="">-</option>
-                        @foreach ($employees as $employee)
-                            <option value="{{ $employee->name }}">{{ $employee->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="w-full flex">
-                    <p class="w-40">Ghi chú</p>
-                    <textarea type="text" class="px-1 border-gray-500 border-1 flex-grow h-20"
-                              wire:model='form.note'></textarea>
-                </div>
-{{--                <div class="w-full flex">--}}
-{{--                    <p class="w-40"></p>--}}
-{{--                    <label for="warranty_card" class="flex items-center">--}}
-{{--                        <input type="checkbox" id="warranty_card" wire:model='form.warranty_card'>--}}
-{{--                        Dịch vụ/thủ thuật có thẻ bảo hành--}}
-{{--                    </label>--}}
-{{--                </div>--}}
+                <x-all-select-input w_title="w-40" model="form.employee_id" title="Bác sỹ thực hiện:" :values="$employees"/>
+                <x-all-select-input w_title="w-40" model="form.supporter_id" title="Trợ thủ:" :values="$employees" val_empty="true"/>
+
+                <x-all-textarea w_title="w-40" title="Ghi chú:" model="form.note"/>
+                @if ($patient_service)
+                    <x-all-last-update-name w_title="w-40" :name="$patient_service->last_update_name"
+                                            :updated_at="$patient_service->updated_at"/>
+                @endif
+                @if ($successMessage != '')
+                    <x-success-message class="pl-40">{{ $successMessage }}</x-success-message>
+                @endif
+
+                @if ($errorMessage != '')
+                    <x-error-message class="pl-40">{{ $errorMessage }}</x-error-message>
+                @endif
+                {{--                <div class="w-full flex">--}}
+                {{--                    <p class="w-40"></p>--}}
+                {{--                    <label for="warranty_card" class="flex items-center">--}}
+                {{--                        <input type="checkbox" id="warranty_card" wire:model='form.warranty_card'>--}}
+                {{--                        Dịch vụ/thủ thuật có thẻ bảo hành--}}
+                {{--                    </label>--}}
+                {{--                </div>--}}
+                <x-action-button w_title="w-40" :action_model="\App\Models\PatientService::class" exit_url="/patients/{{ $patient->id }}"
+                                 :is_create="$is_create"/>
             </div>
         </div>
-        <div class="w-full flex pt-4 space-x-1">
-            <p class="w-40"></p>
-            @if ($is_create == 'create')
-                <button type="submit"
-                        @can('create', \App\Models\PatientService::class)
-                            class="main-button"
-                        @else
-                            class="cannot-main-button"
-                    @endcan
-                >Thêm
-                </button>
-            @else
-                <button type="submit"
-                        @can('update', \App\Models\PatientService::class)
-                            class="main-button"
-                        @else
-                            class="cannot-main-button"
-                    @endcan
-                >Sửa
-                </button>
-            @endif
-            <a href="/patients/{{ $patient->id }}" class="a-button">Thoát</a>
-        </div>
-        <div class="w-full flex pt-4 space-x-1">
-            <p class="w-40"></p>
-            @if ($successMessage != '')
-                <x-success-message>{{ $successMessage }}</x-success-message>
-            @endif
-        </div>
-
 
     </form>
     <livewire:patient.index-patient-service :patient_id="$patient->id"/>

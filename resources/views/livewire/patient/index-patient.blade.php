@@ -1,6 +1,6 @@
 <div>
-    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients" create_url="/employees/create"
-                   :action_model="\App\Models\Employee::class" search_model="search_string" search_date="search_date"/>
+    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients" create_url="/patients/create"
+                   :action_model="\App\Models\Patient::class" search_model="search_string" search_date="search_date"/>
         @cannot('viewAny', \App\Models\Patient::class)
             <x-cannot-permission/>
         @else

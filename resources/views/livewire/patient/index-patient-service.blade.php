@@ -78,8 +78,14 @@
 {{--                                    </a>--}}
 {{--                                @endif--}}
 {{--                            </td>--}}
-                            <td class="text-center">{{ $patient_service->employee_name }}</td>
-                            <td class="text-center">{{ $patient_service->supporter_name }}</td>
+                            <td class="text-center">{{ $patient_service->employee->name }}</td>
+                            <td class="text-center">
+                                @if($patient_service->supporter)
+                                    {{ $patient_service->supporter->name }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="text-right">{{ number_format($patient_service->price, 0, ',', '.')}}</td>
                             <td class="text-center">{{ $patient_service->quantity }}</td>
                             <td class="text-right">
