@@ -36,7 +36,7 @@ class ActionUser extends Component
             $this->form->setAttributes($this->user);
         }
     }
-    public function actionUser()
+    public function save()
     {
         $this->form->validate();
         $this->errorMessage = '';
@@ -54,6 +54,14 @@ class ActionUser extends Component
             }
         } catch (QueryException $e) {
             $this->errorMessage = 'Đã xảy ra lỗi. Vui lòng liên hệ lại với chúng tôi!';
+        }
+    }
+
+    public function saveAndExit()
+    {
+        $this->save();
+        if (!$this->errorMessage) {
+            $this->redirect('/users');
         }
     }
 
