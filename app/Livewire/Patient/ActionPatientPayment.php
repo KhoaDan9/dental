@@ -19,13 +19,14 @@ class ActionPatientPayment extends Component
 {
     public Patient $patient;
     public PatientPaymentForm $form;
+    public $patient_payment = '';
     public $employees = [];
-    public $visit_counts = [];
+    public $visit_count = '';
     public $funding_sources = [];
     public $successMessage = '';
     public $errorMessage = '';
     public $error2Message = '';
-    public $transactionVoucerErrorMessage = '';
+    public $transactionVoucherErrorMessage = '';
     public $is_create = '';
     public $debt = '';
     public $total = '';
@@ -35,19 +36,15 @@ class ActionPatientPayment extends Component
     {
         $this->patient = $patient;
 
-        $this->visit_counts = PatientService::where('patient_id', $this->patient->id)
-            ->groupBy('visit_count')
-            ->orderBy('visit_count', 'desc')
-            ->pluck('visit_count');
+        $this->visit_count = PatientService::where('patient_id', $this->patient->id)
+            ->max('visit_count');
+        if ($this->visit_count == null)
+            return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thanh toán!';
 
-        if(count($this->visit_counts) == 0)
-            return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm thanh toán!';
-
-        $pay_employee_name = PatientService::where('patient_id', $this->patient->id)->groupBy('employee_name')->get('employee_name');
-        $this->employees = Employee::where('active', 1)->whereIn('name', $pay_employee_name->toArray())->get();
+        $pay_employee_id = PatientService::where('patient_id', $this->patient->id)->groupBy('employee_id')->get('employee_id');
+        $this->employees = Employee::where('active', 1)->whereIn('id', $pay_employee_id->toArray())->get();
         $this->form->clinic_id = $this->patient->clinic_id;
         $this->form->patient_id = $this->patient->id;
-
 
         $this->getAllPayment();
 
@@ -55,10 +52,10 @@ class ActionPatientPayment extends Component
             $this->is_create = 'create';
             $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i');
             $this->form->employee_name = $this->employees[0]->name;
-            $this->form->visit_count = $this->visit_counts[0];
+            $this->form->visit_count = $this->visit_count;
         } else {
-            $patient_payment = PatientPayment::find($value);
-            $this->form->setAttributes($patient_payment);
+            $this->patient_payment = PatientPayment::find($value);
+            $this->form->setAttributes($this->patient_payment);
         }
         $this->updatedFormTypeOfTransaction();
     }
@@ -69,7 +66,7 @@ class ActionPatientPayment extends Component
         if (count($this->funding_sources) > 0)
             $this->form->funding_source_id = $this->funding_sources[0]->id;
         else
-            $this->transactionVoucerErrorMessage = 'Hiện đang không có nguồn quỹ liên quan!';
+            $this->transactionVoucherErrorMessage = 'Hiện đang không có nguồn quỹ liên quan!';
     }
 
     public function convertToString($value)
@@ -85,13 +82,15 @@ class ActionPatientPayment extends Component
         $this->debt = $this->convertToString($total_price - $payments);
         $this->total = $this->convertToString($total_price);
         $this->pay = $this->convertToString($payments);
+    }
 
+    public function getDebit(){
         $this->form->paid = $this->debt;
     }
 
-    public function actionPayment()
+    public function save()
     {
-        $this->reset(['successMessage', 'errorMessage', 'transactionVoucerErrorMessage']);
+        $this->reset(['successMessage', 'errorMessage', 'transactionVoucherErrorMessage']);
         $this->form->validate();
 
         try {
@@ -106,6 +105,13 @@ class ActionPatientPayment extends Component
             $this->dispatch('refreshIndexPatientPayment');
         } catch (QueryException $e) {
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
+    }
+
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect('/patients/' . $this->patient->id);
         }
     }
     public function render()
