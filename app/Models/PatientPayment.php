@@ -30,4 +30,9 @@ class PatientPayment extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

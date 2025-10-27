@@ -63,7 +63,7 @@
                             <td class="w-40 text-center">{{ $appointment->patient->phone }}</td>
                             <td class="w-40 text-wrap break-words ">{{ $appointment->detail }}</td>
                             <td class="w-40">{{ $appointment->note }}</td>
-                            <td class="w-30 text-center">{{ $appointment->employee_name }}</td>
+                            <td class="w-30 text-center">{{ $appointment->employee->name }}</td>
                             <td class=" text-center">{{ $appointment->clinic_id }}</td>
                             <td class="w-30 text-center">
                                 <a href="/patients/{{ $appointment->patient->id }}/appointment-status/{{ $appointment->id }}"

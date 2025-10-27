@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AppointmentObserver
 {
-    public function createLog(Appointment $appointment, $action){
+    public function createLog(Appointment $appointment, $action)
+    {
         $user_id = Auth::user()->id;
         $date = Carbon::parse($appointment->date)->format('d/m/Y');
         $time = Carbon::parse($appointment->date)->format('H:i');
         $detail = "Họ tên: " . $appointment->patient->name . "; Ngày hẹn: $date; Giờ hẹn: $time; Trạng thái: $appointment->status;
-            Nội dung hẹn: $appointment->detail; Nhân viên: $appointment->employee_name; Ghi chú: $appointment->note";
+            Nội dung hẹn: $appointment->detail; Nhân viên: $appointment->employee->name; Ghi chú: $appointment->note";
 
         DataLog::create([
             'clinic_id' => $appointment->clinic_id,

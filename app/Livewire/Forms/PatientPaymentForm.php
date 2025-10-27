@@ -19,7 +19,7 @@ class PatientPaymentForm extends Form
 
     #[Validate('required', message: 'Vui lòng nhập số tiền.')]
     public $paid = 0;
-    public $employee_name = '';
+    public $employee_id = '';
     public $last_update_name = '';
     public $date = '';
     public $visit_count = '';
@@ -34,7 +34,7 @@ class PatientPaymentForm extends Form
         $this->detail = $patient_payment->detail;
         $this->paid = number_format($patient_payment->paid, 0, ',', '.');
         $this->date = Carbon::parse($patient_payment->date)->format('Y-m-d H:i:s');
-        $this->employee_name = $patient_payment->employee_name;
+        $this->employee_id = $patient_payment->employee_id;
         $this->type_of_transaction = $patient_payment->type_of_transaction;
         $this->funding_source_id = $patient_payment->funding_source_id;
         $this->visit_count = $patient_payment->visit_count;
@@ -49,7 +49,7 @@ class PatientPaymentForm extends Form
             'patient_id' => $this->patient_id,
             'detail' => $this->detail,
             'paid' => (int) str_replace('.', '', $this->paid),
-            'employee_name' => $this->employee_name,
+            'employee_id' => $this->employee_id,
             'funding_source_id' => $this->funding_source_id,
             'type_of_transaction' => $this->type_of_transaction,
             'note' => $this->note,
@@ -57,7 +57,7 @@ class PatientPaymentForm extends Form
             'visit_count' => $this->visit_count,
             'last_update_name' => Auth::user()->username
         ]);
-        $this->reset([ 'note', 'paid']);
+        $this->reset(['note', 'paid']);
     }
 
     public function update()
@@ -66,7 +66,7 @@ class PatientPaymentForm extends Form
             [
                 'detail' => $this->detail,
                 'paid' => (int) str_replace('.', '', $this->paid),
-                'employee_name' => $this->employee_name,
+                'employee_id' => $this->employee_id,
                 'type_of_transaction' => $this->type_of_transaction,
                 'funding_source_id' => $this->funding_source_id,
                 'note' => $this->note,

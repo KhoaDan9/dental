@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use App\Models\FundingSource;
 use App\Models\Patient;
 use Illuminate\Database\Migrations\Migration;
@@ -19,9 +20,9 @@ return new class extends Migration
             $table->foreign('clinic_id')->references('id')->on('clinics')->cascadeOnUpdate();
             $table->foreignIdFor(Patient::class)->constrained()->cascadeOnUpdate();
             $table->foreignIdFor(FundingSource::class)->constrained()->cascadeOnUpdate();
+            $table->foreignIdFor(Employee::class)->constrained()->cascadeOnUpdate();
             $table->datetime('date');
             $table->tinyInteger('visit_count')->nullable();
-            $table->string('employee_name');
             $table->string('type_of_transaction');
             $table->integer('paid')->default(0);
             $table->string('detail');

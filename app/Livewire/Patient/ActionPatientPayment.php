@@ -19,9 +19,10 @@ class ActionPatientPayment extends Component
 {
     public Patient $patient;
     public PatientPaymentForm $form;
-    public $patient_payment = '';
+    public PatientPayment $patient_payment;
     public $employees = [];
     public $visit_count = '';
+    public $date = '';
     public $funding_sources = [];
     public $successMessage = '';
     public $errorMessage = '';
@@ -39,6 +40,11 @@ class ActionPatientPayment extends Component
         $patient_service = PatientService::where('patient_id', $this->patient->id)
             ->orderByDesc('visit_count')->get();
         $this->visit_count = $patient_service[0]->visit_count;
+        $this->date = Carbon::parse($patient_service[0]->date)->format('Y-m-d');
+        // dd($patient_service[0]);
+        // dd($this->date);
+
+
         if ($this->visit_count == null)
             return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thanh toán!';
 
@@ -49,13 +55,13 @@ class ActionPatientPayment extends Component
 
         $this->getAllPayment();
 
-        if(Carbon::parse($patient_service[0]->date)->timezone('Asia/Ho_Chi_Minh')->format('Y-m-d') != Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d'))
+        if ($this->date != Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d'))
             return $this->errorMessage = 'Ngày thanh toán phải là ngày thực hiện thủ thuật!';
 
         if ($value == 'create') {
             $this->is_create = 'create';
             $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
-            $this->form->employee_name = $this->employees[0]->name;
+            $this->form->employee_id = $this->employees[0]->id;
             $this->form->visit_count = $this->visit_count;
         } else {
             $this->patient_payment = PatientPayment::find($value);
@@ -88,7 +94,8 @@ class ActionPatientPayment extends Component
         $this->pay = $this->convertToString($payments);
     }
 
-    public function getDebit(){
+    public function getDebit()
+    {
         $this->form->paid = $this->debt;
     }
 
@@ -96,25 +103,28 @@ class ActionPatientPayment extends Component
     {
         $this->reset(['successMessage', 'errorMessage', 'transactionVoucherErrorMessage']);
         $this->form->validate();
+        if (Carbon::parse($this->date)->timezone('Asia/Ho_Chi_Minh')->format('Y-m-d') != Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d'))
+            return $this->errorMessage = 'Ngày thanh toán phải là ngày thực hiện thủ thuật!';
 
-        try {
-            if ($this->is_create == 'create') {
-                $this->form->store();
-                $this->successMessage = "Thêm thông tin thanh toán thành công!";
-            } else {
-                $this->form->update();
-                $this->successMessage = "Sửa thông tin thanh toán thành công!";
-            }
-            $this->getAllPayment();
-            $this->dispatch('refreshIndexPatientPayment');
-        } catch (QueryException $e) {
-            $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        // try {
+        if ($this->is_create == 'create') {
+            $this->form->store();
+            $this->successMessage = "Thêm thông tin thanh toán thành công!";
+        } else {
+            $this->form->update();
+            $this->successMessage = "Sửa thông tin thanh toán thành công!";
         }
+        $this->getAllPayment();
+        $this->dispatch('refreshIndexPatientPayment');
+        // } catch (QueryException $e) {
+        //     $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        // }
     }
 
-    public function saveAndExit(){
+    public function saveAndExit()
+    {
         $this->save();
-        if(!$this->errorMessage){
+        if (!$this->errorMessage) {
             $this->redirect('/patients/' . $this->patient->id);
         }
     }

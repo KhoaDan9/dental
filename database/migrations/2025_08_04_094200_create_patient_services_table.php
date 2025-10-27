@@ -28,8 +28,6 @@ return new class extends Migration
             $table->integer('quantity');
             $table->tinyInteger('discount1')->default(0);
             $table->integer('discount2')->default(0);
-            $table->string('employee_name')->nullable();
-            $table->string('supporter_name')->nullable();
             $table->string('last_update_name')->default('admin');
             $table->string('note')->nullable();
             $table->datetime('date');

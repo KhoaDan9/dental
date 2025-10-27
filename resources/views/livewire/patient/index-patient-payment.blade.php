@@ -28,7 +28,7 @@
                     <td class=" text-center">{{ \Carbon\Carbon::parse($patient_payment->date)->format('d/m/Y') }}</td>
                     <td class=" text-center">{{ \Carbon\Carbon::parse($patient_payment->date)->format('H:i') }}</td>
                     <td class=" text-right w-30">{{  number_format($patient_payment->paid , 0, ',', '.')}}</td>
-                    <td class=" text-center ">{{ $patient_payment->employee_name }}</td>
+                    <td class="whitespace-nowrap text-center ">{{ $patient_payment->employee->name }}</td>
                     <td class="w-50">{{ $patient_payment->detail }}</td>
                     <td class="w-80">{{ $patient_payment->note }}</td>
                     <td class="w-30 text-center">{{ $patient_payment->last_update_name }}</td>
