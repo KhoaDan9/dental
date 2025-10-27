@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('clinic_id');
             $table->foreign('clinic_id')->references('id')->on('clinics')->cascadeOnUpdate();
             $table->foreignIdFor(Patient::class)->constrained()->cascadeOnUpdate();
+            $table->text('name');
             $table->text('detail');
             $table->text('note')->nullable();
             $table->string('last_update_name')->default('admin');

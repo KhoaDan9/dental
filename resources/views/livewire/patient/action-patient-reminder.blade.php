@@ -8,7 +8,7 @@
     @if($error2Message)
         <x-error-message>{{ $error2Message }}</x-error-message>
     @else
-        <form wire:submit='actionPatientReminder'>
+        <form wire:submit='save'>
             <div class="action-display">
                 <x-all-show-text title="Tên bệnh nhân:" text="{{ $patient->name }}"/>
                 <x-all-show-text title="Lần khám:" text="{{ $visit_count }}" disabled/>
@@ -18,27 +18,23 @@
                     <p for="" class="w-35"></p>
                     <button class="main-button" type="button" modal-show-id="reminder-modal">Chọn mẫu</button>
                 </div>
-                    <x-all-textarea title="Ghi chú:" model="form.note"/>
-                    @if ($patient_reminder)
-                        <x-all-last-update-name :name="$patient_reminder->last_update_name"
-                                                :updated_at="$patient_reminder->updated_at"/>
-                    @endif
-               
-                    @if ($successMessage != '')
-                        <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
-                    @endif
+                <x-all-textarea title="Ghi chú:" model="form.note"/>
+                @if ($patient_reminder)
+                    <x-all-last-update-name :name="$patient_reminder->last_update_name"
+                                            :updated_at="$patient_reminder->updated_at"/>
+                @endif
 
-                    @if ($errorMessage != '')
-                        <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
-                    @endif
-                    <x-action-button :action_model="\App\Models\PatientReminder::class"
-                                     exit_url="/patients/{{ $patient->id }}"
-                                     :is_create="$is_create"/>
+                @if ($successMessage != '')
+                    <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
+                @endif
 
-             
+                @if ($errorMessage != '')
+                    <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
+                @endif
+                <x-action-button :action_model="\App\Models\PatientReminder::class"
+                                 exit_url="/patients/{{ $patient->id }}"
+                                 :is_create="$is_create"/>
             </div>
-
-
         </form>
 
         <div id="reminder-modal" class="modal-parent-div">

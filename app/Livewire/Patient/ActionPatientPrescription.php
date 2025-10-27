@@ -18,7 +18,7 @@ class ActionPatientPrescription extends Component
     public PatientPrescriptionForm $form;
     public Patient $patient;
     public $patient_prescription = '';
-    public $visit_counts = [];
+    public $visit_count = '';
     public $successMessage = '';
     public $errorMessage = '';
     public $error2Message = '';
@@ -29,17 +29,15 @@ class ActionPatientPrescription extends Component
         $this->form->clinic_id = $patient->clinic_id;
         $this->form->patient_id = $patient->id;
 
-        $this->visit_counts = PatientService::where('patient_id', $this->patient->id)
-            ->groupBy('visit_count')
-            ->orderBy('visit_count', 'desc')
-            ->pluck('visit_count');
-
-        if(count($this->visit_counts) == 0)
+        $this->visit_count = PatientService::where('patient_id', $this->patient->id)
+            ->max('visit_count');
+        if ($this->visit_count == null)
             return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm đơn thuốc!';
 
         if ($value == 'create') {
             $this->is_create = 'create';
-            $this->form->visit_count = $this->visit_counts[0];
+            $this->form->visit_count = $this->visit_count;
+            $this->form->name = PatientService::where('patient_id', $this->patient->id)->orderBy('date', 'desc')->first()->service_name;
         } else {
             $patient_prescriptions = PatientPrescription::where('id', $value)->get();
             $this->patient_prescription = $patient_prescriptions[0];
@@ -75,7 +73,7 @@ class ActionPatientPrescription extends Component
     public function saveAndExit(){
         $this->save();
         if(!$this->errorMessage){
-            $this->redirect();
+            $this->redirect('/patients/' . $this->patient->id);
         }
     }
 
