@@ -31,7 +31,7 @@
                         <td class=" text-center">{{ \Carbon\Carbon::parse($patient_appointment->date)->format('H:i') }}</td>
                         <td class="w-40 text-wrap ">Lịch hẹn cho lần khám {{ $patient_appointment->visit_count }}</td>
                         <td class="w-140 break-words ">{{ $patient_appointment->detail }}</td>
-                        <td class="w-40 text-wrap ">{{ $patient_appointment->employee_name }}</td>
+                        <td class="w-40 text-wrap ">{{ $patient_appointment->employee->name }}</td>
                         <td class="w-40">{{ $patient_appointment->note }}</td>
                         <td class="w-30 text-center">{{ $patient_appointment->last_update_name }}</td>
                         <td class=" text-center"><a

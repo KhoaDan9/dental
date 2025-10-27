@@ -21,7 +21,7 @@ class PatientAppointmentForm extends Form
     public $note = '';
 
 
-      public function store()
+    public function store()
     {
         Appointment::create([
             'patient_id' => $this->patient_id,
@@ -53,7 +53,7 @@ class PatientAppointmentForm extends Form
     {
         $this->last_update_name = Auth::user()->username;
         $this->appointment->update(
-            $this->only(['detail', 'employee_id', 'date', 'visit_count', 'last_update_name','note'])
+            $this->only(['detail', 'employee_id', 'date', 'visit_count', 'last_update_name', 'note'])
         );
     }
 }

@@ -78,16 +78,16 @@ class ActionPatientService extends Component
                 $this->dispatch('refreshIndexPatientService');
                 $this->successMessage = 'Sửa thông tin thủ thuật thành công!';
             }
-        }
-        catch (QueryException $e){
+        } catch (QueryException $e) {
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
     }
 
-    public function saveAndExit(){
+    public function saveAndExit()
+    {
         $this->save();
-        if(!$this->errorMessage){
-            $this->redirect('/patients/'.$this->patient->id);
+        if (!$this->errorMessage) {
+            $this->redirect('/patients/' . $this->patient->id);
         }
     }
 

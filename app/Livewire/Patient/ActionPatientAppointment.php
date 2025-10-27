@@ -9,7 +9,6 @@ use App\Models\Patient;
 use App\Models\PatientService;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -21,22 +20,17 @@ class ActionPatientAppointment extends Component
     public Appointment $appointment;
     public PatientAppointmentForm $form;
     public $employees = [];
-    public $visit_counts = [];
+    public $visit_count = '';
     public $successMessage = '';
     public $errorMessage = '';
     public $error2Message = '';
     public $is_create = '';
     public function mount(Patient $patient, $value)
     {
-
-
         $this->patient = $patient;
-        $this->visit_counts = PatientService::where('patient_id', $this->patient->id)
-            ->groupBy('visit_count')
-            ->orderBy('visit_count', 'desc')
-            ->pluck('visit_count');
-
-        if(count($this->visit_counts) == 0)
+        $this->visit_count = PatientService::where('patient_id', $this->patient->id)
+            ->max('visit_count');
+        if ($this->visit_count == null)
             return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm lịch hẹn!';
 
         $this->employees = Employee::where('active', 1)->get();
@@ -44,11 +38,11 @@ class ActionPatientAppointment extends Component
         if ($value == 'create') {
             $this->is_create = 'create';
 
-            $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->addDays(3)->setTime(8, 0, 0)->format('Y-m-d H:i:s');
+            $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->addDays(3)->setTime(9, 0, 0)->format('Y-m-d H:i:s');
             $this->form->patient_id = $this->patient->id;
             $this->form->clinic_id = $this->patient->clinic_id;
-            $this->form->visit_count = $this->visit_counts[0];
-            $this->form->employee_name = $this->employees[0]->name;
+            $this->form->visit_count = $this->visit_count;
+            $this->form->employee_id = $this->employees[0]->id;
         } else {
             $appointment = Appointment::find($value);
 
@@ -61,7 +55,7 @@ class ActionPatientAppointment extends Component
     public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
-//         try {
+        try {
             if ($this->is_create == 'create') {
                 $this->form->store();
                 $this->successMessage = "Thêm lịch hẹn thành công!";
@@ -70,15 +64,16 @@ class ActionPatientAppointment extends Component
                 $this->successMessage = "Sửa thông tin lịch hẹn thành công!";
             }
             $this->dispatch('refreshIndexPatientAppointment');
-//         } catch (QueryException $e) {
-//             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
-//         }
+        } catch (QueryException $e) {
+            $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
+        }
     }
 
-    public function saveAndExit(){
+    public function saveAndExit()
+    {
         $this->save();
-        if (!$this->errorMessage){
-            $this->redirect('/patients/'.$this->patient->id);
+        if (!$this->errorMessage) {
+            $this->redirect('/patients/' . $this->patient->id);
         }
     }
 
