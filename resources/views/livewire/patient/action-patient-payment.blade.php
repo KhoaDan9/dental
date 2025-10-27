@@ -12,7 +12,7 @@
                 <div class="action-display">
                     <x-all-show-text w_title="w-40" title="Tên bệnh nhân:" text="{{ $patient->name }}"/>
                     <x-all-show-text w_title="w-40" title="Lần khám:" text="{{ $visit_count }}" disabled/>
-                    <x-all-text-input w_title="w-40" title="Thời gian thanh toán:" model="form.date" type="datetime-local"/>
+                    <x-all-text-input w_title="w-40" title="Thời gian thanh toán:" model="form.date" type="datetime-local" disabled/>
                     <x-all-select-input w_title="w-40" model="form.employee_id" title="Thu cho bác sỹ:" :values="$employees"/>
 
                     <div class="w-full flex">

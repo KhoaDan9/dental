@@ -36,8 +36,9 @@ class ActionPatientPayment extends Component
     {
         $this->patient = $patient;
 
-        $this->visit_count = PatientService::where('patient_id', $this->patient->id)
-            ->max('visit_count');
+        $patient_service = PatientService::where('patient_id', $this->patient->id)
+            ->orderByDesc('visit_count')->get();
+        $this->visit_count = $patient_service[0]->visit_count;
         if ($this->visit_count == null)
             return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thanh toán!';
 
@@ -48,9 +49,12 @@ class ActionPatientPayment extends Component
 
         $this->getAllPayment();
 
+        if(Carbon::parse($patient_service[0]->date)->timezone('Asia/Ho_Chi_Minh')->format('Y-m-d') != Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d'))
+            return $this->errorMessage = 'Ngày thanh toán phải là ngày thực hiện thủ thuật!';
+
         if ($value == 'create') {
             $this->is_create = 'create';
-            $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i');
+            $this->form->date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
             $this->form->employee_name = $this->employees[0]->name;
             $this->form->visit_count = $this->visit_count;
         } else {
