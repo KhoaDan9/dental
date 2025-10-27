@@ -20,8 +20,8 @@
                 @foreach ($patient_reminders as $patient_reminder)
                     <tr>
                         <td class=" text-center">{{ $loop->iteration }}</td>
-                        <td class="text-center">{{ \Carbon\Carbon::parse($patient_reminder->created_at)->format('d/m/Y')   }}</td>
-                        <td class="text-center">{{ \Carbon\Carbon::parse($patient_reminder->created_at)->format('H:i')   }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($patient_reminder->created_at)->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y')   }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($patient_reminder->created_at)->timezone('Asia/Ho_Chi_Minh')->format('H:i')   }}</td>
                         <td class="">Lời dặn cho lần khám thứ {{ $patient_reminder->visit_count }}</td>
                         <td class="">{{ $patient_reminder->note }}</td>
                         <td class=" text-center">{{ $patient_reminder->last_update_name }}</td>

@@ -18,7 +18,7 @@ class ActionPatientReminder extends Component
     public Patient $patient;
     public PatientReminder $patient_reminder;
     public PatientReminderForm $form;
-    public $visit_counts = [];
+    public $visit_count = '';
     public $reminders = [];
     public $successMessage = '';
     public $errorMessage = '';
@@ -31,19 +31,16 @@ class ActionPatientReminder extends Component
 
         $this->patient = $patient;
         $this->form->patient_id = $patient->id;
-        $this->visit_counts = PatientService::where('patient_id', $this->patient->id)
-            ->groupBy('visit_count')
-            ->orderBy('visit_count', 'desc')
-            ->pluck('visit_count');
-
-        if(count($this->visit_counts) == 0)
+        $this->visit_count = PatientService::where('patient_id', $this->patient->id)
+            ->max('visit_count');
+        if ($this->visit_count == null)
             return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm lời nhắc!';
 
         $this->reminders = Reminder::where('active', 1)->get();
 
         if ($value == 'create') {
             $this->is_create = 'create';
-            $this->form->visit_count = $this->visit_counts[0];
+            $this->form->visit_count = $this->visit_count;
         } else {
             $this->patient_reminder = PatientReminder::find($value);
 
@@ -56,7 +53,7 @@ class ActionPatientReminder extends Component
         $this->form->detail = $reminer->detail;
     }
 
-    public function actionPatientReminder()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -70,11 +67,16 @@ class ActionPatientReminder extends Component
                 $this->successMessage = "Sửa thông tin lời dặn thành công!";
             }
             $this->dispatch('refreshIndexPatientReminder');
-        }
-        catch(QueryException $e){
+        } catch (QueryException $e) {
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
+    }
 
+    public function saveAndExit()
+    {
+        $this->save();
+        if (!$this->errorMessage)
+            $this->redirect('/patients/' . $this->patient->id);
     }
     public function render()
     {

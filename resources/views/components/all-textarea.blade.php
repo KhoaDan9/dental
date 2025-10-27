@@ -1,8 +1,8 @@
-@props(['model', 'title', 'w_title' => 'w-35'])
+@props(['model', 'title', 'w_title' => 'w-35', 'is_required' => false])
 
 
 <div class="flex w-full">
-    <p for="" class="{{ $w_title }}">{{ $title }}
+    <p for="" class="{{ $w_title }}">{{ $title }}@if($is_required)<span class="text-red-600">*</span>@endif
     </p>
     <div class="flex flex-grow flex-col">
         <textarea type="text"

@@ -1,100 +1,41 @@
 <div>
-    <div class="page-header">
-        <div>
-        <span>Dữ liệu >> <a href="/patients">Hồ sơ bệnh nhân</a> >>
-                <a href="/patients/{{ $patient->id }}">{{ $patient->clinic_id }}.{{ $patient->id }}</a> >>
-                <a href="#">Lời dặn</a>
-        </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="/patients/{{$patient->id}}/reminders/create"
-               @can('create', \App\Models\PatientReminder::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-            <a href="/patients/{{ $patient->id }}" class="a-button">Thoát</a>
-        </div>
+    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients"
+                   create_url="/patients/{{$patient->id}}/reminders/create"
+                   url_2="/patients/{{ $patient->id }}" title_2="{{ $patient->clinic_id }}.{{ $patient->id }}"
+                   title_3="Lời dặn" exit_url="/patients/{{$patient->id}}"
+                   :action_model="\App\Models\PatientReminder::class"/>
 
-    </div>
     @if($error2Message)
         <x-error-message>{{ $error2Message }}</x-error-message>
     @else
         <form wire:submit='actionPatientReminder'>
-            <div class="flex flex-wrap pt-2 space-y-2 px-2 max-w-250">
-                <div class="w-full flex">
-                    <p for="" class="w-40">Tên bệnh nhân:</p>
-                    <strong>{{ $patient->name }}</strong>
-                </div>
+            <div class="action-display">
+                <x-all-show-text title="Tên bệnh nhân:" text="{{ $patient->name }}"/>
+                <x-all-show-text title="Lần khám:" text="{{ $visit_count }}" disabled/>
+                <x-all-textarea class="h-40" title="Nội dung lời dặn:" model="form.detail" is_required="true"/>
 
-                <div class="w-full flex">
-                    <p class="w-40">Lần khám:</p>
-                    <select name="" id="" class="px-1 border-gray-500 border-1 flex-grow"
-                            wire:model='form.visit_count'>
-                        @foreach ($visit_counts as $visit_count)
-                            <option value="{{ $visit_count }}">{{ $visit_count }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="w-full flex">
-                    <p class="w-40">Nội dung lời dặn:<span class="text-red-600">*</span></p>
-                    <div class="flex flex-grow flex-col">
-                    <textarea type="text" class="px-1 border-gray-500 border-1 flex-grow h-60"
-                              wire:model='form.detail'></textarea>
-                        @error('form.detail')
-                        <x-error-message>{{ $message }}</x-error-message>
-                        @enderror
-                    </div>
-                </div>
                 <div class="flex w-full">
-                    <p for="" class="w-40"></p>
+                    <p for="" class="w-35"></p>
                     <button class="main-button" type="button" modal-show-id="reminder-modal">Chọn mẫu</button>
                 </div>
-                <div class="w-full flex">
-                    <p class="w-40">Ghi chú:</p>
-                    <textarea type="text" class="px-1 border-gray-500 border-1 flex-grow"
-                              wire:model='form.note'></textarea>
-                </div>
-                @if ($patient_reminder)
-                    <div class="w-full flex">
-                        <p class="w-40">Người cập nhật:</p>
-                        <x-last-update-name
-                            :name="$patient_reminder->last_update_name">{{ $patient_reminder->updated_at }}</x-last-update-name>
-                    </div>
-                @endif
-
-
-                <div class="w-full flex pt-4">
-                    <p class="w-40"></p>
-                    @if ($is_create == 'create')
-                        <button type="submit"
-                                @can('create', \App\Models\PatientReminder::class)
-                                    class="main-button"
-                                @else
-                                    class="cannot-main-button"
-                            @endcan
-                        >Thêm
-                        </button>
-                    @else
-                        <button type="submit"
-                                @can('update', \App\Models\PatientReminder::class)
-                                    class="main-button"
-                                @else
-                                    class="cannot-main-button"
-                            @endcan
-                        >Sửa
-                        </button>
+                    <x-all-textarea title="Ghi chú:" model="form.note"/>
+                    @if ($patient_reminder)
+                        <x-all-last-update-name :name="$patient_reminder->last_update_name"
+                                                :updated_at="$patient_reminder->updated_at"/>
                     @endif
-                    <a href="/patients/{{ $patient->id }}" class="a-button ml-2">Thoát</a>
-                </div>
-                @if ($successMessage != '')
-                    <div class="w-full flex">
-                        <p class="w-40">Người cập nhật:</p>
-                        <x-success-message>{{ $successMessage }}</x-success-message>
-                    </div>
-                @endif
+               
+                    @if ($successMessage != '')
+                        <x-success-message class="pl-35">{{ $successMessage }}</x-success-message>
+                    @endif
+
+                    @if ($errorMessage != '')
+                        <x-error-message class="pl-35">{{ $errorMessage }}</x-error-message>
+                    @endif
+                    <x-action-button :action_model="\App\Models\PatientReminder::class"
+                                     exit_url="/patients/{{ $patient->id }}"
+                                     :is_create="$is_create"/>
+
+             
             </div>
 
 
