@@ -17,14 +17,12 @@ class AppointmentFactory extends Factory
      */
     public function definition(): array
     {
-        $employees = Employee::all()->toArray();
-        $employee = $this->faker->randomElement($employees);
 
         return [
-            'patient_id' => fake()->randomElement(["1","2", "3", "4"]),
+            'patient_id' => fake()->randomElement([1,2,3,4]),
             'detail' => fake()->text(10),
             'clinic_id' => 'DK1',
-            'employee_name' => $employee['name'],
+            'employee_id' => fake()->randomElement([1,2,3,4]),
             'date' => fake()->dateTimeBetween('now', '+1 weeks', 'Asia/Ho_Chi_Minh'),
         ];
     }

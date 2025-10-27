@@ -27,11 +27,14 @@ class PrintInvoice extends Component
     public $final_debt = '';
     public $reminder = '';
     public $prescription = '';
+    public $error2Message = '';
 
     public function mount(Patient $patient)
     {
         $this->visit_counts = PatientService::select('visit_count')->where('patient_id', $patient->id)->groupBy('visit_count')->orderBy('visit_count', 'desc')
             ->pluck('visit_count');
+        if(count($this->visit_counts) == 0)
+            return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể in bệnh án!';
 
         $this->from_visit_count = $this->to_visit_count = $this->visit_counts[0];
 
@@ -83,7 +86,7 @@ class PrintInvoice extends Component
             $this->reminder = $reminder[0];
         else
             $this->reminder = '';
-            
+
         $prescription = PatientPrescription::select('detail')->where('patient_id', $this->patient->id)->whereBetween('visit_count', [
             $this->from_visit_count,
             $this->to_visit_count

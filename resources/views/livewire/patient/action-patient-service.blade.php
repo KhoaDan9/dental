@@ -1,9 +1,9 @@
 <div>
-{{--    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients"--}}
-{{--                   create_url="/patients/{{ $patient->id }}/create"--}}
-{{--                   url_2="/patients/{{ $patient->id }}" title_2="{{ $patient->clinic_id }}.{{ $patient->id }}"--}}
-{{--                   title_3="Thủ thuật điều trị" exit_url="/patients"--}}
-{{--                   :action_model="\App\Models\Patient::class"/>--}}
+    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients"
+                   create_url="/patients/{{ $patient->id }}/create"
+                   url_2="/patients/{{ $patient->id }}" title_2="{{ $patient->clinic_id }}.{{ $patient->id }}"
+                   title_3="Thủ thuật điều trị" exit_url="/patients/{{ $patient->id }}"
+                   :action_model="\App\Models\Patient::class"/>
 
     <form wire:submit='save'>
         <div class="flex">
@@ -97,38 +97,6 @@
                             <td class="text-center">
                                 <button class="modal-select"
                                         wire:click.prevent="selectService(({{ $service->id }}))">Chọn
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div id="diagnosis-modal" class="modal-parent-div">
-        <div class="modal-div">
-            <div class="modal-header">
-                <p class="text-lg font-semibold">Chọn mẫu chẩn đoán</p>
-                <button class="modal-close">&times;
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table-custom table-auto w-full border-collapse border">
-                    <tr>
-                        <th class="whitespace-nowrap w-0">TT</th>
-                        <th class="whitespace-nowrap w-0">Mã số</th>
-                        <th class="whitespace-nowrap w-3/5 text-left">Tên mẫu chẩn đoán</th>
-                        <th class="whitespace-nowrap w-0">Chức năng</th>
-                    </tr>
-                    @foreach ($diagnoses as $diagnosis)
-                        <tr>
-                            <td class=" text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $diagnosis->id }}</td>
-                            <td class="">{{ $diagnosis->name }}</td>
-                            <td class="text-center">
-                                <button class="modal-select"
-                                        wire:click.prevent="selectDiagnosis(({{ $diagnosis->id }}))">Chọn
                                 </button>
                             </td>
                         </tr>

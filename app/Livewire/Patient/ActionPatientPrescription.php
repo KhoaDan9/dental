@@ -21,6 +21,7 @@ class ActionPatientPrescription extends Component
     public $visit_counts = [];
     public $successMessage = '';
     public $errorMessage = '';
+    public $error2Message = '';
     public $is_create = '';
 
     public function mount(Patient $patient, $value)
@@ -32,6 +33,9 @@ class ActionPatientPrescription extends Component
             ->groupBy('visit_count')
             ->orderBy('visit_count', 'desc')
             ->pluck('visit_count');
+
+        if(count($this->visit_counts) == 0)
+            return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm đơn thuốc!';
 
         if ($value == 'create') {
             $this->is_create = 'create';
@@ -49,7 +53,7 @@ class ActionPatientPrescription extends Component
         $this->form->note = $prescription->name;
     }
 
-    public function actionPatientPrescription()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -66,7 +70,13 @@ class ActionPatientPrescription extends Component
         } catch (QueryException $e) {
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
+    }
 
+    public function saveAndExit(){
+        $this->save();
+        if(!$this->errorMessage){
+            $this->redirect();
+        }
     }
 
     public function render()

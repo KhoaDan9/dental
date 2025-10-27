@@ -24,6 +24,7 @@ class ActionPatientPayment extends Component
     public $funding_sources = [];
     public $successMessage = '';
     public $errorMessage = '';
+    public $error2Message = '';
     public $transactionVoucerErrorMessage = '';
     public $is_create = '';
     public $debt = '';
@@ -34,14 +35,19 @@ class ActionPatientPayment extends Component
     {
         $this->patient = $patient;
 
-        $pay_employee_name = PatientService::where('patient_id', $this->patient->id)->groupBy('employee_name')->get('employee_name');
-        $this->employees = Employee::where('active', 1)->whereIn('name', $pay_employee_name->toArray())->get();
-        $this->form->clinic_id = $this->patient->clinic_id;
-        $this->form->patient_id = $this->patient->id;
         $this->visit_counts = PatientService::where('patient_id', $this->patient->id)
             ->groupBy('visit_count')
             ->orderBy('visit_count', 'desc')
             ->pluck('visit_count');
+
+        if(count($this->visit_counts) == 0)
+            return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm thanh toán!';
+
+        $pay_employee_name = PatientService::where('patient_id', $this->patient->id)->groupBy('employee_name')->get('employee_name');
+        $this->employees = Employee::where('active', 1)->whereIn('name', $pay_employee_name->toArray())->get();
+        $this->form->clinic_id = $this->patient->clinic_id;
+        $this->form->patient_id = $this->patient->id;
+
 
         $this->getAllPayment();
 

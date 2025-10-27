@@ -22,17 +22,22 @@ class ActionPatientReminder extends Component
     public $reminders = [];
     public $successMessage = '';
     public $errorMessage = '';
+    public $error2Message = '';
     public $is_create = '';
 
 
     public function mount(Patient $patient, $value)
     {
+
         $this->patient = $patient;
         $this->form->patient_id = $patient->id;
         $this->visit_counts = PatientService::where('patient_id', $this->patient->id)
             ->groupBy('visit_count')
             ->orderBy('visit_count', 'desc')
             ->pluck('visit_count');
+
+        if(count($this->visit_counts) == 0)
+            return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thêm lời nhắc!';
 
         $this->reminders = Reminder::where('active', 1)->get();
 
