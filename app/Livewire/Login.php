@@ -22,6 +22,12 @@ class Login extends Component
         $this->validate();
         $credentials = ['username' => $this->username, 'password' => $this->password];
         if(Auth::attempt($credentials)){
+            if(Auth::user()->active == 0)
+            {
+                Auth::logout();
+                return $this->errorMessage = 'Tài khoản hiện đang bị khóa, xin liên hệ với admin.';
+            }
+
             return redirect()->intended('/patients');
         }
         else
