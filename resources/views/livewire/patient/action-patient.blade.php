@@ -45,8 +45,8 @@
                 <div class="w-full flex items-start">
                     <p class="w-35">Địa chỉ:<span class="text-red-600">*</span></p>
                     <div class="flex flex-grow flex-col">
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow "
-                               wire:model='form.address'>
+                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow"
+                               name="address" wire:model='form.address'>
                         @error('form.address')
                         <x-error-message>{{ $message }}</x-error-message>
                         @enderror
