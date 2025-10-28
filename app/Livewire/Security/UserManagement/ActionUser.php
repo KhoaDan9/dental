@@ -25,12 +25,11 @@ class ActionUser extends Component
     {
         $this->clinics = Clinic::all();
         $this->employees = Employee::all();
-
         if ($value == 'create') {
             $this->is_create = 'create';
             $this->form->clinic_id = $this->clinics[0]->id;
             $this->form->employee_id = $this->employees[0]->id;
-            $this->form->date_permission = Carbon::today()->toDateString();
+            $this->form->date_permission = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         } else {
             $this->user = User::findOrFail($value);
             $this->form->setAttributes($this->user);

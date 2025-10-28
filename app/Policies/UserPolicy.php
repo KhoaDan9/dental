@@ -15,16 +15,14 @@ class UserPolicy
         return false;
     }
 
-
     public function view(User $user, User $model): bool
     {
-        if ($user->admin == 1) {
-            return true;
-        } elseif ($user->accessControls()->where('feature_id', 37)->where('permission_id', 1)->first()->user_permission == '1') {
-            return $model->id == $user->id;
-
-        }
-        return false;
+//        if ($user->admin == 1) {
+//            return true;
+//        } elseif ($user->accessControls()->where('feature_id', 37)->where('permission_id', 1)->first()->user_permission == '1') {
+//            return $model->id == $user->id;
+//        }
+//        return false;
     }
 
     public function create(User $user): bool

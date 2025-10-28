@@ -1,20 +1,7 @@
-<div class="flex-col">
-    <div class="pb-2 flex justify-between border-b-1 border-gray-300">
-        <div>
-            <span>Bảo mật>> <a href="/users">Danh sách tài khoản</a>
-            </span>
-        </div>
-        <div class="flex space-x-1">
-            <a href="users/create"
-               @can('create', \App\Models\User::class)
-                   class="a-button"
-               @else
-                   class="cannot-a-button"
-                @endcan
-            >Thêm</a>
-        </div>
-    </div>
-
+<div class="">
+    <x-all-heading head_title="Bảo mật" title_1="Danh sách tài khoản" url_1="/users"
+                   create_url="/users/create"
+                   :action_model="\App\Models\User::class"/>
 
     @cannot('viewAny', \App\Models\User::class)
         <x-cannot-permission/>
@@ -25,8 +12,6 @@
         @if ($errorMessage !== '')
             <x-error-message>{{ $errorMessage }}</x-error-message>
         @endif
-
-
 
         <table class="table-custom table-auto w-full border-collapse border">
             <tr>
@@ -42,16 +27,12 @@
             @foreach ($users as $user)
                 <tr>
                     <td class=" text-center">{{ $loop->iteration }}</td>
-                    <td class="text-center">{{ $user->id }}</td>
+                    <td class="text-center"><a href="/users/{{ $user->id }}">{{ $user->id }}</a></td>
                     <td class="">{{ $user->username }}</td>
                     <td class=" text-center">{{ $user->clinic_id }}</td>
                     <td class="">{{ $user->note }}</td>
                     <td class="text-center">
-                        @if ($user->active)
-                            Bật
-                        @else
-                            Tắt
-                        @endif
+                        <x-p-active :is_active="$user->active"/>
                     </td>
                     <td class=" text-center">{{ $user->last_update_name }}</td>
                     <td class=" text-center">
