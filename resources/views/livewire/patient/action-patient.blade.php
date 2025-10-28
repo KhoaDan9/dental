@@ -10,7 +10,7 @@
     @else
         <form wire:submit.prevent='save'>
             <div class="action-display">
-                <x-all-text-input title="Tên khách hàng:" model="form.name" is_required/>
+                <x-all-text-input title="Tên khách hàng:" model="form.name" is_required name="name"/>
                 <div class="w-full flex">
                     <p class="w-35">Ngày sinh:</p>
                     <input type="date" class="pl-1 border-gray-500 border-[0.5px] rounded" wire:model='form.birth'>

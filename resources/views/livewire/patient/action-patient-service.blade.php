@@ -10,8 +10,8 @@
             <div class="action-display">
                 <x-all-show-text w_title="w-40" title="Tên bệnh nhân:" text="{{ $patient->name }}"/>
                 <x-all-text-input w_title="w-40" title="Thời gian thực hiện:" model="form.date" type="datetime-local"/>
-                <x-all-text-input w_title="w-40" title="Triệu chứng:" model="form.symptom"/>
-                <x-all-text-input w_title="w-40" title="Chẩn đoán:" model="form.diagnosis"/>
+                <x-all-text-input w_title="w-40" title="Triệu chứng:" model="form.symptom" name="symptom" autocomplete="on"/>
+                <x-all-text-input w_title="w-40" title="Chẩn đoán:" model="form.diagnosis" name="diagnosis" autocomplete="on"/>
                 <x-all-modal-input w_title="w-40" title="Thủ thuật điều trị:" model="form.service_name" modal_show_id="service-modal" is_required="true"/>
 
                 <x-all-text-input w_title="w-40" title="Vị trí răng:" model="form.teeth"/>
