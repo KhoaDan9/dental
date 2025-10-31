@@ -61,12 +61,36 @@ html * {
     font-family: Arial !important;
 }
 
-body {
-    /*width: fit-content;*/
+@media (max-width: 640px) {
+    * {
+        font-size: 4px !important;
+    }
+
+    th,
+    td {
+        padding: 1px 2px !important;
+    }
+
+    input,
+    select {
+        height: 11px !important;
+    }
 }
 
-* {
-    /*font-size: 13px;*/
+@media (max-width: 768px) {
+    * {
+        font-size: 5px !important;
+    }
+
+    th,
+    td {
+        padding: 1px 2px !important;
+    }
+
+    input,
+    select {
+        height: 11px !important;
+    }
 }
 
 input,
@@ -100,22 +124,6 @@ select {
 
 .table-custom tr:hover {
     background-color: #f7ffe3;
-}
-
-@media (max-width: 640px) {
-    * {
-        font-size: 4px !important;
-    }
-
-    th,
-    td {
-        padding: 1px 2px !important;
-    }
-
-    input,
-    select {
-        height: 11px !important;
-    }
 }
 
 /* Giao diện các nút, thẻ a chính*/
