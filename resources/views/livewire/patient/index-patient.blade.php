@@ -38,7 +38,8 @@
                         @if($patient->medical_history != null || $patient->medical_history != null)
                             class="text-red-500"
                         @endif>
-                        {{ $patient->name }}</td>
+                        <a href="/patients/{{ $patient->id }}">{{ $patient->name }}</a>
+                        </td>
                     <td>{{ \Carbon\Carbon::parse($patient->birth)->year }}</td>
                     <td class=" text-center">{{ $patient->gender }}</td>
                     <td class="">{{ $patient->address }}</td>

@@ -20,6 +20,7 @@
         <div class="text-white space-x-2">
             <a href="/patients" class="text-nav-title!">Bệnh nhân</a>
             <a href="/appointments" class="text-nav-title!">Lịch hẹn</a>
+            <a href="/transaction-vouchers" class="text-nav-title!">Thu/Chi</a>
             <a href="/users/{{ Auth::user()->id }}" class="text-nav-title!">Xin chào: {{ Auth::user()->username }}</a>
             <a href="/logout" class="text-nav-title!">Đăng xuất</a>
         </div>
