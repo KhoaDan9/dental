@@ -39,14 +39,13 @@ class ActionPatientPayment extends Component
 
         $patient_service = PatientService::where('patient_id', $this->patient->id)
             ->orderByDesc('visit_count')->get();
-        $this->visit_count = $patient_service[0]->visit_count;
-        $this->date = Carbon::parse($patient_service[0]->date)->format('Y-m-d');
         // dd($patient_service[0]);
         // dd($this->date);
-
-
+        $this->visit_count = PatientService::where('patient_id', $this->patient->id)
+            ->max('visit_count');
         if ($this->visit_count == null)
             return $this->error2Message = 'Vui lòng thêm thủ thuật điều trị để có thể thanh toán!';
+        $this->date = Carbon::parse($patient_service[0]->date)->format('Y-m-d');
 
         $pay_employee_id = PatientService::where('patient_id', $this->patient->id)->groupBy('employee_id')->get('employee_id');
         $this->employees = Employee::where('active', 1)->whereIn('id', $pay_employee_id->toArray())->get();
