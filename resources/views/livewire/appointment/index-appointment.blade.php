@@ -6,9 +6,9 @@
         <div class="flex space-x-1">
             <div class="flex items-center space-x-1">
                 <span>Từ</span>
-                <input type="date" class="pl-1 border-gray-500 border-1" wire:model="from_date">
+                <input type="date" class="pl-1 border-gray-400 border-1" wire:model="from_date">
                 <span>Đến</span>
-                <input type="date" class="pl-1 border-gray-500 border-1" wire:model="to_date">
+                <input type="date" class="pl-1 border-gray-400 border-1" wire:model="to_date">
             </div>
             <button wire:click='searchAppointment' class="main-button" wire:navigate.hover>Tìm</button>
         </div>

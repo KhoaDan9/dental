@@ -6,7 +6,7 @@
     </p>
     <div class="flex flex-grow flex-col">
         <textarea type="text"
-                  {{ $attributes->merge(['class' => 'px-1 border-gray-500 border-[0.5px] rounded h-20'])}}
+                  {{ $attributes->merge(['class' => 'px-1 border-gray-400 border-[0.5px] rounded h-20'])}}
                   wire:model='{{ $model }}'></textarea>
 
     </div>

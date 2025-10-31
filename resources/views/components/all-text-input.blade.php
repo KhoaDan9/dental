@@ -5,7 +5,7 @@
     </p>
     <div class="flex flex-grow flex-col">
         <input type="{{ $type }}"
-               {{ $attributes->merge(['class' => 'p-1 border-gray-500 border-[0.5px] rounded outline-none'])}}
+               {{ $attributes->merge(['class' => 'p-1 border-gray-400 border-[0.5px] rounded outline-none'])}}
                wire:model='{{ $model }}'>
         @error($model)
         <x-error-message>{{ $message }}</x-error-message>

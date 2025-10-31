@@ -5,7 +5,7 @@
     </p>
     <div class="flex flex-grow flex-col">
         <div class="flex flex-grow">
-            <input type="text" class="px-1  border-gray-500 border-[0.5px] rounded flex-grow"
+            <input type="text" class="px-1  border-gray-400 border-[0.5px] rounded flex-grow"
                    wire:model='{{ $model }}' readonly>
             <button class="main-button mx-1" type="button" modal-show-id="{{ $modal_show_id }}">Chọn</button>
         </div>

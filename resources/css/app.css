@@ -101,18 +101,18 @@ select {
 .table-custom {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    border: 0.1px solid #ddd;
+    border: 0.5px solid #8c8c8c;
     width: 100%;
 }
 
 .table-custom td {
-    border: 0.1px solid #ddd;
+    border: 0.5px solid #8c8c8c;
     padding: 2px 5px;
 }
 
 .table-custom th,
 .transaction-th {
-    border: 0.1px solid #ddd;
+    border: 0.5px solid #8c8c8c;
     padding: 2px 5px;
     background-color: #b1b1b1;
     color: #000;

@@ -21,22 +21,22 @@
                 <div class="flex space-x-4 w-full ml-40">
                     <div class="">
                         <p>Số lượng:</p>
-                        <input type="number" class="border-gray-500 border-[0.5px] rounded px-1 w-30"
+                        <input type="number" class="border-gray-400 border-[0.5px] rounded px-1 w-30"
                                wire:model.live.debounce.500='form.quantity'>
                     </div>
                     <div class="">
                         <p>Khuyến mại (%):</p>
-                        <input type="text" class="border-gray-500 border-[0.5px] rounded px-1"
+                        <input type="text" class="border-gray-400 border-[0.5px] rounded px-1"
                                wire:model.live.debounce.500='form.discount1'>
                     </div>
                     <div class="">
                         <p>Khuyến mại (đ):</p>
-                        <input type="text" class="border-gray-500 border-[0.5px] rounded number-input px-1"
+                        <input type="text" class="border-gray-400 border-[0.5px] rounded number-input px-1"
                                wire:model.live.debounce.500='form.discount2'>
                     </div>
                     <div class="flex-1">
                         <p>Thành tiền</p>
-                        <input type="text" class="border-gray-500 border-[0.5px] rounded px-1 w-full"
+                        <input type="text" class="border-gray-400 border-[0.5px] rounded px-1 w-full"
                                wire:model='form.total_price' disabled>
                     </div>
                 </div>

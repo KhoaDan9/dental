@@ -57,14 +57,11 @@
         </x-menu-item>
 
         <x-menu-item title="Báo cáo">
-            <li class="li-menu"><a href="" class="a-menu">Chi tiết bệnh nhân</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Bệnh nhân nợ tiền</a></li>
+            <li class="li-menu"><a href="" class="a-menu">Chi tiết khách hàng</a></li>
+            <li class="li-menu"><a href="" class="a-menu">Khách hàng nợ tiền</a></li>
             <li class="li-menu"><a href="" class="a-menu">Khách hàng tiềm năng</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Tổng hợp thủ thuật đã thực hiện</a></li>
+            <li class="li-menu"><a href="" class="a-menu">Tổng hợp thuật thực hiện</a></li>
             <li class="li-menu"><a href="" class="a-menu">Chi tiết thủ thuật theo nhân viên</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Tổng hợp thủ thuật theo nhân viên</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Tổng hợp doanh thu theo nhân viên</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Bảng lương</a></li>
             <li class="li-menu"><a href="" class="a-menu">Báo cáo chi tiết thu, chi</a></li>
             <li class="li-menu"><a href="" class="a-menu">Tổng hợp theo nhóm thu, chi</a></li>
             <li class="li-menu"><a href="" class="a-menu">Tổng hợp thu, chi, tồn quỹ</a></li>

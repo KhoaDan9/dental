@@ -29,11 +29,11 @@
     </div>
     <div class="flex space-x-1">
         @if ($show_search != '')
-            <input class="border-gray-500 border-1 pl-1 w-60 " type="text" placeholder="Tìm kiếm"
+            <input class="border-gray-400 border-1 pl-1 w-60 " type="text" placeholder="Tìm kiếm"
                    wire:model="search_string">
 
             <input id="datepicker-actions" type="date" wire:model="search_date" type="text"
-                   class="w-35 text-center border-gray-500 border-1 px-1">
+                   class="w-35 text-center border-gray-400 border-1 px-1">
 
             <button wire:click="searchSubmit" class="main-button" wire:navigate.hover>Tìm</button>
         @endif

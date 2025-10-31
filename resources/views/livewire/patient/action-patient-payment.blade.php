@@ -19,7 +19,7 @@
                         <p class="w-40">Số tiền thực thu:<span class="text-red-600">*</span></p>
                         <div class="flex flex-grow flex-col">
                             <div class="flex flex-grow">
-                                <input type="text" class="px-1  border-gray-500 border-1 flex-grow number-input"
+                                <input type="text" class="px-1  border-gray-400 border-1 flex-grow number-input"
                                        wire:model.live.debounce.500='form.paid'>
                                 <button wire:click.prevent="getDebit" class="main-button ml-2">Nợ</button>
                             </div>
@@ -31,7 +31,7 @@
 
                     <div class="w-full flex">
                         <p class="w-40">Giao dịch:</p>
-                        <select class="border-gray-500 border-1 flex-grow"
+                        <select class="border-gray-400 border-1 flex-grow"
                                 wire:model.live.debounce='form.type_of_transaction'>
                             <option value="Tiền mặt">Tiền mặt</option>
                             <option value="Chuyển khoản">Chuyển khoản</option>

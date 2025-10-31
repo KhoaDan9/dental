@@ -13,7 +13,7 @@
                 <x-all-text-input title="Tên khách hàng:" model="form.name" is_required name="name"/>
                 <div class="w-full flex">
                     <p class="w-35">Ngày sinh:</p>
-                    <input type="date" class="pl-1 border-gray-500 border-[0.5px] rounded" wire:model='form.birth'>
+                    <input type="date" class="pl-1 border-gray-400 border-[0.5px] rounded" wire:model='form.birth'>
                     <label for="gender1" class="pl-5 flex items-center">
                         <input type="radio" id="gender1" value="Nam" checked wire:model='form.gender'>
                         Nam
@@ -24,19 +24,19 @@
                     </label>
                     <div class="flex flex-row">
                         <p class="pl-2">Số điện thoại:</p>
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded ml-1 w-60"
+                        <input type="text" class="px-1 border-gray-400 border-[0.5px] rounded ml-1 w-60"
                                wire:model='form.phone'>
                     </div>
                     <div class="flex flex-row flex-grow">
                         <p class="pl-2 pr-1">Nguồn:</p>
-                        <select class="border-gray-500 border-[0.5px] rounded" wire:model='form.from'>
+                        <select class="border-gray-400 border-[0.5px] rounded" wire:model='form.from'>
                             <option value="Khác">Khác</option>
                             <option value="Facebook">Facebook</option>
                             <option value="Google">Google</option>
                             <option value="Tiktok">Tiktok</option>
                             <option value="Youtube">Youtube</option>
                         </select>
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow"
+                        <input type="text" class="px-1 border-gray-400 border-[0.5px] rounded flex-grow"
                                placeholder="Ghi chú nguồn"
                                wire:model='form.from_note'>
                     </div>
@@ -45,16 +45,16 @@
                 <div class="w-full flex items-start">
                     <p class="w-35">Địa chỉ:<span class="text-red-600">*</span></p>
                     <div class="flex flex-grow flex-col">
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded flex-grow"
+                        <input type="text" class="px-1 border-gray-400 border-[0.5px] rounded flex-grow"
                                name="address" wire:model='form.address'>
                         @error('form.address')
                         <x-error-message>{{ $message }}</x-error-message>
                         @enderror
                     </div>
                     <p class="pl-2">Xã/Huyện:</p>
-                    <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded" wire:model='form.commune'>
+                    <input type="text" class="px-1 border-gray-400 border-[0.5px] rounded" wire:model='form.commune'>
                     <p class="pl-2">Tỉnh/T.phố:</p>
-                    <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded  ml-1" wire:model='form.city'>
+                    <input type="text" class="px-1 border-gray-400 border-[0.5px] rounded  ml-1" wire:model='form.city'>
                 </div>
                 <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
 

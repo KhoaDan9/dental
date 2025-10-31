@@ -25,7 +25,7 @@
 
                     <div class="flex w-full">
                         <p for="" class="w-40">Đơn giá:</p>
-                        <input type="text" class="px-1 border-gray-500 border-[0.5px] rounded w-30 number-input"
+                        <input type="text" class="px-1 border-gray-400 border-[0.5px] rounded w-30 number-input"
                                wire:model='form.price'>
                         <p class="pl-1">VNĐ</p>
                     </div>
