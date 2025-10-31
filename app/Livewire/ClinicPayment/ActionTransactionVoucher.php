@@ -32,13 +32,12 @@ class ActionTransactionVoucher extends Component
     {
         $user = Auth::user();
         $this->clinics = Clinic::all();
+        $this->updateFinances();
+        $this->funding_sources = FundingSource::when($user->admin != 1, function ($query) use ($user) {
+            return $query->where('id', $user->clinic_id);
+        })->where('active', true)->get();
 
         if ($value == 'create') {
-            $this->updateFinances();
-            $this->funding_sources = FundingSource::when($user->admin != 1, function ($query) use ($user) {
-                return $query->where('id', $user->clinic_id);
-            })->where('active',true)->get();
-
             $this->is_create = $value;
             $this->form->clinic_id = $this->clinics[0]->id;
             $this->form->finance_id = $this->finances[0]->id;
@@ -75,7 +74,7 @@ class ActionTransactionVoucher extends Component
         }
     }
 
-    public function actionTransactionVoucher()
+    public function save()
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
@@ -93,6 +92,15 @@ class ActionTransactionVoucher extends Component
             $this->errorMessage = 'Đã xảy ra lỗi! Xin vui lòng liên hệ với chúng tôi.';
         }
     }
+
+    public function saveAndExit()
+    {
+        $this->save();
+        if (!$this->errorMessage) {
+            return $this->redirect('/transaction-vouchers');
+        }
+    }
+
     public function render()
     {
         return view('livewire.clinic-payment.action-transaction-voucher');
