@@ -199,7 +199,7 @@ a {
 }
 
 .cannot-a-button2 {
-    @apply flex items-center justify-center py-[1px] bg-gray-400 py-[1px] !text-white w-30 text-center pointer-events-none;
+    @apply flex items-center justify-center py-[1px] bg-gray-400 !text-white w-30 text-center pointer-events-none;
 }
 
 .cannot-main-button {
