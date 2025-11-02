@@ -45,7 +45,7 @@
                                     </div>
                                 @endif
                             </td>
-                            <td class="">{{ $patient_service->service_name }}</td>
+                            <td class="">{{ $patient_service->service->name }}</td>
 {{--                            <td class="text-center">--}}
 {{--                                @if ($patient_service->warrantyCard)--}}
 {{--                                    @if ($patient_service->warrantyCard->warranty_status != 'Không phát hành')--}}

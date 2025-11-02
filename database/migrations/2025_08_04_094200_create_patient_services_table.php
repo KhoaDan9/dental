@@ -18,9 +18,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Patient::class)->constrained()->cascadeOnUpdate();
             $table->foreignIdFor(Employee::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Service::class)->constrained()->cascadeOnUpdate();
             $table->foreignId('supporter_id')->nullable()->constrained('employees')->nullOnDelete();
             $table->string('symptom')->nullable();
-            $table->string('service_name')->nullable();
             $table->string('diagnosis')->nullable();
             $table->string('teeth')->nullable();
             $table->integer('price');

@@ -21,7 +21,7 @@
                 <th class="whitespace-nowrap w-0">Đơn giá</th>
                 <th class="whitespace-nowrap w-0">Tiền tệ</th>
                 <th class="whitespace-nowrap w-0">Bảo hành</th>
-                <th class="whitespace-nowrap w-0">Nhà cung cấp</th>
+{{--                <th class="whitespace-nowrap w-0">Nhà cung cấp</th>--}}
                 <th class="whitespace-nowrap w-0">Nhóm thủ thuật</th>
                 <th class="whitespace-nowrap w-0">PK</th>
                 <th class="whitespace-nowrap w-0">Trạng thái</th>
@@ -43,13 +43,13 @@
                             {{ $service->warranty }}
                         @endif
                     </td>
-                    <td class="">
-                        @if($service->supplier)
-                            {{ $service->supplier->name }}
-                        @else
-                            -
-                        @endif
-                    </td>
+{{--                    <td class="text-center">--}}
+{{--                        @if($service->supplier)--}}
+{{--                            {{ $service->supplier->name }}--}}
+{{--                        @else--}}
+{{--                            ---}}
+{{--                        @endif--}}
+{{--                    </td>--}}
                     <td class="">{{ $service->serviceGroup->name }}</td>
                     <td class=" text-center">{{ $service->clinic_id }}</td>
                     <td class="text-center">

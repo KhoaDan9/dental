@@ -13,10 +13,10 @@ class PatientServiceForm extends Form
 {
     public PatientService $patient_service;
     public $patient_id = '';
-    public $service_id = '';
-
     #[Validate('required', message: 'Vui lòng chọn thủ thuật điều trị.')]
+    public $service_id = '';
     public $service_name = '';
+
     public $symptom = '';
     public $diagnosis = '';
     public $teeth = '';
@@ -43,7 +43,7 @@ class PatientServiceForm extends Form
         $patient_service = PatientService::create([
             'patient_id' => $this->patient_id,
             'symptom' => $this->symptom,
-            'service_name' => $this->service_name,
+            'service_id' => $this->service_id,
             'diagnosis' => $this->diagnosis,
             'teeth' => $this->teeth,
             'price' => (int) str_replace('.', '', $this->price),
@@ -61,12 +61,12 @@ class PatientServiceForm extends Form
 //        if ($this->warranty_card == true) {
 //            WarrantyCard::create([
 //                'patient_service_id' => $patient_service->id,
-//                'service_name' => $this->service_name,
+//                'service_id' => $this->service_id,
 //                'warranty_status' => 'Chưa có thẻ'
 //            ]);
 //        }
 
-        $this->reset(['symptom', 'service_name', 'diagnosis', 'teeth', 'price', 'total_price', 'quantity', 'discount1', 'discount2']);
+        $this->reset(['symptom', 'service_id', 'diagnosis', 'teeth', 'price', 'total_price', 'quantity', 'discount1', 'discount2']);
         $this->id = $patient_service->id;
     }
 
@@ -81,14 +81,14 @@ class PatientServiceForm extends Form
 //        } else if ($this->warranty_card == true && $this->patient_service->warrantyCard == null) {
 //            WarrantyCard::create([
 //                'patient_service_id' => $this->patient_service->id,
-//                'service_name' => $this->service_name,
+//                'service_id' => $this->service_id,
 //                'warranty_status' => 'Chưa có thẻ'
 //            ]);
 //        }
         $this->patient_service->update(
             [
             'symptom' => $this->symptom,
-            'service_name' => $this->service_name,
+            'service_id' => $this->service_id,
             'diagnosis' => $this->diagnosis,
             'teeth' => $this->teeth,
             'price' => (int) str_replace('.', '', $this->price),
@@ -118,7 +118,7 @@ class PatientServiceForm extends Form
 //            $has_warranty_card = false;
 
         $this->symptom = $patient_service->symptom;
-        $this->service_name = $patient_service->service_name;
+        $this->service_id = $patient_service->service_id;
         $this->diagnosis = $patient_service->diagnosis;
         $this->teeth = $patient_service->teeth;
         $this->price = number_format($patient_service->price, 0, ',', '.');

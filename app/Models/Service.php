@@ -34,4 +34,8 @@ class Service extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function patientServices(){
+        return $this->hasMany(PatientService::class);
+    }
+
 }

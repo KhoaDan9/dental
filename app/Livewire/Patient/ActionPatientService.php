@@ -93,7 +93,9 @@ class ActionPatientService extends Component
 
     public function selectService(Service $service)
     {
+        $this->form->service_id = $service->id;
         $this->form->service_name = $service->name;
+
         $this->form->price = $service->price;
 
         $this->form->total_price = $this->form->quantity * ($this->form->price - $this->form->price * $this->convertToInt($this->form->discount1) / 100);

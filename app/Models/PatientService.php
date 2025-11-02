@@ -33,4 +33,8 @@ class PatientService extends Model
     public function warrantyCard(){
         return $this->hasOne(WarrantyCard::class);
     }
+
+    public function service(){
+        return $this->belongsTo(Service::class);
+    }
 }

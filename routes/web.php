@@ -36,6 +36,7 @@ use App\Livewire\Patient\IndexPatient;
 use App\Livewire\Patient\DetailWarrantyCard;
 
 use App\Livewire\Patient\PrintInvoice;
+use App\Livewire\Reports\PatientDetails;
 use App\Livewire\Security\IndexDataLogs;
 use App\Livewire\Security\UserManagement\ActionUser;
 use App\Livewire\Security\UserManagement\IndexUserManagement;
@@ -171,6 +172,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user-permission/{user}', UserPermission::class);
 
     Route::get('/data-logs', IndexDataLogs::class);
+
+
+    //bao cao
+    Route::get('/reports/patient-details', PatientDetails::class);
+
+
+
 });
 
 

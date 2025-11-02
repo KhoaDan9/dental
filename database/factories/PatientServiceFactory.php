@@ -19,7 +19,7 @@ class PatientServiceFactory extends Factory
      */
     public function definition(): array
     {
-        $services = Service::select('name', 'price')->get()->toArray();
+        $services = Service::select('id', 'price')->get()->toArray();
         $service = $this->faker->randomElement($services);
 
         $quantity = $this->faker->randomElement([1, 2, 3]);
@@ -27,7 +27,7 @@ class PatientServiceFactory extends Factory
             'employee_id' => fake()->randomElement([1, 2, 3]),
             'supporter_id' => fake()->randomElement([4, 5]),
             'patient_id' => fake()->randomElement([1, 2, 3, 4]),
-            'service_name' => $service['name'],
+            'service_id' => $service['id'],
             'teeth' => fake()->randomElement([1, 2, 3, 4, 5, 6, 7, 8]),
             'price' => $service['price'],
             'quantity' => $quantity,
