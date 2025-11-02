@@ -35,9 +35,13 @@ class PatientDetails extends Component
         $this->from_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $this->to_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
 
-        $this->services = Service::all();
         $this->service_groups = ServiceGroup::all();
         $this->employees = Employee::all();
+        $this->searchSubmit();
+    }
+
+    public function updatedServiceGroupId($value){
+        $this->services = Service::where('service_group_id', $value)->get();
         $this->searchSubmit();
     }
 
@@ -50,7 +54,6 @@ class PatientDetails extends Component
             $from_date = $this->from_date;
             $to_date = $this->to_date;
         }
-
         try {
             $patient_services = PatientService::whereBetween('date', [$from_date, $to_date])
                 ->orderBy('updated_at', 'desc')
@@ -92,6 +95,7 @@ class PatientDetails extends Component
             $patientData['debt'] = $total_price - $payments;
             return $patientData;
         });
+
     }
 
     public function render()

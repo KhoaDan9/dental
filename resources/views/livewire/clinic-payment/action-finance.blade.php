@@ -13,7 +13,7 @@
     @cannot('viewAny', \App\Models\Finance::class)
         <x-cannot-permission/>
     @else
-        <form wire:submit='actionFinance'>
+        <form wire:submit='save'>
             <div class="action-display">
                 <x-all-text-input model="form.name" title="Tên nhóm thu/chi:" is_required/>
                 <x-all-select-input model="form.clinic_id" title="Phòng khám:" :values="$clinics"/>
