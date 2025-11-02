@@ -1,7 +1,10 @@
 <div>
     <x-all-report-heading title_1="Chi tiết khách hàng" url_1="/reports"
-                          search_from_date="" search_to_date="" w_search_date=""
-                          employee_id="" service_group_id="" service_id="" patient_from=""
+                          search_from_date="from_date" search_to_date="to_date"
+                          employee_id="employee_id" service_group_id="service_group_id" 
+                          service_id="service_id" patient_from="patien_from"
+                          :service_groups="$service_groups" :services="$services"
+                          :employees="$employees"
     />
     @cannot('view-report-patient-details')
         <x-cannot-permission/>

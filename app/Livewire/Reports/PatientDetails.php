@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Reports;
 
+use App\Models\Employee;
 use App\Models\Patient;
 use App\Models\PatientPayment;
 use App\Models\PatientService;
+use App\Models\Service;
+use App\Models\ServiceGroup;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException;
@@ -19,24 +22,42 @@ class PatientDetails extends Component
     public $service_group_id = '';
     public $service_id = '';
     public $patien_from = '';
+    public $employees = [];
+    public $services = [];
+    public $service_groups = [];
+
     public $data_list = [];
     public $errorMessage = '';
 
 
     public function mount()
     {
-        $current_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
-        $this->from_date = Carbon::parse($current_date)->startOfDay();
-        $this->to_date = Carbon::parse($current_date)->endOfDay();
+        $this->from_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $this->to_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
 
-        $this->searchPatientDetails();
+        $this->services = Service::all();
+        $this->service_groups = ServiceGroup::all();
+        $this->employees = Employee::all();
+        $this->searchSubmit();
     }
 
-    public function searchPatientDetails()
+    public function searchSubmit()
     {
+        if ($this->from_date == $this->to_date) {
+            $from_date = Carbon::parse($this->to_date)->startOfDay();
+            $to_date = Carbon::parse($this->to_date)->endOfDay();
+        } else {
+            $from_date = $this->from_date;
+            $to_date = $this->to_date;
+        }
+
         try {
-            $patient_services = PatientService::whereBetween('date', [$this->from_date, $this->to_date])
+            $patient_services = PatientService::whereBetween('date', [$from_date, $to_date])
                 ->orderBy('updated_at', 'desc')
+                ->when($this->employee_id, function ($q) {
+                    $q->where('employee_id', $this->employee_id)
+                        ->orWhere('supporter_id', $this->employee_id);
+                })
                 ->when($this->service_group_id, function ($q) {
                     $q->whereHas('service.serviceGroup', function ($query) {
                         $query->where('id', $this->service_group_id);
@@ -71,7 +92,6 @@ class PatientDetails extends Component
             $patientData['debt'] = $total_price - $payments;
             return $patientData;
         });
-
     }
 
     public function render()

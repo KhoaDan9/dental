@@ -1,7 +1,7 @@
 @props(['title_1', 'url_1' => '', 'search_from_date'=>null, 'search_to_date'=>null,
           'w_search_date'=>'w-50', 'employee_id' =>null,
           'service_group_id'=>null, 'service_id'=>null, 'patient_from'=>null,
-          'service_group', '$services', 'employee_value'
+          'service_groups', 'services', 'employees'
           ])
 
 <div class="pb-2 flex justify-between border-b-1 border-gray-300 mb-2">
@@ -11,37 +11,68 @@
         </span>
     </div>
     <div class="flex space-x-1">
-        @if ($search_from_date)
-            <x-text-input id="datepicker-actions" type="date" class="{{ $w_search_date }}"
+        <div class="flex flex-col">
+            <label for="">Từ ngày:</label>
+            @if ($search_from_date)
+            <x-text-input type="date" class="{{ $w_search_date }}"
                           model="{{ $search_from_date }}"/>
-        @endif
-        @if ($search_to_date)
-            <x-text-input id="datepicker-actions" type="date" class="{{ $w_search_date }}"
+            @endif
+        </div>
+        <div class="flex flex-col">
+            <label for="">Đến ngày:</label>
+           @if ($search_to_date)
+            <x-text-input type="date" class="{{ $w_search_date }}"
                           model="{{ $search_to_date }}"/>
+            @endif
+        </div>
+ 
+        @if($employee_id)
+            <div class="flex flex-col">
+                <label>Nhân viên:</label>
+                <div class="flex flex-grow flex-col">
+                    <select class='pl-1 border-gray-400 border-[0.5px] rounded outline-none'
+                            wire:model='{{ $employee_id }}'>
+                            <option value="">-</option>
+                        @foreach ($employees as $employee)
+                            <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         @endif
-
         @if($service_group_id)
-            <div>
-                <label>
-
-                </label>
-                <x-all-select-input w_title="w-0" model="{{$service_group}}"
-                                    :values="$service_groups"/>
+            <div class="flex flex-col">
+                <label>Nhóm:</label>
+                <div class="flex flex-grow flex-col">
+                    <select class='pl-1 border-gray-400 border-[0.5px] rounded outline-none'
+                            wire:model='{{ $service_group_id }}'>
+                            <option value="">-</option>
+                        @foreach ($service_groups as $service_group)
+                            <option value="{{ $service_group->id }}">{{ $service_group->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         @endif
         @if($service_id)
-            <div>
-                <label>
-
-                </label>
-                <x-all-select-input w_title="w-0" model="{{$service_id}}"
-                                    :values="$services"/>
+            <div class="flex flex-col">
+                <label>Thủ thuật/dịch vụ:</label>
+                <div class="flex flex-grow flex-col">
+                    <select class='pl-1 border-gray-400 border-[0.5px] rounded outline-none'
+                            wire:model='{{ $service_id }}'>
+                            <option value="">-</option>
+                        @foreach ($services as $service)
+                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         @endif
         @if($patient_from)
-            <div>
-                <label></label>
-                <select class="border-gray-400 border-[0.5px] rounded" wire:model='patient_from'>
+            <div class="flex flex-col">
+                <label>Nguồn:</label>
+                <select class="border-gray-400 border-[0.5px] rounded" wire:model='{{ $patient_from }}'>
+                    <option value="">-</option>
                     <option value="Khác">Khác</option>
                     <option value="Facebook">Facebook</option>
                     <option value="Google">Google</option>
