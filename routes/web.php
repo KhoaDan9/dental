@@ -38,6 +38,8 @@ use App\Livewire\Patient\DetailWarrantyCard;
 use App\Livewire\Patient\PrintInvoice;
 use App\Livewire\Reports\PatientDebt;
 use App\Livewire\Reports\PatientDetails;
+use App\Livewire\Reports\PatientTurnover;
+use App\Livewire\Reports\PotentialPatients;
 use App\Livewire\Security\IndexDataLogs;
 use App\Livewire\Security\UserManagement\ActionUser;
 use App\Livewire\Security\UserManagement\IndexUserManagement;
@@ -83,7 +85,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/patients/{patient}/appointments/{value}', ActionPatientAppointment::class);
     Route::get('/patients/{patient}/appointment-status/{appointment}', EditStatusAppointment::class);
 
-        //In benh an
+    //In benh an
     Route::get('/patients/{patient}/invoice', PrintInvoice::class);
 
     // thu thuat
@@ -110,8 +112,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/warranty-cards', IndexWarrantyCard::class);
 
     // Danh sach nha cung cap
-//    Route::get('/suppliers', IndexSupplier::class);
-//    Route::get('/suppliers/{value}', ActionSupplier::class);
+    //    Route::get('/suppliers', IndexSupplier::class);
+    //    Route::get('/suppliers/{value}', ActionSupplier::class);
 
     // Nhom dich vu va dich vu
     Route::get('/service-groups', IndexServiceGroup::class);
@@ -178,12 +180,7 @@ Route::middleware(['auth'])->group(function () {
     //bao cao
     Route::get('/reports/patient-details', PatientDetails::class);
     Route::get('/reports/patient-debts', PatientDebt::class);
-
-
-
-
-
-
+    Route::get('/reports/patient-turnover', PatientTurnover::class);
 });
 
 

@@ -59,7 +59,7 @@
         <x-menu-item title="Báo cáo">
             <li class="li-menu"><a href="/reports/patient-details" class="a-menu">Chi tiết khách hàng</a></li>
             <li class="li-menu"><a href="/reports/patient-debts" class="a-menu">Khách hàng nợ tiền</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Khách hàng tiềm năng</a></li>
+            <li class="li-menu"><a href="/reports/patient-turnover" class="a-menu">Khách hàng tiềm năng</a></li>
             <li class="li-menu"><a href="" class="a-menu">Tổng hợp thuật thực hiện</a></li>
             <li class="li-menu"><a href="" class="a-menu">Chi tiết thủ thuật theo nhân viên</a></li>
             <li class="li-menu"><a href="" class="a-menu">Báo cáo chi tiết thu, chi</a></li>
