@@ -22,10 +22,10 @@
             </form>
         </div>
     </div>
-    @cannot('view-report-patient-details')
+    @cannot('view-report-patient-turnover')
         <x-cannot-permission/>
     @else
-        <table class="table-custom table-auto w-full border-collapse border">
+        <table class="report-table-custom table-auto w-full border-collapse border">
             <tr>
                 <th class="whitespace-nowrap w-0">TT</th>
                 <th class="whitespace-nowrap w-0">Mã KH</th>

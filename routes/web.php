@@ -40,6 +40,7 @@ use App\Livewire\Reports\PatientDebt;
 use App\Livewire\Reports\PatientDetails;
 use App\Livewire\Reports\PatientTurnover;
 use App\Livewire\Reports\PotentialPatients;
+use App\Livewire\Reports\ServiceReport;
 use App\Livewire\Security\IndexDataLogs;
 use App\Livewire\Security\UserManagement\ActionUser;
 use App\Livewire\Security\UserManagement\IndexUserManagement;
@@ -181,6 +182,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/patient-details', PatientDetails::class);
     Route::get('/reports/patient-debts', PatientDebt::class);
     Route::get('/reports/patient-turnover', PatientTurnover::class);
+    Route::get('/reports/service-report', ServiceReport::class);
+
 });
 
 

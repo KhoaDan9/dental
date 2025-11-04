@@ -38,7 +38,12 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-report-patient-debts', function (User $user) {
             return ($user->admin == 1 || $user->accessControls()->where('feature_id', 27)->where('permission_id', 1)->first()->user_permission == '1');
         });
-
+        Gate::define('view-report-patient-turnover', function (User $user) {
+            return ($user->admin == 1 || $user->accessControls()->where('feature_id', 28)->where('permission_id', 1)->first()->user_permission == '1');
+        });
+        Gate::define('view-report-service-report', function (User $user) {
+            return ($user->admin == 1 || $user->accessControls()->where('feature_id', 29)->where('permission_id', 1)->first()->user_permission == '1');
+        });
 
     }
 }

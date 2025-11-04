@@ -99,24 +99,33 @@ select {
 }
 
 
-.table-custom {
+.report-table-custom, .table-custom {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     border: 0.5px solid #8c8c8c;
     width: 100%;
 }
 
-.table-custom td {
+.report-table-custom td, .table-custom td {
     border: 0.5px solid #8c8c8c;
     padding: 2px 5px;
 }
 
-.table-custom th,
+.report-table-custom th, .table-custom th,
 .transaction-th, .sum-td {
     border: 0.5px solid #8c8c8c;
     padding: 2px 5px;
     background-color: #b1b1b1;
     color: #000;
+}
+
+.heading-tr {
+    background-color: #e3e3e3;
+    height: 30px;
+}
+
+.heading-tr td {
+    @apply font-bold;
 }
 
 .sum-td {
@@ -127,7 +136,7 @@ select {
     background-color: #f2f2f2;
 }
 
-.table-custom tr:hover {
+.report-table-custom tr:hover, .table-custom tr:hover {
     background-color: #f7ffe3;
 }
 
