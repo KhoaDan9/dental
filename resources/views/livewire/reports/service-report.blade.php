@@ -9,6 +9,15 @@
                 <x-text-input type="date" class="w-40" model="from_date"/>
                 <label for="">Đến ngày:</label>
                 <x-text-input type="date" class="w-40" model="to_date"/>
+                <div class="flex flex-grow flex-col">
+                    <select class='pl-1 border-gray-400 border-[0.5px] rounded outline-none'
+                            wire:model='service_group_id'>
+                        <option value="">-</option>
+                        @foreach ($service_groups as $service_group)
+                            <option value="{{ $service_group->id }}">{{ $service_group->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <button type="submit" class="main-button">Tìm</button>
             </div>
         </form>

@@ -8,18 +8,23 @@ use Livewire\Component;
 
 class ServiceReport extends Component
 {
-    public $data_list = [];
+    public $data_list;
+    public $service_group_id = '';
+    public $service_groups;
     public $from_date = '';
     public $to_date = '';
 
-    public function mount(){
+    public function mount()
+    {
         $this->from_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $this->to_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $this->service_groups = ServiceGroup::all();
 
         $this->searchSubmit();
     }
 
-    public function searchSubmit() {
+    public function searchSubmit()
+    {
         if ($this->from_date == $this->to_date) {
             $from_date = Carbon::parse($this->to_date)->startOfDay();
             $to_date = Carbon::parse($this->to_date)->endOfDay();
@@ -29,6 +34,8 @@ class ServiceReport extends Component
         }
         $service_groups = ServiceGroup::whereHas('services.patientServices', function ($q) use ($from_date, $to_date) {
             $q->whereBetween('date', [$from_date, $to_date]);
+        })->when($this->service_group_id, function ($q) {
+            $q->where('id', $this->service_group_id);
         })->with('services.patientServices')->get();
 
         foreach ($service_groups as $group) {
