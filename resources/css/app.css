@@ -112,11 +112,15 @@ select {
 }
 
 .table-custom th,
-.transaction-th {
+.transaction-th, .sum-td {
     border: 0.5px solid #8c8c8c;
     padding: 2px 5px;
     background-color: #b1b1b1;
     color: #000;
+}
+
+.sum-td {
+    @apply font-bold;
 }
 
 .table-custom tr:nth-child(odd) {
