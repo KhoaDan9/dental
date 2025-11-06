@@ -30,6 +30,10 @@ class Employee extends Model
         return $this->hasMany(Patient::class);
     }
 
+    public function patientServices(){
+        return $this->hasMany(PatientService::class);
+    }
+
     public function appointments(){
         return $this->hasMany(Appointment::class);
     }

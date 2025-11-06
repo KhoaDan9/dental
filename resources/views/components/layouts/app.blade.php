@@ -61,7 +61,7 @@
             <li class="li-menu"><a href="/reports/patient-debts" class="a-menu">Khách hàng nợ tiền</a></li>
             <li class="li-menu"><a href="/reports/patient-turnover" class="a-menu">Doanh thu khách hàng</a></li>
             <li class="li-menu"><a href="/reports/service-report" class="a-menu">Tổng hợp thuật thực hiện</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Chi tiết thủ thuật theo nhân viên</a></li>
+            <li class="li-menu"><a href="/reports/employee-report" class="a-menu">Chi tiết thủ thuật theo nhân viên</a></li>
             <li class="li-menu"><a href="" class="a-menu">Báo cáo chi tiết thu, chi</a></li>
             <li class="li-menu"><a href="" class="a-menu">Tổng hợp theo nhóm thu, chi</a></li>
             <li class="li-menu"><a href="" class="a-menu">Tổng hợp thu, chi, tồn quỹ</a></li>
