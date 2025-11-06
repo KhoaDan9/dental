@@ -25,7 +25,7 @@
     </div>
     <div class="">
         <div class="flex justify-center pb-3">
-            <strong class="text-2xl!">Tổng hợp thủ thuật thực hiện</strong>
+            <strong class="text-2xl!">Chi tiết thủ thuật theo nhân viên</strong>
         </div>
         @cannot('view-report-patient-details')
             <x-cannot-permission/>
