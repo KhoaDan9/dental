@@ -37,6 +37,7 @@ use App\Livewire\Patient\DetailWarrantyCard;
 
 use App\Livewire\Patient\PrintInvoice;
 use App\Livewire\Reports\EmployeeReport;
+use App\Livewire\Reports\EmployeeServiceGroup;
 use App\Livewire\Reports\PatientDebt;
 use App\Livewire\Reports\PatientDetails;
 use App\Livewire\Reports\PatientTurnover;
@@ -184,6 +185,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/patient-debts', PatientDebt::class);
     Route::get('/reports/patient-turnover', PatientTurnover::class);
     Route::get('/reports/service-report', ServiceReport::class);
+    Route::get('/reports/employee-service-groups', EmployeeServiceGroup::class);
     Route::get('/reports/employee-report', EmployeeReport::class);
 });
 

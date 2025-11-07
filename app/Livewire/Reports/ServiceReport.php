@@ -25,18 +25,18 @@ class ServiceReport extends Component
 
     public function searchSubmit()
     {
-        if ($this->from_date == $this->to_date) {
-            $from_date = Carbon::parse($this->to_date)->startOfDay();
-            $to_date = Carbon::parse($this->to_date)->endOfDay();
-        } else {
-            $from_date = $this->from_date;
-            $to_date = $this->to_date;
-        }
+        $from_date = Carbon::parse($this->from_date)->startOfDay();
+        $to_date = Carbon::parse($this->to_date)->endOfDay();
+
         $service_groups = ServiceGroup::whereHas('services.patientServices', function ($q) use ($from_date, $to_date) {
             $q->whereBetween('date', [$from_date, $to_date]);
         })->when($this->service_group_id, function ($q) {
             $q->where('id', $this->service_group_id);
-        })->with('services.patientServices')->get();
+        })->with([
+            'services.patientServices' => function ($q) use ($from_date, $to_date) {
+                $q->whereBetween('date', [$from_date, $to_date]);
+            }
+        ])->get();
 
         foreach ($service_groups as $group) {
             foreach ($group->services as $service) {

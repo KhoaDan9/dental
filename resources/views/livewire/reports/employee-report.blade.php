@@ -27,7 +27,7 @@
         <div class="flex justify-center pb-3">
             <strong class="text-2xl!">Chi tiết thủ thuật theo nhân viên</strong>
         </div>
-        @cannot('view-report-patient-details')
+        @cannot('view-report-employee-report')
             <x-cannot-permission/>
         @else
             <table class="report-table-custom table-auto mb-5 w-full border-collapse border">
