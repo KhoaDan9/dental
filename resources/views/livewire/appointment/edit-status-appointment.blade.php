@@ -50,11 +50,10 @@
         </label>
         <div class="flex mt-4 space-x-1">
             <button class="main-button" type="submit" wire:dirty.remove.attr='disabled' disabled>Lưu</button>
-            <x-button-back/>
+            <a href="/appointments" class="a-button">Thoát</a>
         </div>
 
-
-        @if ($successMessage != '')
+        @if ($successMessage)
             <x-success-message>{{ $successMessage }}</x-success-message>
         @endif
     </form>
