@@ -42,28 +42,22 @@ class EmployeeServiceGroup extends Component
             });
         })->get();
 
-
-        foreach($employee_list_data as $employee) {
+        foreach ($employee_list_data as $employee) {
             $service_groups = ServiceGroup::whereHas('services.patientServices', function ($q) use ($from_date, $to_date, $employee) {
                 $q->whereBetween('date', [$from_date, $to_date])
                     ->where('employee_id', $employee->id);
-            })
-                ->when($this->service_group_id, function ($q) {
-                    $q->where('id', $this->service_group_id);
-                })
-                ->with([
-                    'services' => function ($q) use ($from_date, $to_date, $employee) {
-                        $q->whereHas('patientServices', function ($query) use ($from_date, $to_date, $employee) {
-                            $query->whereBetween('date', [$from_date, $to_date])
-                                ->where('employee_id', $employee->id);
-                        })
-                            ->with(['patientServices' => function ($query) use ($from_date, $to_date, $employee) {
-                                $query->whereBetween('date', [$from_date, $to_date])
-                                    ->where('employee_id', $employee->id);
-                            }]);
-                    }
-                ])
-                ->get();
+            })->when($this->service_group_id, function ($q) {
+                $q->where('id', $this->service_group_id);
+            })->with([
+                'services' => function ($q) use ($from_date, $to_date, $employee) {
+                    $q->whereHas('patientServices', function ($query) use ($from_date, $to_date, $employee) {
+                        $query->whereBetween('date', [$from_date, $to_date])
+                            ->where('employee_id', $employee->id);
+                    })->with(['patientServices' => function ($query) use ($from_date, $to_date, $employee) {
+                        $query->whereBetween('date', [$from_date, $to_date])
+                            ->where('employee_id', $employee->id);
+                    }]);
+                }])->get();
 
             foreach ($service_groups as $group) {
                 foreach ($group->services as $service) {
@@ -82,7 +76,6 @@ class EmployeeServiceGroup extends Component
         }
 
         $this->data_list = $employee_list_data;
-//        dd($this->data_list);
     }
 
     public function render()
