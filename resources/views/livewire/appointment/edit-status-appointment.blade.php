@@ -1,4 +1,9 @@
-<div class="px-4">
+<div>
+    <x-all-heading head_title="Dữ liệu" title_1="Lịch hẹn" url_1="/appointments"
+                   exit_url="/appointments" title_2="{{ $patient->clinic_id }}.{{ $patient->id }}"
+                   url_2="/patients/{{ $patient->id }}"
+    />
+
     <div class="flex">
         <p class="w-40">Tên khách hàng</p>
         <p class="font-bold">{{ $patient->name }}</p>
@@ -7,10 +12,8 @@
         <p class="w-40">Nội dung cuộc hẹn</p>
         <p class="">{{ $appointment->detail }}</p>
     </div>
-    <div class="flex">
-        <p class="w-40">Người cập nhật</p>
-        <x-last-update-name :name="$appointment->last_update_name">{{ $appointment->updated_at }}</x-last-update-name>
-    </div>
+    <x-all-last-update-name w_title="w-40" :name="$appointment->last_update_name"
+                            :updated_at="$appointment->updated_at"/>
     <form class="" wire:submit="updateStatusAppointment">
         <p class="pt-5"><strong>Trạng thái</strong></p>
         <label for="option-1" class="flex items-center">
@@ -47,7 +50,7 @@
         </label>
         <div class="flex mt-4 space-x-1">
             <button class="main-button" type="submit" wire:dirty.remove.attr='disabled' disabled>Lưu</button>
-            <x-button-back/>            
+            <x-button-back/>
         </div>
 
 

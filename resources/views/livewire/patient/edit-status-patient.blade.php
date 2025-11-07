@@ -1,5 +1,8 @@
-<div class="px-4">
-    <livewire:patient.menu-patient :patient="$patient" exit_url="/patients"/>
+<div>
+    <x-all-heading head_title="Dữ liệu" title_1="Hồ sơ bệnh nhân" url_1="/patients"
+                   exit_url="/patients" title_2="{{ $patient->clinic_id }}.{{ $patient->id }}"
+                   url_2="/patients/{{ $patient->id }}"
+                   />
 
     <div class="flex">
         <p class="w-40">ID</p>
@@ -21,10 +24,10 @@
         <p class="w-40">Địa chỉ</p>
         <p class="">{{ $patient->address }}</p>
     </div>
-    <div class="flex">
-        <p class="w-40">Người cập nhật</p>
-        <x-last-update-name :name="$patient->last_update_name">{{ $patient->created_at }}</x-last-update-name>
-    </div>
+
+    <x-all-last-update-name w_title="w-40" :name="$patient->last_update_name"
+                            :updated_at="$patient->updated_at"/>
+
     <div class="">
         <p class="pt-5"><strong>Trạng thái</strong></p>
         <label for="option-1" class="flex items-center">
@@ -61,7 +64,7 @@
         </label>
         <div class="flex mt-4 space-x-1">
             <button class="main-button" wire:click='save' wire:dirty.remove.attr='disabled' disabled>Lưu</button>
-            <a href="/patients" class="a-button">Thoát</a>       
+            <a href="/patients" class="a-button">Thoát</a>
         </div>
 
 
