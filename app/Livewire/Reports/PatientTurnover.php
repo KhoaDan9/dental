@@ -11,7 +11,7 @@ use Livewire\Component;
 class PatientTurnover extends Component
 {
     public $data_list;
-    public $total_from = '1.000.000';
+    public $total_from = '10.000.000';
     public $total_to = '100.000.000';
 
 

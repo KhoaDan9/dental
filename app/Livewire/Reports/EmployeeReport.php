@@ -29,13 +29,8 @@ class EmployeeReport extends Component
 
     public function searchSubmit()
     {
-        if ($this->from_date == $this->to_date) {
-            $from_date = Carbon::parse($this->to_date)->startOfDay();
-            $to_date = Carbon::parse($this->to_date)->endOfDay();
-        } else {
-            $from_date = $this->from_date;
-            $to_date = $this->to_date;
-        }
+        $from_date = Carbon::parse($this->from_date)->startOfDay();
+        $to_date = Carbon::parse($this->to_date)->endOfDay();
 
         $employee_list = Employee::whereHas('patientServices', function ($query) use ($from_date, $to_date) {
             $query->whereBetween('date', [$from_date, $to_date]);
