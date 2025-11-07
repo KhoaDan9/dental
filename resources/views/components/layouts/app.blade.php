@@ -63,9 +63,7 @@
             <li class="li-menu"><a href="/reports/service-report" class="a-menu">Tổng hợp thủ thuật thực hiện</a></li>
             <li class="li-menu"><a href="/reports/employee-service-groups" class="a-menu">Tổng hợp thủ thuật theo nhân viên</a></li>
             <li class="li-menu"><a href="/reports/employee-report" class="a-menu">Chi tiết thủ thuật theo nhân viên</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Báo cáo chi tiết thu, chi</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Tổng hợp theo nhóm thu, chi</a></li>
-            <li class="li-menu"><a href="" class="a-menu">Tổng hợp thu, chi, tồn quỹ</a></li>
+            <li class="li-menu"><a href="/reports/transaction-vouchers-detail" class="a-menu">Báo cáo chi tiết thu, chi</a></li>
             {{--                <li class="li-menu"><a href="" class="a-menu">Công nợ nhà cung cấp</a></li>--}}
         </x-menu-item>
 

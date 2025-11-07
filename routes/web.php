@@ -43,6 +43,7 @@ use App\Livewire\Reports\PatientDetails;
 use App\Livewire\Reports\PatientTurnover;
 use App\Livewire\Reports\PotentialPatients;
 use App\Livewire\Reports\ServiceReport;
+use App\Livewire\Reports\TransactionVouchersDetail;
 use App\Livewire\Security\IndexDataLogs;
 use App\Livewire\Security\UserManagement\ActionUser;
 use App\Livewire\Security\UserManagement\IndexUserManagement;
@@ -187,6 +188,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/service-report', ServiceReport::class);
     Route::get('/reports/employee-service-groups', EmployeeServiceGroup::class);
     Route::get('/reports/employee-report', EmployeeReport::class);
+    Route::get('/reports/transaction-vouchers-detail', TransactionVouchersDetail::class);
 });
 
 
