@@ -15,7 +15,7 @@ use Livewire\Attributes\Title;
 #[Title('Quản lý thu/chi')]
 class IndexTransactionVoucher extends Component
 {
-    public $transaction_vouchers = [];
+    public $transaction_vouchers;
     public $successMessage = '';
     public $errorMessage = '';
     public $from_date = '';
@@ -35,69 +35,60 @@ class IndexTransactionVoucher extends Component
     {
         $from_date = Carbon::parse($this->from_date)->startOfDay();
         $to_date = Carbon::parse($this->to_date)->endOfDay();
-        $user = Auth::user();
 
-        $this->transaction_vouchers = TransactionVoucher::whereBetween('date', [
-            $from_date,
-            $to_date
-        ])->orderByDesc('date')->get();
+        $this->transaction_vouchers = TransactionVoucher::with(['finance', 'fundingSource'])
+            ->whereBetween('date', [
+                $from_date,
+                $to_date
+            ])->get();
 
-        $patient_payment = PatientPayment::whereBetween('date', [
-            $from_date,
-            $to_date
-        ])->get();
+        if(count($this->transaction_vouchers) == 0)
+            $this->transaction_vouchers = collect();
 
-        $finance_receipt_id = Finance::where('name', "Thu tiền từ bệnh nhân")->first()->id;
+        $patient_payment = PatientPayment::with('fundingSource','patient')
+            ->whereBetween('date', [
+                $from_date,
+                $to_date
+            ])->get();
 
-        $convert_patient_payment = $patient_payment->map(function ($item) use ($finance_receipt_id) {
-            $new = new TransactionVoucher();
-            $new->patient_id = $item->patient_id;
-            $new->clinic_id = $item->clinic_id;
-            $new->patient_payment_id = $item->id;
-            $new->type_of_transaction = $item->type_of_transaction;
-            $new->money = $item->paid;
-            $new->detail = $item->detail;
-            $new->group = $item->clinic_id;
-            $new->funding_source_id = $item->funding_source_id;
-            $new->date = $item->date;
-            $new->last_update_name = $item->last_update_name;
-            $new->finance_id = $finance_receipt_id;
-            $new->is_receipt = 1;
-
-            $new->transaction_voucher_id = '';
-            $new->recipient = "";
-            $new->phone = "";
-            $new->address = "";
-            return $new;
+        $convert_patient_payment = $patient_payment->map(function ($item) {
+            return [
+                'transaction_voucher_id' => '',
+                'patient_payment_id' => $item->id,
+                'patient_id' => $item->patient->id,
+                'clinic_id' => $item->clinic_id,
+                'type_of_transaction' => $item->type_of_transaction,
+                'money' => $item->paid,
+                'detail' => $item->detail,
+                'funding_source' => $item->fundingSource->name,
+                'date' => $item->date,
+                'finance' => "Thu tiền từ bệnh nhân",
+                'is_receipt' => 1,
+                'last_update_name' => $item->last_update_name,
+            ];
         });
 
         $convert_transaction_voucher = $this->transaction_vouchers->map(function ($item) {
-            $new = new TransactionVoucher();
-            $new->clinic_id = $item->clinic_id;
-            $new->transaction_voucher_id = $item->id;
-            $new->type_of_transaction = $item->type_of_transaction;
-            $new->money = $item->money;
-            $new->detail = $item->detail;
-            $new->group = $item->clinic_id;
-            $new->funding_source_id = $item->funding_source_id;
-            $new->date = $item->date;
-            $new->last_update_name = $item->last_update_name;
-            $new->finance_id = $item->finance_id;
-            $new->is_receipt = $item->is_receipt;
-
-            $new->patient_id = '';
-            $new->patient_payment_id = '';
-            $new->recipient = $item->recipient;
-            $new->phone = $item->phone;
-            $new->address = $item->address;
-            return $new;
+            return [
+                'transaction_voucher_id' => $item->id,
+                'patient_payment_id' => '',
+                'patient_id' => '',
+                'clinic_id' => $item->clinic_id,
+                'type_of_transaction' => $item->type_of_transaction,
+                'money' => $item->money,
+                'detail' => $item->detail,
+                'funding_source' => $item->fundingSource->name,
+                'date' => $item->date,
+                'finance' => $item->finance->name,
+                'is_receipt' => $item->is_receipt,
+                'last_update_name' => $item->last_update_name,
+            ];
         });
 
-        $combine = collect($convert_transaction_voucher)->merge(collect($convert_patient_payment));
-
-        $combine = $combine->sortBy(function ($item) {
-            return Carbon::parse($item['date']);
-        });
+        $combine = $convert_transaction_voucher
+            ->merge($convert_patient_payment)
+            ->sortByDesc(fn($item) => Carbon::parse($item['date']))
+            ->values();
 
         $this->payment_sum = $combine->where('is_receipt', false)->sum('money');
         $this->receipt_sum = $combine->where('is_receipt', true)->sum('money');

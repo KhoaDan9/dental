@@ -36,4 +36,9 @@ class FundingSource extends Model
     {
         return $this->hasMany(TransactionVoucher::class);
     }
+
+    public function patientPayments()
+    {
+        return $this->hasMany(PatientPayment::class);
+    }
 }

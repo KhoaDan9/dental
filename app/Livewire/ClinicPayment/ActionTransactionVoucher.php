@@ -24,7 +24,6 @@ class ActionTransactionVoucher extends Component
     public $clinics = [];
     public $finances = [];
     public $funding_sources = [];
-    public $title = 'Chi từ quỹ';
     public $successMessage = '';
     public $errorMessage = '';
 
@@ -78,7 +77,6 @@ class ActionTransactionVoucher extends Component
     {
         $this->reset(['successMessage', 'errorMessage']);
         $this->form->validate();
-
         try {
             if ($this->is_create == 'create') {
                 $this->form->store();

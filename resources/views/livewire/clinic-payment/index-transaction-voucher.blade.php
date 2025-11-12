@@ -7,9 +7,9 @@
         <div class="flex space-x-1">
             <div class="flex items-center space-x-1">
                 <span>Từ</span>
-                <input type="date" class="pl-1 border-gray-400 border-1" wire:model="from_date">
+                <input type="date" class="pl-1 border-gray-400 border-[0.5px] rounded outline-none" wire:model="from_date">
                 <span>Đến</span>
-                <input type="date" class="pl-1 border-gray-400 border-1" wire:model="to_date">
+                <input type="date" class="pl-1 border-gray-400 border-[0.5px] rounded outline-none" wire:model="to_date">
             </div>
             <button wire:click='searchTransactionVoucher' class="main-button">Tìm</button>
             <a href="/transaction-vouchers/create" class="a-button">Thêm</a>
@@ -20,7 +20,7 @@
         <x-success-message>{{ $successMessage }}</x-success-message>
     @endif
 
-    @if ($errorMessage !== '')
+    @if ($errorMessage != '')
         <x-error-message>{{ $errorMessage }}</x-error-message>
     @endif
 
@@ -49,33 +49,38 @@
         @foreach ($transaction_vouchers as $transaction_voucher)
             <tr>
                 <td class=" text-center">{{ $loop->iteration }}</td>
-                <td class=" text-center">{{ \Carbon\Carbon::parse($transaction_voucher->date)->format('d/m/Y') }}</td>
-                <td class=" text-center">{{ \Carbon\Carbon::parse($transaction_voucher->date)->format('H:i') }}</td>
-                <td class="">{{ $transaction_voucher->fundingSource->name }}</td>
-                @if ($transaction_voucher->is_receipt)
-                    <td class="text-right">{{ number_format($transaction_voucher->money, 0, ',', '.') }}</td>
+                <td class=" text-center">{{ \Carbon\Carbon::parse($transaction_voucher['date'])->format('d/m/Y') }}</td>
+                <td class=" text-center">{{ \Carbon\Carbon::parse($transaction_voucher['date'])->format('H:i') }}</td>
+                <td class="">{{ $transaction_voucher['funding_source'] }}</td>
+                @if ($transaction_voucher['is_receipt'])
+                    <td class="text-right">{{ number_format($transaction_voucher['money'], 0, ',', '.') }}</td>
                     <td class="text-right">0</td>
                 @else
                     <td class="text-right">0</td>
-                    <td class="text-right">{{ number_format($transaction_voucher->money, 0, ',', '.') }}</td>
+                    <td class="text-right">{{ number_format($transaction_voucher['money'], 0, ',', '.') }}</td>
                 @endif
                 <td class="text-right">0</td>
-                <td class="whitespace-nowrap sm:px-10! text-center">{{ $transaction_voucher->type_of_transaction }}</td>
-                <td class="">{{ $transaction_voucher->detail }}</td>
-                <td class="">{{ $transaction_voucher->finance->name }}</td>
-                <td class=" text-center">{{ $transaction_voucher->clinic_id }}</td>
-                <td class=" text-center">{{ $transaction_voucher->last_update_name }}</td>
+                <td class="whitespace-nowrap sm:px-10! text-center">{{ $transaction_voucher['type_of_transaction'] }}</td>
+                <td class="">{{ $transaction_voucher['detail'] }}</td>
+                <td class="">{{ $transaction_voucher['finance'] }}</td>
+                <td class=" text-center">{{ $transaction_voucher['clinic_id'] }}</td>
+                <td class=" text-center">{{ $transaction_voucher['last_update_name'] }}</td>
                 <td class=" text-center">
                     <a
-                        @if($transaction_voucher->patient_payment_id != '')
-                            href="/patients/{{ $transaction_voucher->patient_id }}/payments/{{ $transaction_voucher->patient_payment_id }}"
-                        @elseif($transaction_voucher->transaction_voucher_id != '')
-                            href="/transaction-vouchers/{{ $transaction_voucher->transaction_voucher_id  }}"
+                        @if($transaction_voucher['patient_payment_id'] != '')
+                            href="/patients/{{ $transaction_voucher['patient_id'] }}/payments/{{ $transaction_voucher['patient_payment_id'] }}"
+                        @elseif($transaction_voucher['transaction_voucher_id'] != '')
+                            href="/transaction-vouchers/{{ $transaction_voucher['transaction_voucher_id']  }}"
                         @endif
                         wire:navigate >sửa</a> |
-                    <button class="button-a" wire:confirm="Bạn có thực sự muốn xóa không?"
-                            wire:click='deleteFundingSource({{ $transaction_voucher->id }})'>xóa
-                    </button>
+                    @if($transaction_voucher['patient_payment_id'] != '')
+                        <button class="cannot-button-a">xóa</button>
+                    @else
+                        <button class="button-a" wire:confirm="Bạn có thực sự muốn xóa không?"
+                                wire:click='deleteFundingSource({{ $transaction_voucher['transaction_voucher_id'] }})'
+                        >xóa
+                        </button>
+                    @endif
                 </td>
             </tr>
         @endforeach

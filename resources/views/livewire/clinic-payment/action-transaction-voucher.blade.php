@@ -33,7 +33,7 @@
             <x-all-text-input w_title="w-40" title="Điện thoại:" model="form.phone"/>
 
             <x-all-text-input w_title="w-40" title="Địa chỉ:" model="form.address"/>
-            <x-all-select-input w_title="w-40" model="form.finance_id" title="Chi từ quỹ:" :values="$finances"/>
+            <x-all-select-input w_title="w-40" model="form.funding_source_id" title="Chi từ quỹ:" :values="$funding_sources"/>
             <div class="flex w-full">
                 <p for="" class="w-40">Số tiền:<span class="text-red-600">*</span></p>
                 <input type="text" class="p-1 mr-1 border-gray-400 border-[0.5px] rounded outline-none number-input"
@@ -42,8 +42,7 @@
                     <x-error-message div-class="pl-1">{{ $message }}</x-error-message>
                 @enderror
             </div>
-            <x-all-select-input w_title="w-40" model="form.funding_source_id" title="Nhóm thu/chi:" :values="$funding_sources"/>
-
+            <x-all-select-input w_title="w-40" model="form.finance_id" title="Nhóm thu/chi:" :values="$finances"/>
             <div class="w-full flex">
                 <p class="w-40">Hình thức giao dịch:</p>
                 <div class="">
@@ -76,9 +75,9 @@
             @if ($errorMessage != '')
                 <x-error-message class="pl-40">{{ $errorMessage }}</x-error-message>
             @endif
-           <x-action-button w_title="w-40" :action_model="\App\Models\TransactionVoucher::class" 
+           <x-action-button w_title="w-40" :action_model="\App\Models\TransactionVoucher::class"
                 exit_url="/transaction-vouchers" :is_create="$is_create"/>
-            
+
         </div>
     </form>
 </div>

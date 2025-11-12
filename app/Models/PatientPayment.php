@@ -35,4 +35,8 @@ class PatientPayment extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function fundingSource(){
+        return $this->belongsTo(FundingSource::class);
+    }
 }

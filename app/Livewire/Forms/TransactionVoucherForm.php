@@ -52,7 +52,6 @@ class TransactionVoucherForm extends Form
 
     public function store()
     {
-
         TransactionVoucher::create([
             'clinic_id' => $this->clinic_id,
             'finance_id' => $this->finance_id,
